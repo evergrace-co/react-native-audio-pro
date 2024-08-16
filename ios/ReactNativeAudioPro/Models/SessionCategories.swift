@@ -1,11 +1,3 @@
-//
-//  SessionCategory.swift
-//  ReactNativeAudioPro
-//
-//  Created by Thomas Hessler on 3/12/19.
-//  Copyright © 2019 David Chavez. All rights reserved.
-//
-
 import Foundation
 import MediaPlayer
 import AVFoundation

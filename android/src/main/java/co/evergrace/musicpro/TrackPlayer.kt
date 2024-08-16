@@ -7,11 +7,10 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager
 
 /**
- * TrackPlayer
- * https://github.com/react-native-kit/react-native-audio-pro
- * @author Milen Pivchev @mpivchev
+ * AudioPro
+ * https://github.com/evergrace-co/react-native-audio-pro
  */
-class TrackPlayer : ReactPackage {
+class AudioPro : ReactPackage {
     override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
         return listOf(MusicModule(reactContext))
     }

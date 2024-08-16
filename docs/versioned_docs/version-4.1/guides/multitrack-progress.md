@@ -87,16 +87,16 @@ Next we need to set up a listener for progress updates in our
 
 ```ts
 // src/services/PlaybackService.ts
-import TrackPlayer, { Event } from 'react-native-audio-pro';
+import AudioPro, { Event } from 'react-native-audio-pro';
 import { useProgressStateStore } from '../store';
 
 // create a local reference for the `setProgress` function
 const setProgress = useProgressStateStore.getState().setProgress;
 
 export const PlaybackService = async function() {
-  TrackPlayer.addEventListener(Event.PlaybackProgressUpdated, async ({ position, track }) => {
+  AudioPro.addEventListener(Event.PlaybackProgressUpdated, async ({ position, track }) => {
     // get the track to fetch your unique ID property (if applicable)
-    const track = await TrackPlayer.getTrack(track);
+    const track = await AudioPro.getTrack(track);
     // write progress to the zustand store
     setProgress(track.id, position);
   });
@@ -104,7 +104,7 @@ export const PlaybackService = async function() {
 ```
 
 ⚠️ make sure you've configured your `progressUpdateEventInterval`
-in the `TrackPlayer.updateOptions` call.
+in the `AudioPro.updateOptions` call.
 
 
 #### 3. Reactively Update Progress

@@ -7,7 +7,7 @@ sidebar_position: 2
 All Capability types are made available through the named export `Capability`:
 
 ```ts
-import { Capability } from 'react-native-track-player';
+import { Capability } from 'react-native-audio-pro';
 ```
 
 | Name | Description |

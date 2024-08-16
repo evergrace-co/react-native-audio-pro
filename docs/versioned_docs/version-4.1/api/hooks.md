@@ -6,16 +6,16 @@ sidebar_position: 3
 
 React v16.8 introduced [hooks](https://reactjs.org/docs/hooks-intro.html). If you are using a version of React Native that is before [v0.59.0](https://reactnative.dev/blog/2019/03/12/releasing-react-native-059), your React Native version does not support hooks.
 
-## `useTrackPlayerEvents`
+## `useAudioProEvents`
 
-Register an event listener for one or more of the [events](./events.md) emitted by the TrackPlayer. The subscription is removed when the component unmounts.
+Register an event listener for one or more of the [events](./events.md) emitted by the AudioPro. The subscription is removed when the component unmounts.
 
 Check out the [events section](./events.md) for a full list of supported events.
 
 ```tsx
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { useTrackPlayerEvents, Event, State } from 'react-native-audio-pro';
+import { useAudioProEvents, Event, State } from 'react-native-audio-pro';
 
 // Subscribing to the following events inside MyComponent
 const events = [
@@ -26,7 +26,7 @@ const events = [
 const MyComponent = () => {
   const [playerState, setPlayerState] = useState(null)
 
-  useTrackPlayerEvents(events, (event) => {
+  useAudioProEvents(events, (event) => {
     if (event.type === Event.PlaybackError) {
       console.warn('An error occured while playing the current track.');
     }
@@ -39,7 +39,7 @@ const MyComponent = () => {
 
   return (
     <View>
-      <Text>The TrackPlayer is {isPlaying ? 'playing' : 'not playing'}</Text>
+      <Text>The AudioPro is {isPlaying ? 'playing' : 'not playing'}</Text>
     </View>
   );
 };
@@ -58,7 +58,7 @@ const MyComponent = () => {
 ```tsx
 import React from 'react';
 import { Text, View } from 'react-native';
-import { useProgress } from 'react-native-track-player';
+import { useProgress } from 'react-native-audio-pro';
 
 const MyComponent = () => {
   const { position, buffered, duration } = useProgress()
@@ -81,7 +81,7 @@ initial state of the player.
 ```tsx
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { usePlaybackState, State } from 'react-native-track-player';
+import { usePlaybackState, State } from 'react-native-audio-pro';
 
 const MyComponent = () => {
   const playerState = usePlaybackState();
@@ -89,7 +89,7 @@ const MyComponent = () => {
 
   return (
     <View>
-      <Text>The TrackPlayer is {isPlaying ? 'playing' : 'not playing'}</Text>
+      <Text>The AudioPro is {isPlaying ? 'playing' : 'not playing'}</Text>
     </View>
   );
 };
@@ -97,9 +97,9 @@ const MyComponent = () => {
 
 ## `usePlayWhenReady`
 
-A hook which returns the up to date state of `TrackPlayer.getPlayWhenReady()`.
+A hook which returns the up to date state of `AudioPro.getPlayWhenReady()`.
 
 ## `useActiveTrack`
 
 A hook which keeps track of the currently active track using
-`TrackPlayer.getActiveTrack()` and `Event.PlaybackActiveTrackChanged`.
+`AudioPro.getActiveTrack()` and `Event.PlaybackActiveTrackChanged`.

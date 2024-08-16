@@ -24,22 +24,22 @@ A fully fledged audio module created for music apps. Provides audio playback, ex
 
 If you want to get started with this module, check the [Installation](./basics/installation.mdx) & [Getting Started](./basics/getting-started.md) page.
 If you want detailed information about the API, check the [API Reference](./api/functions/lifecycle.md).
-You can also look at our example project [here](https://github.com/evergrace-co/react-native-track-player/tree/master/example).
+You can also look at our example project [here](https://github.com/evergrace-co/react-native-audio-pro/tree/master/example).
 
 ```javascript
-import TrackPlayer, { RepeatMode } from 'react-native-track-player';
+import AudioPro, { RepeatMode } from 'react-native-audio-pro';
 
 // Creates the player
 const setup = async () => {
-  await TrackPlayer.setupPlayer({});
+  await AudioPro.setupPlayer({});
 
-  await TrackPlayer.add({
+  await AudioPro.add({
     url: require('track.mp3'),
     title: 'Track Title',
     artist: 'Track Artist',
     artwork: require('track.png')
   });
 
-  TrackPlayer.setRepeatMode(RepeatMode.Queue);
+  AudioPro.setRepeatMode(RepeatMode.Queue);
 };
 ```

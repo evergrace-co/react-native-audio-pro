@@ -8,7 +8,7 @@ sidebar_position: 2
 First, you need to register a [playback service](./playback-service.md) right after registering the main component of your app (typically in your `index.js` file at the root of your project):
 ```ts
 // AppRegistry.registerComponent(...);
-TrackPlayer.registerPlaybackService(() => require('./service'));
+AudioPro.registerPlaybackService(() => require('./service'));
 ```
 
 ```ts
@@ -21,13 +21,13 @@ module.exports = async function() {
 
 Then, you need to set up the player. This usually takes less than a second:
 ```ts
-import TrackPlayer from 'react-native-audio-pro';
+import AudioPro from 'react-native-audio-pro';
 
-await TrackPlayer.setupPlayer()
+await AudioPro.setupPlayer()
 // The player is ready to be used
 ```
 
-Make sure the setup method has completed before interacting with any other functions in `TrackPlayer` in order to avoid instability.
+Make sure the setup method has completed before interacting with any other functions in `AudioPro` in order to avoid instability.
 
 ## Controlling the Player
 
@@ -70,59 +70,59 @@ const track3 = {
 };
 
 // You can then [add](https://evergrace-co.github.io/react-native-audio-pro/docs/api/functions/queue#addtracks-insertbeforeindex) the items to the queue
-await TrackPlayer.add([track1, track2, track3]);
+await AudioPro.add([track1, track2, track3]);
 ```
 
 ### Player Information
 
 ```ts
 
-import TrackPlayer, { State } from 'react-native-track-player';
+import AudioPro, { State } from 'react-native-audio-pro';
 
-const state = await TrackPlayer.getState();
+const state = await AudioPro.getState();
 if (state === State.Playing) {
     console.log('The player is playing');
 };
 
-let trackIndex = await TrackPlayer.getCurrentTrack();
-let trackObject = await TrackPlayer.getTrack(trackIndex);
+let trackIndex = await AudioPro.getCurrentTrack();
+let trackObject = await AudioPro.getTrack(trackIndex);
 console.log(`Title: ${trackObject.title}`);
 
-const position = await TrackPlayer.getPosition();
-const duration = await TrackPlayer.getDuration();
+const position = await AudioPro.getPosition();
+const duration = await AudioPro.getDuration();
 console.log(`${duration - position} seconds left.`);
 ```
 
 ### Changing Playback State
 
 ```ts
-TrackPlayer.play();
-TrackPlayer.pause();
-TrackPlayer.reset();
+AudioPro.play();
+AudioPro.pause();
+AudioPro.reset();
 
 // Seek to 12.5 seconds:
-TrackPlayer.seekTo(12.5);
+AudioPro.seekTo(12.5);
 
 // Set volume to 50%:
-TrackPlayer.setVolume(0.5);
+AudioPro.setVolume(0.5);
 ```
 
 ### Controlling the Queue
 ```ts
 // Skip to a specific track index:
-await TrackPlayer.skip(trackIndex);
+await AudioPro.skip(trackIndex);
 
 // Skip to the next track in the queue:
-await TrackPlayer.skipToNext();
+await AudioPro.skipToNext();
 
 // Skip to the previous track in the queue:
-await TrackPlayer.skipToPrevious();
+await AudioPro.skipToPrevious();
 
 // Remove two tracks from the queue:
-await TrackPlayer.remove([trackIndex1, trackIndex2]);
+await AudioPro.remove([trackIndex1, trackIndex2]);
 
 // Retrieve the track objects in the queue:
-const tracks = await TrackPlayer.getQueue();
+const tracks = await AudioPro.getQueue();
 console.log(`First title: ${tracks[0].title}`);
 ```
 #### Playback Events
@@ -135,16 +135,16 @@ buffers, plays, pauses and stops.
 
 #### Example
 ```tsx
-import TrackPlayer, { Event } from 'react-native-track-player';
+import AudioPro, { Event } from 'react-native-audio-pro';
 
 const PlayerInfo = () => {
     const [trackTitle, setTrackTitle] = useState<string>();
 
     // do initial setup, set initial trackTitle..
 
-    useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
+    useAudioProEvents([Event.PlaybackTrackChanged], async event => {
         if (event.type === Event.PlaybackTrackChanged && event.nextTrack != null) {
-            const track = await TrackPlayer.getTrack(event.nextTrack);
+            const track = await AudioPro.getTrack(event.nextTrack);
             const {title} = track || {};
             setTrackTitle(title);
         }
@@ -165,7 +165,7 @@ updates itself automatically.
 #### Example
 
 ```tsx
-import TrackPlayer, { useProgress } from 'react-native-track-player';
+import AudioPro, { useProgress } from 'react-native-audio-pro';
 
 const MyPlayerBar = () => {
     const progress = useProgress();
@@ -200,9 +200,9 @@ documentation](../api/functions/player.md#updateoptionsoptions).
 #### Example
 
 ```ts
-import TrackPlayer, { Capability } from 'react-native-track-player';
+import AudioPro, { Capability } from 'react-native-audio-pro';
 
-TrackPlayer.updateOptions({
+AudioPro.updateOptions({
     // Media controls capabilities
     capabilities: [
         Capability.Play,

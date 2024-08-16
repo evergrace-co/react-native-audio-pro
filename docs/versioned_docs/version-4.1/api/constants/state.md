@@ -7,7 +7,7 @@ sidebar_position: 1
 All State types are made available through the named export `State`:
 
 ```ts
-import { State } from 'react-native-track-player';
+import { State } from 'react-native-audio-pro';
 ```
 
 | Name | Description |

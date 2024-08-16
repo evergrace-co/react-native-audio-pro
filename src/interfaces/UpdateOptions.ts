@@ -22,7 +22,7 @@ export interface UpdateOptions {
    * @deprecated Use `android` options and `appKilledPlaybackMode` instead.
    * @example
    * ```
-   * await TrackPlayer.updateOptions({
+   * await AudioPro.updateOptions({
    *   android: {
    *     appKilledPlaybackMode: AppKilledPlaybackMode.PausePlayback
    *  },
@@ -31,7 +31,7 @@ export interface UpdateOptions {
    */
   stoppingAppPausesPlayback?: boolean;
   /**
-   * @deprecated use `TrackPlayer.updateOptions({ android: { alwaysPauseOnInterruption: boolean }})` instead
+   * @deprecated use `AudioPro.updateOptions({ android: { alwaysPauseOnInterruption: boolean }})` instead
    */
   alwaysPauseOnInterruption?: boolean;
   notificationCapabilities?: Capability[];

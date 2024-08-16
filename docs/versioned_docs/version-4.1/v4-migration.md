@@ -20,7 +20,7 @@ sidebar_position: 8
 - The configuration option `alwaysPauseOnInterruption` has been moved to the `android` section of options.
 
 ```diff
-await TrackPlayer.updateOptions({
+await AudioPro.updateOptions({
 +      android: {
 +        alwaysPauseOnInterruption: true,
 +      },

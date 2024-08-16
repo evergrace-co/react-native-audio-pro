@@ -7,7 +7,7 @@ sidebar_position: 6
 All iOS Category types are made available through the named export `IOSCategory`:
 
 ```ts
-import { IOSCategory } from 'react-native-track-player';
+import { IOSCategory } from 'react-native-audio-pro';
 ```
 
 ## `Playback`

@@ -7,7 +7,7 @@ sidebar_position: 1
 All event types are made available through the named export `Event`:
 
 ```ts
-import { Event } from 'react-native-track-player';
+import { Event } from 'react-native-audio-pro';
 ```
 
 ## Player
@@ -187,10 +187,10 @@ Fired when the audio is interrupted. For example when a phone call arrives,
 a clock or calender sounds, or another app starts playing audio.
 
 We recommend to set `autoHandleInterruptions: true` in
-`TrackPlayer.setupPlayer`. This way toggling playback is handled automatically.
+`AudioPro.setupPlayer`. This way toggling playback is handled automatically.
 
 By default `autoHandleInterruptions` is set to `false` (default) in
-`TrackPlayer.setupPlayer`, which means your app is expected to respond to this
+`AudioPro.setupPlayer`, which means your app is expected to respond to this
 event in the following situations:
 - When the event is triggered with `paused` set to `true`, on Android playback
   should be paused. When `permanent` is also set to `true`, on Android the

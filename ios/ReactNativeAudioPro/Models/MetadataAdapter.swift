@@ -1,11 +1,3 @@
-//
-//  MetadataAdapter.swift
-//  react-native-track-player
-//
-//  Created by David Chavez on 01.08.23.
-//  Copyright © 2023 Double Symmetry. All rights reserved.
-//
-
 import Foundation
 import AVFoundation
 
@@ -15,10 +7,10 @@ class MetadataAdapter {
     private static func getMetadataItem(metadata: [AVMetadataItem], forIdentifier: AVMetadataIdentifier) -> String? {
         return AVMetadataItem.metadataItems(from: metadata, filteredByIdentifier: forIdentifier).first?.stringValue
     }
-    
+
     private static func convertToSerializableItems(items: [AVMetadataItem]) -> RawMetadataGroup {
         var rawGroup: RawMetadataGroup = []
-        
+
         for metadataItem in items {
             var rawMetadataItem: [String: Any] = [:]
             rawMetadataItem["time"] = metadataItem.time.seconds
@@ -30,26 +22,26 @@ class MetadataAdapter {
             if let keySpace = metadataItem.keySpace?.rawValue {
                 rawMetadataItem["keySpace"] = keySpace
             }
-            
+
             rawGroup.append(rawMetadataItem)
         }
-        
+
         return rawGroup
     }
-    
+
     // MARK: - Public
-    
+
     static func convertToGroupedMetadata(metadataGroups: [AVTimedMetadataGroup]) -> RawMetadataGroup {
         var ret: RawMetadataGroup  = []
-        
+
         for metadataGroup in metadataGroups {
             let entry = convertToCommonMetadata(metadata: metadataGroup.items)
             ret.append(entry)
         }
-        
+
         return ret
     }
-    
+
     static func convertToCommonMetadata(metadata: [AVMetadataItem], skipRaw: Bool = false) -> [String: Any] {
         var rawMetadataItem: [String: Any] = [:]
         rawMetadataItem["title"] = getMetadataItem(metadata: metadata, forIdentifier: .commonIdentifierTitle)
@@ -73,14 +65,14 @@ class MetadataAdapter {
         rawMetadataItem["creationDate"] = getMetadataItem(metadata: metadata, forIdentifier: .commonIdentifierCreationDate)
         rawMetadataItem["creationYear"] = getMetadataItem(metadata: metadata, forIdentifier: .id3MetadataYear)
             ?? getMetadataItem(metadata: metadata, forIdentifier: .quickTimeMetadataYear)
-        
+
         if !skipRaw {
             rawMetadataItem["raw"] = convertToSerializableItems(items: metadata)
         }
-        
+
         return rawMetadataItem
     }
-    
+
     @available(*, deprecated, message: "Will be removed down the line")
     static func legacyConversion(metadata: [AVMetadataItem]) -> [String : String?] {
         var source: String {
@@ -141,7 +133,7 @@ class MetadataAdapter {
         if (data.values.contains { $0 != nil }) {
             data["source"] = source
         }
-        
+
         return data
     }
 }

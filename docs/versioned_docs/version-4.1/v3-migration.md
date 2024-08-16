@@ -23,7 +23,7 @@ When migrating from v2 to v3, the following has changed:
 
 ```diff
 // Methods
-await TrackPlayer.updateOptions({
+await AudioPro.updateOptions({
 -      stopWithApp: true,
 +      android: {
 +        appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback
@@ -35,8 +35,8 @@ await TrackPlayer.updateOptions({
 
 ```diff
 // remove all usages of `.destroy()` and `.stop()`
--  TrackPlayer.destroy();
--  TrackPlayer.stop();
+-  AudioPro.destroy();
+-  AudioPro.stop();
 ```
 
 ## Configuration Changes

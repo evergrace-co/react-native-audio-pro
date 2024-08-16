@@ -1,10 +1,3 @@
-//
-//  State.swift
-//  ReactNativeAudioPro
-//
-//  Created by David Chavez on 02.12.21.
-//
-
 import Foundation
 import SwiftAudioPro
 

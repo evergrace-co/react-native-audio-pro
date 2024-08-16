@@ -1,11 +1,3 @@
-//
-//  Capabilities.swift
-//  ReactNativeAudioPro
-//
-//  Created by David Chavez on 07.09.17.
-//  Copyright © 2017 David Chavez. All rights reserved.
-//
-
 import Foundation
 import SwiftAudioPro
 

@@ -7,7 +7,7 @@ sidebar_position: 5
 All PitchAlgorithm types are made available through the named export `PitchAlgorithm`:
 
 ```ts
-import { PitchAlgorithm } from 'react-native-track-player';
+import { PitchAlgorithm } from 'react-native-audio-pro';
 ```
 
 | Name | Description |

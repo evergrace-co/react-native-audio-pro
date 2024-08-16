@@ -40,7 +40,7 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
 
     @Nonnull
     override fun getName(): String {
-        return "TrackPlayerModule"
+        return "AudioProModule"
     }
 
     override fun initialize() {

@@ -5,7 +5,7 @@ import {
   Platform,
 } from 'react-native';
 
-import TrackPlayer from './TrackPlayerModule';
+import AudioPro from './AudioProModule';
 import { Event, RepeatMode, State } from './constants';
 import type {
   AddTrack,
@@ -23,7 +23,7 @@ import resolveAssetSource from './resolveAssetSource';
 
 const emitter =
   Platform.OS !== 'android'
-    ? new NativeEventEmitter(TrackPlayer)
+    ? new NativeEventEmitter(AudioPro)
     : DeviceEventEmitter;
 
 // MARK: - Helpers
@@ -56,7 +56,7 @@ function resolveImportedAsset(id?: number) {
  * @see https://evergrace-co.github.io/react-native-audio-pro/docs/api/functions/lifecycle
  */
 export async function setupPlayer(options: PlayerOptions = {}): Promise<void> {
-  return TrackPlayer.setupPlayer(options);
+  return AudioPro.setupPlayer(options);
 }
 
 /**
@@ -65,7 +65,7 @@ export async function setupPlayer(options: PlayerOptions = {}): Promise<void> {
 export function registerPlaybackService(factory: () => ServiceHandler) {
   if (Platform.OS === 'android') {
     // Registers the headless task
-    AppRegistry.registerHeadlessTask('TrackPlayer', factory);
+    AppRegistry.registerHeadlessTask('AudioPro', factory);
   } else if (Platform.OS === 'web') {
     factory()();
   } else {
@@ -87,7 +87,7 @@ export function addEventListener<T extends Event>(
  * @deprecated This method should not be used, most methods reject when service is not bound.
  */
 export function isServiceRunning(): Promise<boolean> {
-  return TrackPlayer.isServiceRunning();
+  return AudioPro.isServiceRunning();
 }
 
 // MARK: - Queue API
@@ -127,7 +127,7 @@ export async function add(
   );
   return resolvedTracks.length < 1
     ? undefined
-    : TrackPlayer.add(resolvedTracks, insertBeforeIndex);
+    : AudioPro.add(resolvedTracks, insertBeforeIndex);
 }
 
 /**
@@ -136,7 +136,7 @@ export async function add(
  * @param track The track to load.
  */
 export async function load(track: Track): Promise<number | void> {
-  return TrackPlayer.load(track);
+  return AudioPro.load(track);
 }
 
 /**
@@ -147,7 +147,7 @@ export async function load(track: Track): Promise<number | void> {
  * the size of the queue, then the track is moved to the end of the queue.
  */
 export async function move(fromIndex: number, toIndex: number): Promise<void> {
-  return TrackPlayer.move(fromIndex, toIndex);
+  return AudioPro.move(fromIndex, toIndex);
 }
 
 /**
@@ -171,7 +171,7 @@ export async function remove(indexes: number[]): Promise<void>;
  */
 export async function remove(index: number): Promise<void>;
 export async function remove(indexOrIndexes: number | number[]): Promise<void> {
-  return TrackPlayer.remove(
+  return AudioPro.remove(
     Array.isArray(indexOrIndexes) ? indexOrIndexes : [indexOrIndexes]
   );
 }
@@ -180,7 +180,7 @@ export async function remove(indexOrIndexes: number | number[]): Promise<void> {
  * Clears any upcoming tracks from the queue.
  */
 export async function removeUpcomingTracks(): Promise<void> {
-  return TrackPlayer.removeUpcomingTracks();
+  return AudioPro.removeUpcomingTracks();
 }
 
 /**
@@ -190,7 +190,7 @@ export async function removeUpcomingTracks(): Promise<void> {
  * @param initialPosition (Optional) The initial position to seek to in seconds.
  */
 export async function skip(index: number, initialPosition = -1): Promise<void> {
-  return TrackPlayer.skip(index, initialPosition);
+  return AudioPro.skip(index, initialPosition);
 }
 
 /**
@@ -199,7 +199,7 @@ export async function skip(index: number, initialPosition = -1): Promise<void> {
  * @param initialPosition (Optional) The initial position to seek to in seconds.
  */
 export async function skipToNext(initialPosition = -1): Promise<void> {
-  return TrackPlayer.skipToNext(initialPosition);
+  return AudioPro.skipToNext(initialPosition);
 }
 
 /**
@@ -208,7 +208,7 @@ export async function skipToNext(initialPosition = -1): Promise<void> {
  * @param initialPosition (Optional) The initial position to seek to in seconds.
  */
 export async function skipToPrevious(initialPosition = -1): Promise<void> {
-  return TrackPlayer.skipToPrevious(initialPosition);
+  return AudioPro.skipToPrevious(initialPosition);
 }
 
 // MARK: - Control Center / Notifications API
@@ -223,7 +223,7 @@ export async function updateOptions({
   alwaysPauseOnInterruption,
   ...options
 }: UpdateOptions = {}): Promise<void> {
-  return TrackPlayer.updateOptions({
+  return AudioPro.updateOptions({
     ...options,
     android: {
       // Handle deprecated alwaysPauseOnInterruption option:
@@ -253,7 +253,7 @@ export async function updateMetadataForTrack(
   trackIndex: number,
   metadata: TrackMetadataBase
 ): Promise<void> {
-  return TrackPlayer.updateMetadataForTrack(trackIndex, {
+  return AudioPro.updateMetadataForTrack(trackIndex, {
     ...metadata,
     artwork: resolveImportedAssetOrPath(metadata.artwork),
   });
@@ -262,10 +262,10 @@ export async function updateMetadataForTrack(
 /**
  * @deprecated Nominated for removal in the next major version. If you object
  * to this, please describe your use-case in the following issue:
- * https://github.com/evergrace-co/react-native-track-player/issues/1653
+ * https://github.com/evergrace-co/react-native-audio-pro/issues/1653
  */
 export function clearNowPlayingMetadata(): Promise<void> {
-  return TrackPlayer.clearNowPlayingMetadata();
+  return AudioPro.clearNowPlayingMetadata();
 }
 
 /**
@@ -275,7 +275,7 @@ export function clearNowPlayingMetadata(): Promise<void> {
 export function updateNowPlayingMetadata(
   metadata: NowPlayingMetadata
 ): Promise<void> {
-  return TrackPlayer.updateNowPlayingMetadata({
+  return AudioPro.updateNowPlayingMetadata({
     ...metadata,
     artwork: resolveImportedAssetOrPath(metadata.artwork),
   });
@@ -287,46 +287,46 @@ export function updateNowPlayingMetadata(
  * Resets the player stopping the current track and clearing the queue.
  */
 export async function reset(): Promise<void> {
-  return TrackPlayer.reset();
+  return AudioPro.reset();
 }
 
 /**
  * Plays or resumes the current track.
  */
 export async function play(): Promise<void> {
-  return TrackPlayer.play();
+  return AudioPro.play();
 }
 
 /**
  * Pauses the current track.
  */
 export async function pause(): Promise<void> {
-  return TrackPlayer.pause();
+  return AudioPro.pause();
 }
 
 /**
  * Stops the current track.
  */
 export async function stop(): Promise<void> {
-  return TrackPlayer.stop();
+  return AudioPro.stop();
 }
 
 /**
  * Sets wether the player will play automatically when it is ready to do so.
- * This is the equivalent of calling `TrackPlayer.play()` when `playWhenReady = true`
- * or `TrackPlayer.pause()` when `playWhenReady = false`.
+ * This is the equivalent of calling `AudioPro.play()` when `playWhenReady = true`
+ * or `AudioPro.pause()` when `playWhenReady = false`.
  */
 export async function setPlayWhenReady(
   playWhenReady: boolean
 ): Promise<boolean> {
-  return TrackPlayer.setPlayWhenReady(playWhenReady);
+  return AudioPro.setPlayWhenReady(playWhenReady);
 }
 
 /**
  * Gets wether the player will play automatically when it is ready to do so.
  */
 export async function getPlayWhenReady(): Promise<boolean> {
-  return TrackPlayer.getPlayWhenReady();
+  return AudioPro.getPlayWhenReady();
 }
 
 /**
@@ -335,7 +335,7 @@ export async function getPlayWhenReady(): Promise<boolean> {
  * @param position The position to seek to in seconds.
  */
 export async function seekTo(position: number): Promise<void> {
-  return TrackPlayer.seekTo(position);
+  return AudioPro.seekTo(position);
 }
 
 /**
@@ -344,7 +344,7 @@ export async function seekTo(position: number): Promise<void> {
  * @param offset The time offset to seek by in seconds.
  */
 export async function seekBy(offset: number): Promise<void> {
-  return TrackPlayer.seekBy(offset);
+  return AudioPro.seekBy(offset);
 }
 
 /**
@@ -353,7 +353,7 @@ export async function seekBy(offset: number): Promise<void> {
  * @param volume The volume as a number between 0 and 1.
  */
 export async function setVolume(level: number): Promise<void> {
-  return TrackPlayer.setVolume(level);
+  return AudioPro.setVolume(level);
 }
 
 /**
@@ -363,7 +363,7 @@ export async function setVolume(level: number): Promise<void> {
  * 1 would be regular speed, 2 would be double speed etc.
  */
 export async function setRate(rate: number): Promise<void> {
-  return TrackPlayer.setRate(rate);
+  return AudioPro.setRate(rate);
 }
 
 /**
@@ -373,7 +373,7 @@ export async function setRate(rate: number): Promise<void> {
  * @see https://evergrace-co.github.io/react-native-audio-pro/docs/api/constants/repeat-mode
  */
 export async function setQueue(tracks: Track[]): Promise<void> {
-  return TrackPlayer.setQueue(tracks);
+  return AudioPro.setQueue(tracks);
 }
 
 /**
@@ -383,7 +383,7 @@ export async function setQueue(tracks: Track[]): Promise<void> {
  * @see https://evergrace-co.github.io/react-native-audio-pro/docs/api/constants/repeat-mode
  */
 export async function setRepeatMode(mode: RepeatMode): Promise<RepeatMode> {
-  return TrackPlayer.setRepeatMode(mode);
+  return AudioPro.setRepeatMode(mode);
 }
 
 // MARK: - Getters
@@ -392,7 +392,7 @@ export async function setRepeatMode(mode: RepeatMode): Promise<RepeatMode> {
  * Gets the volume of the player as a number between 0 and 1.
  */
 export async function getVolume(): Promise<number> {
-  return TrackPlayer.getVolume();
+  return AudioPro.getVolume();
 }
 
 /**
@@ -400,7 +400,7 @@ export async function getVolume(): Promise<number> {
  * regular speed and 2 would be double speed etc.
  */
 export async function getRate(): Promise<number> {
-  return TrackPlayer.getRate();
+  return AudioPro.getRate();
 }
 
 /**
@@ -411,14 +411,14 @@ export async function getRate(): Promise<number> {
  * index.
  */
 export async function getTrack(index: number): Promise<Track | undefined> {
-  return TrackPlayer.getTrack(index);
+  return AudioPro.getTrack(index);
 }
 
 /**
  * Gets the whole queue.
  */
 export async function getQueue(): Promise<Track[]> {
-  return TrackPlayer.getQueue();
+  return AudioPro.getQueue();
 }
 
 /**
@@ -426,48 +426,48 @@ export async function getQueue(): Promise<Track[]> {
  * current track.
  */
 export async function getActiveTrackIndex(): Promise<number | undefined> {
-  return (await TrackPlayer.getActiveTrackIndex()) ?? undefined;
+  return (await AudioPro.getActiveTrackIndex()) ?? undefined;
 }
 
 /**
  * Gets the active track or undefined if there is no current track.
  */
 export async function getActiveTrack(): Promise<Track | undefined> {
-  return (await TrackPlayer.getActiveTrack()) ?? undefined;
+  return (await AudioPro.getActiveTrack()) ?? undefined;
 }
 
 /**
  * Gets the index of the current track or null if there is no current track.
  *
- * @deprecated use `TrackPlayer.getActiveTrackIndex()` instead.
+ * @deprecated use `AudioPro.getActiveTrackIndex()` instead.
  */
 export async function getCurrentTrack(): Promise<number | null> {
-  return TrackPlayer.getActiveTrackIndex();
+  return AudioPro.getActiveTrackIndex();
 }
 
 /**
  * Gets the duration of the current track in seconds.
- * @deprecated Use `TrackPlayer.getProgress().then((progress) => progress.duration)` instead.
+ * @deprecated Use `AudioPro.getProgress().then((progress) => progress.duration)` instead.
  */
 export async function getDuration(): Promise<number> {
-  return TrackPlayer.getDuration();
+  return AudioPro.getDuration();
 }
 
 /**
  * Gets the buffered position of the current track in seconds.
  *
- * @deprecated Use `TrackPlayer.getProgress().then((progress) => progress.buffered)` instead.
+ * @deprecated Use `AudioPro.getProgress().then((progress) => progress.buffered)` instead.
  */
 export async function getBufferedPosition(): Promise<number> {
-  return TrackPlayer.getBufferedPosition();
+  return AudioPro.getBufferedPosition();
 }
 
 /**
  * Gets the playback position of the current track in seconds.
- * @deprecated Use `TrackPlayer.getProgress().then((progress) => progress.position)` instead.
+ * @deprecated Use `AudioPro.getProgress().then((progress) => progress.position)` instead.
  */
 export async function getPosition(): Promise<number> {
-  return TrackPlayer.getPosition();
+  return AudioPro.getPosition();
 }
 
 /**
@@ -476,14 +476,14 @@ export async function getPosition(): Promise<number> {
  * duration in seconds.
  */
 export async function getProgress(): Promise<Progress> {
-  return TrackPlayer.getProgress();
+  return AudioPro.getProgress();
 }
 
 /**
  * @deprecated use (await getPlaybackState()).state instead.
  */
 export async function getState(): Promise<State> {
-  return (await TrackPlayer.getPlaybackState()).state;
+  return (await AudioPro.getPlaybackState()).state;
 }
 
 /**
@@ -492,7 +492,7 @@ export async function getState(): Promise<State> {
  * @see https://evergrace-co.github.io/react-native-audio-pro/docs/api/constants/state
  */
 export async function getPlaybackState(): Promise<PlaybackState> {
-  return TrackPlayer.getPlaybackState();
+  return AudioPro.getPlaybackState();
 }
 
 /**
@@ -501,12 +501,12 @@ export async function getPlaybackState(): Promise<PlaybackState> {
  * @see https://evergrace-co.github.io/react-native-audio-pro/docs/api/constants/repeat-mode
  */
 export async function getRepeatMode(): Promise<RepeatMode> {
-  return TrackPlayer.getRepeatMode();
+  return AudioPro.getRepeatMode();
 }
 
 /**
  * Retries the current item when the playback state is `State.Error`.
  */
 export async function retry() {
-  return TrackPlayer.retry();
+  return AudioPro.retry();
 }

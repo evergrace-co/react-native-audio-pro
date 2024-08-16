@@ -12,7 +12,7 @@ Due to how Android handles foreground services, it's not possible for us to stop
     vendor, this would look and behave differently), which allows users to
     quickly go back to the app by tapping on it.
 
-The full changelog of added features and bug fixes [can be found here](https://github.com/evergrace-co/react-native-track-player/releases/tag/v3.0).
+The full changelog of added features and bug fixes [can be found here](https://github.com/evergrace-co/react-native-audio-pro/releases/tag/v3.0).
 
 When migrating from v2 to v3, the following has changed:
 
@@ -23,7 +23,7 @@ When migrating from v2 to v3, the following has changed:
 
 ```diff
 // Methods
-await TrackPlayer.updateOptions({
+await AudioPro.updateOptions({
 -      stopWithApp: true,
 +      android: {
 +        appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback
@@ -35,8 +35,8 @@ await TrackPlayer.updateOptions({
 
 ```diff
 // remove all usages of `.destroy()` and `.stop()`
--  TrackPlayer.destroy();
--  TrackPlayer.stop();
+-  AudioPro.destroy();
+-  AudioPro.stop();
 ```
 
 ## Configuration Changes

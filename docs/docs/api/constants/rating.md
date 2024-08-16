@@ -7,7 +7,7 @@ sidebar_position: 3
 All RatingType types are made available through the named export `RatingType`:
 
 ```ts
-import { RatingType } from 'react-native-track-player';
+import { RatingType } from 'react-native-audio-pro';
 ```
 
 | Name | Description |

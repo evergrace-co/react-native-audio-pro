@@ -24,7 +24,7 @@ android {
 }
 ```
 
-## Android: `com.facebook.react.common.JavascriptException: No task registered for key TrackPlayer`
+## Android: `com.facebook.react.common.JavascriptException: No task registered for key AudioPro`
 The playback service requires a headless task to be registered. You have to register it with `registerPlaybackService`.
 
 ## Android: `Error: Attribute XXX from [androidx.core:core:XXX] is also present at [com.android.support:support-compat:XXX]`

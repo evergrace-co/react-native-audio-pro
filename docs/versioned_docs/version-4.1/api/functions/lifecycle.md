@@ -39,7 +39,7 @@ You should use the playback service to register the event handlers that must be 
 | ------- | -------- | ------------- |
 | serviceProvider | `function` | The function that must return an async service function. |
 
-## `useTrackPlayerEvents(events: Event[], handler: Handler)`
+## `useAudioProEvents(events: Event[], handler: Handler)`
 
 Hook that fires on the specified events.
 

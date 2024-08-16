@@ -23,7 +23,7 @@ Pauses the current track.
 
 ## `stop()`
 
-Stops playback. Behavior is the same as `TrackPlayer.pause()` where
+Stops playback. Behavior is the same as `AudioPro.pause()` where
 `playWhenReady` becomes `false`, but instead of just pausing playback, the item
 is unloaded.
 
@@ -105,9 +105,9 @@ Gets the current state of `playWhenReady`.
 
 ## `setPlayWhenReady(playWhenReady)`
 
-`TrackPlayer.setPlayWhenReady(false)` is the equivalent of `TrackPlayer.pause()`
-and `TrackPlayer.setPlayWhenReady(true)` is the equivalent of
-`TrackPlayer.play()`.
+`AudioPro.setPlayWhenReady(false)` is the equivalent of `AudioPro.pause()`
+and `AudioPro.setPlayWhenReady(true)` is the equivalent of
+`AudioPro.play()`.
 
 | Param  | Type     | Description                       |
 | ------ | -------- | --------------------------------- |
@@ -128,7 +128,7 @@ Gets the playback [`State`](../constants/state.md) of the player.
 
 Gets the duration of the current track in seconds.
 
-Note: `react-native-track-player` is a streaming library, which means it slowly buffers the track and doesn't know exactly when it ends.
+Note: `react-native-audio-pro` is a streaming library, which means it slowly buffers the track and doesn't know exactly when it ends.
 The duration returned by this function is determined through various tricks and *may not be exact or may not be available at all*.
 
 You should only trust the result of this function if you included the `duration` property in the [Track Object](../objects/track.md).

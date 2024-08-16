@@ -10,13 +10,13 @@ type Badge = { badge: string; link: string, alt: string };
 const BADGES: Badge[] = [
   {
     alt: 'downloads',
-    badge: 'https://img.shields.io/npm/dw/react-native-track-player.svg',
-    link: 'https://www.npmjs.com/package/react-native-track-player',
+    badge: 'https://img.shields.io/npm/dw/react-native-audio-pro.svg',
+    link: 'https://www.npmjs.com/package/react-native-audio-pro',
   },
   {
     alt: 'npm',
-    badge: 'https://img.shields.io/npm/v/react-native-track-player.svg',
-    link: 'https://www.npmjs.com/package/react-native-track-player',
+    badge: 'https://img.shields.io/npm/v/react-native-audio-pro.svg',
+    link: 'https://www.npmjs.com/package/react-native-audio-pro',
   },
   {
     alt: 'discord',

@@ -5,7 +5,7 @@ sidebar_position: 6
 # App Killed Playback Behavior (android-only)
 
 ```ts
-import { AppKilledPlaybackBehavior } from 'react-native-track-player';
+import { AppKilledPlaybackBehavior } from 'react-native-audio-pro';
 ```
 
 ## `ContinuePlayback` (default)

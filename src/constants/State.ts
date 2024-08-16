@@ -12,18 +12,14 @@ export enum State {
   /** Indicates that the initial load of the item is occurring. */
   Loading = 'loading',
   /**
-   * @deprecated Use `State.Loading` instead.
-   **/
-  Connecting = 'loading',
-  /**
    * Indicates that the player is currently loading more data before it can
    * continue playing or is ready to start playing.
    */
   Buffering = 'buffering',
   /**
-   * Indicates that playback of the current item failed. Call `TrackPlayer.getError()`
+   * Indicates that playback of the current item failed. Call `AudioPro.getError()`
    * to get more information on the type of error that occurred.
-   * Call `TrackPlayer.retry()` or `TrackPlayer.play()` to try to play the item
+   * Call `AudioPro.retry()` or `AudioPro.play()` to try to play the item
    * again.
    */
   Error = 'error',

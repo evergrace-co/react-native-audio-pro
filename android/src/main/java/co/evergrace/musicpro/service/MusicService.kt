@@ -16,7 +16,7 @@ import androidx.core.app.NotificationCompat.PRIORITY_LOW
 import co.evergrace.kotlinaudiopro.models.*
 import co.evergrace.kotlinaudiopro.models.NotificationButton.*
 import co.evergrace.kotlinaudiopro.players.QueuedAudioPlayer
-import co.evergrace.musicpro.R as TrackPlayerR
+import co.evergrace.musicpro.R as AudioProR
 import co.evergrace.musicpro.extensions.NumberExt.Companion.toMilliseconds
 import co.evergrace.musicpro.extensions.NumberExt.Companion.toSeconds
 import co.evergrace.musicpro.extensions.asLibState
@@ -108,11 +108,11 @@ class MusicService : HeadlessJsTaskService() {
         val notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(
-                NotificationChannel(getString(TrackPlayerR.string.rntp_temporary_channel_id), getString(TrackPlayerR.string.rntp_temporary_channel_name), NotificationManager.IMPORTANCE_LOW)
+                NotificationChannel(getString(AudioProR.string.rntp_temporary_channel_id), getString(AudioProR.string.rntp_temporary_channel_name), NotificationManager.IMPORTANCE_LOW)
             )
         }
 
-        val notificationBuilder = NotificationCompat.Builder(this, getString(TrackPlayerR.string.rntp_temporary_channel_id))
+        val notificationBuilder = NotificationCompat.Builder(this, getString(AudioProR.string.rntp_temporary_channel_id))
             .setPriority(PRIORITY_LOW)
             .setCategory(Notification.CATEGORY_SERVICE)
             .setSmallIcon(ExoPlayerR.drawable.exo_notification_small_icon)
@@ -209,11 +209,11 @@ class MusicService : HeadlessJsTaskService() {
                     PREVIOUS(icon = previousIcon, isCompact = isCompact(it))
                 }
                 Capability.JUMP_FORWARD -> {
-                    val forwardIcon = BundleUtils.getIcon(this, options, "forwardIcon", TrackPlayerR.drawable.forward)
+                    val forwardIcon = BundleUtils.getIcon(this, options, "forwardIcon", AudioProR.drawable.forward)
                     FORWARD(icon = forwardIcon, isCompact = isCompact(it))
                 }
                 Capability.JUMP_BACKWARD -> {
-                    val backwardIcon = BundleUtils.getIcon(this, options, "rewindIcon", TrackPlayerR.drawable.rewind)
+                    val backwardIcon = BundleUtils.getIcon(this, options, "rewindIcon", AudioProR.drawable.rewind)
                     BACKWARD(icon = backwardIcon, isCompact = isCompact(it))
                 }
                 Capability.SEEK_TO -> {
@@ -823,7 +823,7 @@ class MusicService : HeadlessJsTaskService() {
         const val DURATION_KEY = "duration"
         const val BUFFERED_POSITION_KEY = "buffered"
 
-        const val TASK_KEY = "TrackPlayer"
+        const val TASK_KEY = "AudioPro"
 
         const val MIN_BUFFER_KEY = "minBuffer"
         const val MAX_BUFFER_KEY = "maxBuffer"

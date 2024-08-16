@@ -57,14 +57,14 @@ All audio modules (like `react-native-sound`) don't play in a separated service 
 First please take a look at the [Getting Started](https://evergrace-co.github.io/react-native-audio-pro/docs/basics/getting-started/) guide, but a basic example of how to play a track:
 
 ```javascript
-import TrackPlayer from 'react-native-audio-pro';
+import AudioPro from 'react-native-audio-pro';
 
 const start = async () => {
     // Set up the player
-    await TrackPlayer.setupPlayer();
+    await AudioPro.setupPlayer();
 
     // Add a track to the queue
-    await TrackPlayer.add({
+    await AudioPro.add({
         id: 'trackId',
         url: require('track.mp3'),
         title: 'Track Title',
@@ -73,7 +73,7 @@ const start = async () => {
     });
 
     // Start playing it
-    await TrackPlayer.play();
+    await AudioPro.play();
 };
 start();
 ```

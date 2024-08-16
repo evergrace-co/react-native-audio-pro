@@ -1,7 +1,7 @@
 #import "ReactNativeAudioProBridge.h"
 #import <React/RCTBridgeModule.h>
 
-@interface RCT_EXTERN_REMAP_MODULE(TrackPlayerModule, ReactNativeAudioPro, NSObject)
+@interface RCT_EXTERN_REMAP_MODULE(AudioProModule, ReactNativeAudioPro, NSObject)
 
 RCT_EXTERN_METHOD(setupPlayer:(NSDictionary *)data
                   resolver:(RCTPromiseResolveBlock)resolve

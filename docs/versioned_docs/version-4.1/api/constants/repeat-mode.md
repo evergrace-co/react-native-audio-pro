@@ -7,7 +7,7 @@ sidebar_position: 4
 All RepeatMode types are made available through the named export `RepeatMode`:
 
 ```ts
-import { RepeatMode } from 'react-native-track-player';
+import { RepeatMode } from 'react-native-audio-pro';
 ```
 
 | Name | Description |

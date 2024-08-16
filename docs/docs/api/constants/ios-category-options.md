@@ -7,7 +7,7 @@ sidebar_position: 8
 All iOS Category Options types are made available through the named export `IOSCategoryOptions`:
 
 ```ts
-import { IOSCategoryOptions } from 'react-native-track-player';
+import { IOSCategoryOptions } from 'react-native-audio-pro';
 ```
 
 ## `MixWithOthers`

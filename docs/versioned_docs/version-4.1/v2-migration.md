@@ -33,7 +33,7 @@ When migrating from v1 to v2, the following has changed:
 
 // Imports
 
-import TrackPlayer, {
+import AudioPro, {
 -  STATE_XXX,
 -  CAPABILITY_XXX,
 -  PITCH_ALGORITHM_XXX,
@@ -48,13 +48,13 @@ import TrackPlayer, {
 
 // Hooks
 
-- useTrackPlayerProgress
+- useAudioProProgress
 + useProgress
 
 // Event Listeners
-// Refrain from using: TrackPlayer.addEventListener() and instead use the provided hooks
+// Refrain from using: AudioPro.addEventListener() and instead use the provided hooks
 
 + usePlaybackState
-+ useTrackPlayerEvents
++ useAudioProEvents
 + useProgress
 ```

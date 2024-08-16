@@ -17,7 +17,7 @@ can disable it with the `android.appKilledPlaybackBehavior` property in
 In this case, the audio will still play while the app is open in the background.:
 
 ```js
-TrackPlayer.updateOptions({
+AudioPro.updateOptions({
     android: {
         // This is the default behavior
         appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback

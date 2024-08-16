@@ -1,7 +1,7 @@
-import * as TrackPlayer from './trackPlayer';
+import * as AudioPro from './audioPro';
 
 export * from './constants';
 export * from './hooks';
 export * from './interfaces';
 
-export default TrackPlayer;
+export default AudioPro;

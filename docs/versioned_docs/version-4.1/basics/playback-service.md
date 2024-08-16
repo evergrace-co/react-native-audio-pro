@@ -8,7 +8,7 @@ The playback service keeps running even when the app is in the background. It wi
 
 ## Remote Events
 
-[Remote events](../api/events.md#media-controls) are sent from places outside of our user interface that we can react to. For example if the user presses the pause media control in the IOS lockscreen / Android notification or from their Bluetooth headset, we want to have TrackPlayer pause the audio.
+[Remote events](../api/events.md#media-controls) are sent from places outside of our user interface that we can react to. For example if the user presses the pause media control in the IOS lockscreen / Android notification or from their Bluetooth headset, we want to have AudioPro pause the audio.
 
 If you create a listener to a remote event like `Event.RemotePause` in the context of a React component, there is a chance the UI will be unmounted automatically when the app is in the background, causing it to be missed. For this reason it is best to place remote listeners in the playback service, since it will keep running even when the app is in the background.
 
@@ -18,7 +18,7 @@ import { PlaybackService } from './src/services';
 
 // This needs to go right after you register the main component of your app
 // AppRegistry.registerComponent(...)
-TrackPlayer.registerPlaybackService(() => PlaybackService);
+AudioPro.registerPlaybackService(() => PlaybackService);
 ```
 
 ```ts
@@ -27,9 +27,9 @@ import { Event } from 'react-native-audio-pro';
 
 export const PlaybackService = async function() {
 
-    TrackPlayer.addEventListener(Event.RemotePlay, () => TrackPlayer.play());
+    AudioPro.addEventListener(Event.RemotePlay, () => AudioPro.play());
 
-    TrackPlayer.addEventListener(Event.RemotePause, () => TrackPlayer.pause());
+    AudioPro.addEventListener(Event.RemotePause, () => AudioPro.pause());
 
     // ...
 
