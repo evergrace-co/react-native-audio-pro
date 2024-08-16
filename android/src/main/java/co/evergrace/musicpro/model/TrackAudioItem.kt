@@ -1,8 +1,8 @@
 package co.evergrace.musicpro.model
 
-import com.doublesymmetry.kotlinaudio.models.AudioItem
-import com.doublesymmetry.kotlinaudio.models.AudioItemOptions
-import com.doublesymmetry.kotlinaudio.models.MediaType
+import co.evergrace.kotlinaudiopro.models.AudioItem
+import co.evergrace.kotlinaudiopro.models.AudioItemOptions
+import co.evergrace.kotlinaudiopro.models.MediaType
 
 data class TrackAudioItem(
     val track: Track,

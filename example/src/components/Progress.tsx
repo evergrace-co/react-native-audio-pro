@@ -1,7 +1,7 @@
 import Slider from '@react-native-community/slider';
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import TrackPlayer, { useProgress } from 'react-native-music-pro';
+import TrackPlayer, { useProgress } from 'react-native-audio-pro';
 import { Spacer } from './Spacer';
 
 export const Progress: React.FC<{ live?: boolean }> = ({ live }) => {

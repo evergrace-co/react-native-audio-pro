@@ -21,7 +21,7 @@ module.exports = async function() {
 
 Then, you need to set up the player. This usually takes less than a second:
 ```ts
-import TrackPlayer from 'react-native-music-pro';
+import TrackPlayer from 'react-native-audio-pro';
 
 await TrackPlayer.setupPlayer()
 // The player is ready to be used
@@ -69,7 +69,7 @@ const track3 = {
     duration: 411
 };
 
-// You can then [add](https://evergrace-co.github.io/react-native-music-pro/docs/api/functions/queue#addtracks-insertbeforeindex) the items to the queue
+// You can then [add](https://evergrace-co.github.io/react-native-audio-pro/docs/api/functions/queue#addtracks-insertbeforeindex) the items to the queue
 await TrackPlayer.add([track1, track2, track3]);
 ```
 

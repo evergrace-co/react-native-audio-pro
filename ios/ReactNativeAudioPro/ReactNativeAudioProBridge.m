@@ -1,15 +1,7 @@
-//
-//  RNTrackPlayerBridge.m
-//  RNTrackPlayerBridge
-//
-//  Created by David Chavez on 7/1/17.
-//  Copyright © 2017 David Chavez. All rights reserved.
-//
-
-#import "RNTrackPlayerBridge.h"
+#import "ReactNativeAudioProBridge.h"
 #import <React/RCTBridgeModule.h>
 
-@interface RCT_EXTERN_REMAP_MODULE(TrackPlayerModule, RNTrackPlayer, NSObject)
+@interface RCT_EXTERN_REMAP_MODULE(TrackPlayerModule, ReactNativeAudioPro, NSObject)
 
 RCT_EXTERN_METHOD(setupPlayer:(NSDictionary *)data
                   resolver:(RCTPromiseResolveBlock)resolve

@@ -87,7 +87,7 @@ Next we need to set up a listener for progress updates in our
 
 ```ts
 // src/services/PlaybackService.ts
-import TrackPlayer, { Event } from 'react-native-music-pro';
+import TrackPlayer, { Event } from 'react-native-audio-pro';
 import { useProgressStateStore } from '../store';
 
 // create a local reference for the `setProgress` function
@@ -114,7 +114,7 @@ item:
 
 ```ts
 // src/components/TrackListItem.tsx
-import type { Track } from 'react-native-music-pro';
+import type { Track } from 'react-native-audio-pro';
 import { useTrackProgress } from '../hooks/useTrackProgress';
 
 export interface TrackListItemProps {}

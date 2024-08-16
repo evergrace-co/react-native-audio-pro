@@ -6,8 +6,8 @@ implementing new features and/or bugfixes.
 ## Running The Example App
 
 ```sh
-git clone git@github.com:evergrace-co/react-native-music-pro.git
-cd react-native-music-pro
+git clone git@github.com:evergrace-co/react-native-audio-pro.git
+cd react-native-audio-pro
 yarn
 yarn build
 cd example
@@ -52,11 +52,11 @@ yarn example ios:ide
 
 Once opened you can simply navigate to the native dependencies, open their
 source files, modify them, or add breakpoints. See the screenshots below for
-specifically how to navigate to react-native-music-pro and SwiftAudioEx
+specifically how to navigate to react-native-audio-pro and SwiftAudioPro
 dependencies (see screenshots below).
 
-![Xcode RNTP](https://evergrace-co.github.io/react-native-music-pro/img/debugging/debug-ios-rntp.png)
-![Xcode SwiftAudioEx](https://evergrace-co.github.io/react-native-music-pro/img/debugging/debug-ios-swift-audio-ex.png)
+![Xcode RNTP](https://evergrace-co.github.io/react-native-audio-pro/img/debugging/debug-ios-rntp.png)
+![Xcode SwiftAudioPro](https://evergrace-co.github.io/react-native-audio-pro/img/debugging/debug-ios-swift-audio-ex.png)
 
 ## Android Native
 
@@ -85,7 +85,7 @@ and install a local version of `KotlinAudio` in order to do so. Here's how:
 #### 1. Clone the `KotlinAudio` project:
 
 ```sh
-git clone git@github.com:doublesymmetry/KotlinAudio.git
+git clone git@github.com:evergrace-co/kotlin-audio-pro.git
 ```
 
 #### 2. Build and export to maven local which is the local dependency repository:
@@ -115,12 +115,12 @@ Please note that `<version_number>` below will need to be replaced with the
 `versionNumber` you got from `KotlinAudio/kotlin-audio/build.gradle`.
 
 ```groovy
-// react-native-music-pro/android/build.gradle
+// react-native-audio-pro/android/build.gradle
 ...
 
 dependencies {
-    // implementation 'com.github.DoubleSymmetry:KotlinAudio:v0.1.33' // this is remote
-    implementation 'com.github.doublesymmetry:kotlin-audio:<version_number>' // this is local
+    // implementation 'evergrace-co:KotlinAudioPro:v0.1.33' // this is remote
+    implementation 'com.github.evergrace-co:kotlin-audio-pro:<version_number>' // this is local
 
     ...
 }

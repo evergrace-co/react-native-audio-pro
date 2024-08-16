@@ -1,10 +1,3 @@
-//
-//  DispatchQueueType.swift
-//  SwiftAudio
-//
-//  Created by David Chavez on 29.05.21.
-//
-
 import Foundation
 
 public protocol DispatchQueueType {

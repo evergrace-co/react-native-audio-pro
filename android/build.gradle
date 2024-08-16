@@ -50,9 +50,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.doublesymmetry:kotlinaudio:v2.1.0'
-    // used when building against local maven
-//    implementation "com.github.doublesymmetry:kotlin-audio:2.1.0"
+    implementation 'com.github.evergrace-co:kotlinaudiopro:0.0.1'
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"

@@ -1,12 +1,12 @@
 //
 //  State.swift
-//  RNTrackPlayer
+//  ReactNativeAudioPro
 //
 //  Created by David Chavez on 02.12.21.
 //
 
 import Foundation
-import SwiftAudioEx
+import SwiftAudioPro
 
 enum State: String {
     case none, ready, playing, paused, stopped, buffering, loading, error, ended

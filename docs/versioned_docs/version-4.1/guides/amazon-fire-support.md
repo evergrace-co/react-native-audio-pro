@@ -4,7 +4,7 @@ sidebar_position: 99
 
 # Amazon FireOS Support
 
-Support for Android in `react-native-music-pro` is built on top of the [ExoPlayer](https://github.com/google/ExoPlayer) media player library provided by Google. ExoPlayer does not officially support Amazon's FireOS fork of Android, because it does not pass [Android CTS](https://source.android.com/compatibility/cts). ExoPlayer seems to work decently on FireOS 5, but it hardly works at all on FireOS 4.
+Support for Android in `react-native-audio-pro` is built on top of the [ExoPlayer](https://github.com/google/ExoPlayer) media player library provided by Google. ExoPlayer does not officially support Amazon's FireOS fork of Android, because it does not pass [Android CTS](https://source.android.com/compatibility/cts). ExoPlayer seems to work decently on FireOS 5, but it hardly works at all on FireOS 4.
 
 Thankfully, [Amazon maintains](https://developer.amazon.com/docs/fire-tv/media-players.html#exoplayer) a [ported version of ExoPlayer](https://github.com/amzn/exoplayer-amazon-port) that can be used as a direct replacement as long as matching versions are used.
 
@@ -12,7 +12,7 @@ Thankfully, [Amazon maintains](https://developer.amazon.com/docs/fire-tv/media-p
 
 In order to fully support FireOS, you will need to build separate APKs for Google and Amazon. This can be accomplised using gradle flavors.
 
-You will need to choose a ExoPlayer version that has been ported by Amazon, and that is close enough to the version that `react-native-music-pro` currently uses, in order to compile. In this example we have chosen to use `2.9.0`.
+You will need to choose a ExoPlayer version that has been ported by Amazon, and that is close enough to the version that `react-native-audio-pro` currently uses, in order to compile. In this example we have chosen to use `2.9.0`.
 
 ### Edit `app/build.gradle`
 
@@ -37,7 +37,7 @@ Override the exoplayer library, and version, by modifying the dependencies:
 
 ```
 dependencies {
-  compile (project(':react-native-music-pro')) {
+  compile (project(':react-native-audio-pro')) {
     exclude group: 'com.google.android.exoplayer'
   }
   googleImplementation 'com.google.android.exoplayer:exoplayer-core:2.10.1'

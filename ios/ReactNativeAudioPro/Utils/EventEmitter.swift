@@ -4,9 +4,9 @@ class EventEmitter {
 
     public static var shared = EventEmitter()
 
-    private var eventEmitter: RNTrackPlayer!
+    private var eventEmitter: ReactNativeAudioPro!
 
-    func register(eventEmitter: RNTrackPlayer) {
+    func register(eventEmitter: ReactNativeAudioPro) {
         self.eventEmitter = eventEmitter
     }
 

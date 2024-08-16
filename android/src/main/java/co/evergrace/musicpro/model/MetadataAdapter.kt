@@ -206,7 +206,7 @@ sealed class MetadataAdapter {
                 metadata.station?.let { putString("station", it.toString()) }
                 metadata.mediaType?.let { putInt("mediaType", it) }
 
-                // This is how SwiftAudioEx outputs it in the metadata dictionary
+                // This is how SwiftAudioPro outputs it in the metadata dictionary
                 (metadata.recordingDay to metadata.recordingMonth).let { (day, month) ->
                     // if both are not null, combine them into a single string
                     if (day != null && month != null) {

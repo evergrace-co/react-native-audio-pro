@@ -31,9 +31,9 @@ android/gradlew.bat
 
 windows/.vs/
 windows/ARM/
-windows/RNTrackPlayer/bin/
-windows/RNTrackPlayer/obj/
-windows/RNTrackPlayer/project.lock.json
+windows/ReactNativeAudioPro/bin/
+windows/ReactNativeAudioPro/obj/
+windows/ReactNativeAudioPro/project.lock.json
 
 # iOS
 
@@ -59,4 +59,4 @@ xcuserdata/
 *.dSYM.zip
 *.dSYM
 example/ios/Pods
-/ios/RNTrackPlayer.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+/ios/ReactNativeAudioPro.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist

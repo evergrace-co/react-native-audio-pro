@@ -14,7 +14,7 @@ import {
   View,
   Platform,
 } from 'react-native';
-import TrackPlayer, { useActiveTrack } from 'react-native-music-pro';
+import TrackPlayer, { useActiveTrack } from 'react-native-audio-pro';
 
 import {
   Button,

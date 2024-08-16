@@ -13,9 +13,9 @@ import android.support.v4.media.RatingCompat
 import androidx.annotation.MainThread
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_LOW
-import com.doublesymmetry.kotlinaudio.models.*
-import com.doublesymmetry.kotlinaudio.models.NotificationButton.*
-import com.doublesymmetry.kotlinaudio.players.QueuedAudioPlayer
+import co.evergrace.kotlinaudiopro.models.*
+import co.evergrace.kotlinaudiopro.models.NotificationButton.*
+import co.evergrace.kotlinaudiopro.players.QueuedAudioPlayer
 import co.evergrace.musicpro.R as TrackPlayerR
 import co.evergrace.musicpro.extensions.NumberExt.Companion.toMilliseconds
 import co.evergrace.musicpro.extensions.NumberExt.Companion.toSeconds
@@ -102,7 +102,7 @@ class MusicService : HeadlessJsTaskService() {
     /**
      * Workaround for the "Context.startForegroundService() did not then call Service.startForeground()"
      * within 5s" ANR and crash by creating an empty notification and stopping it right after. For more
-     * information see https://github.com/evergrace-co/react-native-music-pro/issues/1666
+     * information see https://github.com/evergrace-co/react-native-audio-pro/issues/1666
      */
     private fun startAndStopEmptyNotificationToAvoidANR() {
         val notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

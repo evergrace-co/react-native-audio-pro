@@ -3,8 +3,8 @@ package co.evergrace.musicpro.model
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import com.doublesymmetry.kotlinaudio.models.AudioItemOptions
-import com.doublesymmetry.kotlinaudio.models.MediaType
+import co.evergrace.kotlinaudiopro.models.AudioItemOptions
+import co.evergrace.kotlinaudiopro.models.MediaType
 import co.evergrace.musicpro.utils.BundleUtils
 import com.google.android.exoplayer2.upstream.RawResourceDataSource
 

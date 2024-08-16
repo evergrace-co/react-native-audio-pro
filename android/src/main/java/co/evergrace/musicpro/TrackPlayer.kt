@@ -8,7 +8,7 @@ import com.facebook.react.uimanager.ViewManager
 
 /**
  * TrackPlayer
- * https://github.com/react-native-kit/react-native-music-pro
+ * https://github.com/react-native-kit/react-native-audio-pro
  * @author Milen Pivchev @mpivchev
  */
 class TrackPlayer : ReactPackage {

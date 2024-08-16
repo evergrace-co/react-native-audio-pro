@@ -76,7 +76,7 @@ Sets the playback rate
 | ------ | -------- | --------------------------------- |
 | rate   | `number` | The playback rate where 1 is the regular speed |
 
-**Note:** If your rate is high, e.g. above 2, you may want to set the track's `pitchAlgorithm` to something like `PitchAlgorithm.Voice`, or else the default pitch algorithm (which in `SwiftAudioEx` drops down to `AVAudioTimePitchAlgorithm.lowQualityZeroLatency`) will likely
+**Note:** If your rate is high, e.g. above 2, you may want to set the track's `pitchAlgorithm` to something like `PitchAlgorithm.Voice`, or else the default pitch algorithm (which in `SwiftAudioPro` drops down to `AVAudioTimePitchAlgorithm.lowQualityZeroLatency`) will likely
 drop words in your audio.
 
 ## `getRate()`

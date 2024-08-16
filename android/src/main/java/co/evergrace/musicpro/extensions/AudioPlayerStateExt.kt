@@ -1,6 +1,6 @@
 package co.evergrace.musicpro.extensions
 
-import com.doublesymmetry.kotlinaudio.models.AudioPlayerState
+import co.evergrace.kotlinaudiopro.models.AudioPlayerState
 import co.evergrace.musicpro.model.State
 
 val AudioPlayerState.asLibState: State

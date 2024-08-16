@@ -1,6 +1,6 @@
 //
 //  SessionCategory.swift
-//  RNTrackPlayer
+//  ReactNativeAudioPro
 //
 //  Created by Thomas Hessler on 3/12/19.
 //  Copyright © 2019 David Chavez. All rights reserved.
@@ -12,7 +12,7 @@ import AVFoundation
 
 enum SessionCategory: String {
     case playAndRecord, multiRoute, playback, ambient, soloAmbient
-    
+
     func mapConfigToAVAudioSessionCategory() -> AVAudioSession.Category {
         switch self {
         case .playAndRecord:
@@ -31,7 +31,7 @@ enum SessionCategory: String {
 
 enum SessionCategoryPolicy: String {
     case `default`, longFormAudio, independent, longFormVideo
-    
+
     func mapConfigToAVAudioSessionCategoryPolicy() -> AVAudioSession.RouteSharingPolicy {
         switch self {
         case .default:
@@ -52,7 +52,7 @@ enum SessionCategoryPolicy: String {
 
 enum SessionCategoryMode: String {
     case `default`, gameChat, measurement, moviePlayback, spokenAudio, videoChat, videoRecording, voiceChat, voicePrompt
-    
+
     func mapConfigToAVAudioSessionCategoryMode() -> AVAudioSession.Mode {
         switch self {
         case .default:
@@ -84,7 +84,7 @@ enum SessionCategoryMode: String {
 
 enum SessionCategoryOptions : String {
     case mixWithOthers, duckOthers, interruptSpokenAudioAndMixWithOthers, allowBluetooth, allowBluetoothA2DP, allowAirPlay, defaultToSpeaker
-    
+
     func mapConfigToAVAudioSessionCategoryOptions() -> AVAudioSession.CategoryOptions? {
         switch self {
         case .mixWithOthers:

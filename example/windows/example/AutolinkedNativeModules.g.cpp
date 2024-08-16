@@ -6,8 +6,8 @@
 // Includes from @react-native-community/slider
 #include <winrt/SliderWindows.h>
 
-// Includes from react-native-music-pro
-#include <winrt/RNTrackPlayer.h>
+// Includes from react-native-audio-pro
+#include <winrt/ReactNativeAudioPro.h>
 
 namespace winrt::Microsoft::ReactNative
 {
@@ -16,8 +16,8 @@ void RegisterAutolinkedNativeModulePackages(winrt::Windows::Foundation::Collecti
 {
     // IReactPackageProviders from @react-native-community/slider
     packageProviders.Append(winrt::SliderWindows::ReactPackageProvider());
-    // IReactPackageProviders from react-native-music-pro
-    packageProviders.Append(winrt::RNTrackPlayer::ReactPackageProvider());
+    // IReactPackageProviders from react-native-audio-pro
+    packageProviders.Append(winrt::ReactNativeAudioPro::ReactPackageProvider());
 }
 
 }

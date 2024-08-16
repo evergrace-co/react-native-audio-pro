@@ -1,17 +1,9 @@
-//
-//  RNTrackPlayer.swift
-//  RNTrackPlayer
-//
-//  Created by David Chavez on 13.08.17.
-//  Copyright © 2017 David Chavez. All rights reserved.
-//
-
 import Foundation
 import MediaPlayer
-import SwiftAudioEx
+import SwiftAudioPro
 
-@objc(RNTrackPlayer)
-public class RNTrackPlayer: RCTEventEmitter, AudioSessionControllerDelegate {
+@objc(ReactNativeAudioPro)
+public class ReactNativeAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
 
     // MARK: - Attributes
 
@@ -299,7 +291,7 @@ public class RNTrackPlayer: RCTEventEmitter, AudioSessionControllerDelegate {
             try? audioSessionController.deactivateSession()
             return
         }
-        
+
         // activate the audio session when there is an item to be played
         // and the player has been configured to start when it is ready loading:
         if (player.playWhenReady) {
@@ -587,7 +579,7 @@ public class RNTrackPlayer: RCTEventEmitter, AudioSessionControllerDelegate {
     public func setRepeatMode(repeatMode: NSNumber, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
         if (rejectWhenNotInitialized(reject: reject)) { return }
 
-        player.repeatMode = SwiftAudioEx.RepeatMode(rawValue: repeatMode.intValue) ?? .off
+        player.repeatMode = SwiftAudioPro.RepeatMode(rawValue: repeatMode.intValue) ?? .off
         resolve(NSNull())
     }
 
@@ -812,12 +804,12 @@ public class RNTrackPlayer: RCTEventEmitter, AudioSessionControllerDelegate {
             ] as [String : Any])
         }
     }
-    
+
     func handleAudioPlayerCommonMetadataReceived(metadata: [AVMetadataItem]) {
         let commonMetadata = MetadataAdapter.convertToCommonMetadata(metadata: metadata, skipRaw: true)
         emit(event: EventType.MetadataCommonReceived, body: ["metadata": commonMetadata])
     }
-    
+
     func handleAudioPlayerChapterMetadataReceived(metadata: [AVTimedMetadataGroup]) {
         let metadataItems = MetadataAdapter.convertToGroupedMetadata(metadataGroups: metadata);
         emit(event: EventType.MetadataChapterReceived, body:  ["metadata": metadataItems])
@@ -826,8 +818,8 @@ public class RNTrackPlayer: RCTEventEmitter, AudioSessionControllerDelegate {
     func handleAudioPlayerTimedMetadataReceived(metadata: [AVTimedMetadataGroup]) {
         let metadataItems = MetadataAdapter.convertToGroupedMetadata(metadataGroups: metadata);
         emit(event: EventType.MetadataTimedReceived, body: ["metadata": metadataItems])
-        
-        // SwiftAudioEx was updated to return the array of timed metadata
+
+        // SwiftAudioPro was updated to return the array of timed metadata
         // Until we have support for that in RNTP, we take the first item to keep existing behaviour.
         let metadata = metadata.first?.items ?? []
         let metadataItem = MetadataAdapter.legacyConversion(metadata: metadata)

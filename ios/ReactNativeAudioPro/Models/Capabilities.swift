@@ -1,13 +1,13 @@
 //
 //  Capabilities.swift
-//  RNTrackPlayer
+//  ReactNativeAudioPro
 //
 //  Created by David Chavez on 07.09.17.
 //  Copyright © 2017 David Chavez. All rights reserved.
 //
 
 import Foundation
-import SwiftAudioEx
+import SwiftAudioPro
 
 enum Capability: String {
     case play, pause, togglePlayPause, stop, next, previous, jumpForward, jumpBackward, seek, like, dislike, bookmark

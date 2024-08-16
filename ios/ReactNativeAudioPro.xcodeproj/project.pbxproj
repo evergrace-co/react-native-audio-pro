@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		9A0CF10E2046E5AC0093A5DF /* PitchAlgorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0CF10D2046E5AC0093A5DF /* PitchAlgorithms.swift */; };
-		9B0E282E1F07D76F00B71D2A /* RNTrackPlayerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E282D1F07D76F00B71D2A /* RNTrackPlayerBridge.m */; };
-		9B0E282F1F07D76F00B71D2A /* RNTrackPlayerBridge.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9B0E282C1F07D76F00B71D2A /* RNTrackPlayerBridge.h */; };
+		9B0E282E1F07D76F00B71D2A /* ReactNativeAudioProBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E282D1F07D76F00B71D2A /* ReactNativeAudioProBridge.m */; };
+		9B0E282F1F07D76F00B71D2A /* ReactNativeAudioProBridge.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9B0E282C1F07D76F00B71D2A /* ReactNativeAudioProBridge.h */; };
 		9B18C2FA226356560019375A /* SessionCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B18C2F9226356560019375A /* SessionCategories.swift */; };
-		9B58DF3B1F40C0F000C2105E /* RNTrackPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B58DF3A1F40C0F000C2105E /* RNTrackPlayer.swift */; };
+		9B58DF3B1F40C0F000C2105E /* ReactNativeAudioPro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B58DF3A1F40C0F000C2105E /* ReactNativeAudioPro.swift */; };
 		9B78A2461F3F12BC002B5E3C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A2451F3F12BC002B5E3C /* Track.swift */; };
 		9B78A2481F3F12C9002B5E3C /* MediaURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B78A2471F3F12C9002B5E3C /* MediaURL.swift */; };
 		9BFC1FDD1F61A8E8008795BF /* Capabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC1FDC1F61A8E8008795BF /* Capabilities.swift */; };
@@ -27,7 +27,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				9B0E282F1F07D76F00B71D2A /* RNTrackPlayerBridge.h in CopyFiles */,
+				9B0E282F1F07D76F00B71D2A /* ReactNativeAudioProBridge.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35,15 +35,15 @@
 
 /* Begin PBXFileReference section */
 		9A0CF10D2046E5AC0093A5DF /* PitchAlgorithms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchAlgorithms.swift; sourceTree = "<group>"; };
-		9B0E28291F07D76F00B71D2A /* libRNTrackPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNTrackPlayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B0E282C1F07D76F00B71D2A /* RNTrackPlayerBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTrackPlayerBridge.h; sourceTree = "<group>"; };
-		9B0E282D1F07D76F00B71D2A /* RNTrackPlayerBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTrackPlayerBridge.m; sourceTree = "<group>"; };
+		9B0E28291F07D76F00B71D2A /* libReactNativeAudioPro.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReactNativeAudioPro.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B0E282C1F07D76F00B71D2A /* ReactNativeAudioProBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReactNativeAudioProBridge.h; sourceTree = "<group>"; };
+		9B0E282D1F07D76F00B71D2A /* ReactNativeAudioProBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactNativeAudioProBridge.m; sourceTree = "<group>"; };
 		9B18C2F9226356560019375A /* SessionCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCategories.swift; sourceTree = "<group>"; };
-		9B58DF3A1F40C0F000C2105E /* RNTrackPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNTrackPlayer.swift; sourceTree = "<group>"; };
+		9B58DF3A1F40C0F000C2105E /* ReactNativeAudioPro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeAudioPro.swift; sourceTree = "<group>"; };
 		9B70466422BFFDEE00065A77 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
 		9B78A2451F3F12BC002B5E3C /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		9B78A2471F3F12C9002B5E3C /* MediaURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaURL.swift; sourceTree = "<group>"; };
-		9BFBA4D01F3DFA3F00453D3A /* RNTrackPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNTrackPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		9BFBA4D01F3DFA3F00453D3A /* ReactNativeAudioPro-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactNativeAudioPro-Bridging-Header.h"; sourceTree = "<group>"; };
 		9BFC1FDC1F61A8E8008795BF /* Capabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capabilities.swift; sourceTree = "<group>"; };
 		F03B44952912BCA50035FE01 /* EventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
 		F03B44962912BCA50035FE01 /* EventEmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEmitter.swift; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 		9B0E28201F07D76E00B71D2A = {
 			isa = PBXGroup;
 			children = (
-				9B0E282B1F07D76F00B71D2A /* RNTrackPlayer */,
+				9B0E282B1F07D76F00B71D2A /* ReactNativeAudioPro */,
 				9B0E282A1F07D76F00B71D2A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,22 +71,22 @@
 		9B0E282A1F07D76F00B71D2A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9B0E28291F07D76F00B71D2A /* libRNTrackPlayer.a */,
+				9B0E28291F07D76F00B71D2A /* libReactNativeAudioPro.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9B0E282B1F07D76F00B71D2A /* RNTrackPlayer */ = {
+		9B0E282B1F07D76F00B71D2A /* ReactNativeAudioPro */ = {
 			isa = PBXGroup;
 			children = (
 				9B70466322BFFDDD00065A77 /* Utils */,
 				9BFBA4D31F3DFA4B00453D3A /* Support */,
 				9B0E287A1F0831A400B71D2A /* Models */,
-				9B0E282C1F07D76F00B71D2A /* RNTrackPlayerBridge.h */,
-				9B0E282D1F07D76F00B71D2A /* RNTrackPlayerBridge.m */,
-				9B58DF3A1F40C0F000C2105E /* RNTrackPlayer.swift */,
+				9B0E282C1F07D76F00B71D2A /* ReactNativeAudioProBridge.h */,
+				9B0E282D1F07D76F00B71D2A /* ReactNativeAudioProBridge.m */,
+				9B58DF3A1F40C0F000C2105E /* ReactNativeAudioPro.swift */,
 			);
-			path = RNTrackPlayer;
+			path = ReactNativeAudioPro;
 			sourceTree = "<group>";
 		};
 		9B0E287A1F0831A400B71D2A /* Models */ = {
@@ -114,7 +114,7 @@
 		9BFBA4D31F3DFA4B00453D3A /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				9BFBA4D01F3DFA3F00453D3A /* RNTrackPlayer-Bridging-Header.h */,
+				9BFBA4D01F3DFA3F00453D3A /* ReactNativeAudioPro-Bridging-Header.h */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -122,9 +122,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9B0E28281F07D76F00B71D2A /* RNTrackPlayer */ = {
+		9B0E28281F07D76F00B71D2A /* ReactNativeAudioPro */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B0E28321F07D76F00B71D2A /* Build configuration list for PBXNativeTarget "RNTrackPlayer" */;
+			buildConfigurationList = 9B0E28321F07D76F00B71D2A /* Build configuration list for PBXNativeTarget "ReactNativeAudioPro" */;
 			buildPhases = (
 				9B0E28251F07D76F00B71D2A /* Sources */,
 				9B0E28261F07D76F00B71D2A /* Frameworks */,
@@ -134,9 +134,9 @@
 			);
 			dependencies = (
 			);
-			name = RNTrackPlayer;
-			productName = RNTrackPlayer;
-			productReference = 9B0E28291F07D76F00B71D2A /* libRNTrackPlayer.a */;
+			name = ReactNativeAudioPro;
+			productName = ReactNativeAudioPro;
+			productReference = 9B0E28291F07D76F00B71D2A /* libReactNativeAudioPro.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -154,7 +154,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9B0E28241F07D76E00B71D2A /* Build configuration list for PBXProject "RNTrackPlayer" */;
+			buildConfigurationList = 9B0E28241F07D76E00B71D2A /* Build configuration list for PBXProject "ReactNativeAudioPro" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -166,7 +166,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9B0E28281F07D76F00B71D2A /* RNTrackPlayer */,
+				9B0E28281F07D76F00B71D2A /* ReactNativeAudioPro */,
 			);
 		};
 /* End PBXProject section */
@@ -176,7 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B0E282E1F07D76F00B71D2A /* RNTrackPlayerBridge.m in Sources */,
+				9B0E282E1F07D76F00B71D2A /* ReactNativeAudioProBridge.m in Sources */,
 				9B18C2FA226356560019375A /* SessionCategories.swift in Sources */,
 				BF227390244F344D00A9893D /* Metadata.swift in Sources */,
 				F03B44982912BCA50035FE01 /* EventEmitter.swift in Sources */,
@@ -185,7 +185,7 @@
 				9BFC1FDD1F61A8E8008795BF /* Capabilities.swift in Sources */,
 				9B78A2461F3F12BC002B5E3C /* Track.swift in Sources */,
 				9A0CF10E2046E5AC0093A5DF /* PitchAlgorithms.swift in Sources */,
-				9B58DF3B1F40C0F000C2105E /* RNTrackPlayer.swift in Sources */,
+				9B58DF3B1F40C0F000C2105E /* ReactNativeAudioPro.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,7 +312,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "RNTrackPlayer/Support/RNTrackPlayer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "ReactNativeAudioPro/Support/ReactNativeAudioPro-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -337,7 +337,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "RNTrackPlayer/Support/RNTrackPlayer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "ReactNativeAudioPro/Support/ReactNativeAudioPro-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -346,7 +346,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9B0E28241F07D76E00B71D2A /* Build configuration list for PBXProject "RNTrackPlayer" */ = {
+		9B0E28241F07D76E00B71D2A /* Build configuration list for PBXProject "ReactNativeAudioPro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B0E28301F07D76F00B71D2A /* Debug */,
@@ -355,7 +355,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B0E28321F07D76F00B71D2A /* Build configuration list for PBXNativeTarget "RNTrackPlayer" */ = {
+		9B0E28321F07D76F00B71D2A /* Build configuration list for PBXNativeTarget "ReactNativeAudioPro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B0E28331F07D76F00B71D2A /* Debug */,

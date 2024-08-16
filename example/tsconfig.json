@@ -2,7 +2,7 @@
   "extends": "./node_modules/@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "react-native-music-pro": [
+      "react-native-audio-pro": [
         "../src/index.ts"
       ]
     },

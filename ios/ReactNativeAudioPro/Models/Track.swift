@@ -1,6 +1,6 @@
 //
 //  Track.swift
-//  RNTrackPlayer
+//  ReactNativeAudioPro
 //
 //  Created by David Chavez on 12.08.17.
 //  Copyright © 2017 David Chavez. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import MediaPlayer
 import AVFoundation
-import SwiftAudioEx
+import SwiftAudioPro
 
 class Track: AudioItem, TimePitching, AssetOptionsProviding {
     let url: MediaURL

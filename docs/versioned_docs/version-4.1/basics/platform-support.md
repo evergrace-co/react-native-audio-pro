@@ -33,7 +33,7 @@ sidebar_position: 5
 | Miracast/DLNA | ❌ | ❌ | ❌ |
 | AirPlay | ❌ | ❌ | ❌ |
 
-¹: Google Cast support has been moved to [react-native-track-casting (WIP)](https://github.com/react-native-kit/react-native-track-casting) which can be used in combination with `react-native-music-pro`.
+¹: Google Cast support has been moved to [react-native-track-casting (WIP)](https://github.com/react-native-kit/react-native-track-casting) which can be used in combination with `react-native-audio-pro`.
 
 ## Miscellaneous
 

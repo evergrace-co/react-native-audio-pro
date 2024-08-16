@@ -78,6 +78,6 @@ The [`getTrack()`](./api/functions/queue.md#gettrack) function now returns `unde
 
 1. If you were using deep imports from RNTP, the `src` has been completely
 reorganized, and so you may need to adjust your imports accordingly. If you've
-been importing everything directly (ex. `import ... from 'react-native-music-pro';`)
+been importing everything directly (ex. `import ... from 'react-native-audio-pro';`)
 then you don't need to do anything.
 1. The `PlaybackStateEvent` interface has been renamed to `PlaybackState`

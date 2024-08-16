@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import TrackPlayer, { usePlaybackState } from 'react-native-music-pro';
+import TrackPlayer, { usePlaybackState } from 'react-native-audio-pro';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 
 import { PlaybackError } from './PlaybackError';

@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.summary = package["description"]
   s.license = package["license"]
 
-  s.author = "David Chavez"
+  s.author = "Brad Flood"
   s.homepage = package["repository"]["url"]
   s.platform = :ios, "11.0"
 
@@ -18,5 +18,5 @@ Pod::Spec.new do |s|
   s.swift_version = "4.2"
 
   s.dependency "React-Core"
-  s.dependency "SwiftAudioEx", "1.1.0"
+  s.dependency "SwiftAudioPro", "1.1.0"
 end
