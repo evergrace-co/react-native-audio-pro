@@ -7,9 +7,6 @@ import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter
 
-/**
- * @author Milen Pivchev @mpivchev
- */
 class MusicEvents(private val reactContext: ReactContext) : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val event = intent.getStringExtra("event")

@@ -25,10 +25,6 @@ import timber.log.Timber
 import java.util.*
 import javax.annotation.Nonnull
 
-
-/**
- * @author Milen Pivchev @mpivchev
- */
 class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext),
     ServiceConnection {
     private var playerOptions: Bundle? = null

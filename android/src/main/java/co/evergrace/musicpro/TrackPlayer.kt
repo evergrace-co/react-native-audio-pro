@@ -6,10 +6,6 @@ import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager
 
-/**
- * AudioPro
- * https://github.com/evergrace-co/react-native-audio-pro
- */
 class AudioPro : ReactPackage {
     override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
         return listOf(MusicModule(reactContext))

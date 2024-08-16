@@ -8,9 +8,6 @@ import co.evergrace.kotlinaudiopro.models.MediaType
 import co.evergrace.musicpro.utils.BundleUtils
 import com.google.android.exoplayer2.upstream.RawResourceDataSource
 
-/**
- * @author Milen Pivchev @mpivchev
- */
 class Track(context: Context, bundle: Bundle, ratingType: Int) : TrackMetadata() {
     var uri: Uri? = null
     var resourceId: Int?

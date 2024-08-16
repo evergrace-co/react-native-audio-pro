@@ -49,9 +49,9 @@ To customize it, put the example below inside your project folder.
 <!-- YOUR_PROJECT_DIR/android/app/src/main/res/values/strings.xml -->
 <resources>
     <!-- rtnp channel id -->
-    <string name="rntp_temporary_channel_id">temporary_channel</string>
+    <string name="rnap_temporary_channel_id">temporary_channel</string>
     <!-- rtnp channel name -->
-    <string name="rntp_temporary_channel_name">temporary_channel</string>
+    <string name="rnap_temporary_channel_name">temporary_channel</string>
     <!-- playback_channel_name used by KotlinAudio in rntp -->
     <string name="playback_channel_name">Music Player</string>
 </resources>

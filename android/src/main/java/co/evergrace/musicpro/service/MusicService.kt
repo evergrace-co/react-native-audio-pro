@@ -108,11 +108,11 @@ class MusicService : HeadlessJsTaskService() {
         val notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(
-                NotificationChannel(getString(AudioProR.string.rntp_temporary_channel_id), getString(AudioProR.string.rntp_temporary_channel_name), NotificationManager.IMPORTANCE_LOW)
+                NotificationChannel(getString(AudioProR.string.rnap_temporary_channel_id), getString(AudioProR.string.rnap_temporary_channel_name), NotificationManager.IMPORTANCE_LOW)
             )
         }
 
-        val notificationBuilder = NotificationCompat.Builder(this, getString(AudioProR.string.rntp_temporary_channel_id))
+        val notificationBuilder = NotificationCompat.Builder(this, getString(AudioProR.string.rnap_temporary_channel_id))
             .setPriority(PRIORITY_LOW)
             .setCategory(Notification.CATEGORY_SERVICE)
             .setSmallIcon(ExoPlayerR.drawable.exo_notification_small_icon)

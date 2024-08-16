@@ -7,9 +7,6 @@ import android.os.Bundle
 import android.support.v4.media.RatingCompat
 import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper
 
-/**
- * @author Milen Pivchev @mpivchev
- */
 object BundleUtils {
     fun getUri(context: Context, data: Bundle?, key: String?): Uri? {
         if (!data!!.containsKey(key)) return null
