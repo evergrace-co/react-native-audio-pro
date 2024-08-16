@@ -13,9 +13,9 @@ Due to how Android handles foreground services, it's not possible for us to stop
     quickly go back to the app by tapping on it.
 - The `destroy` function does not exist anymore. 
 - The `stopWithApp` flag turns into `stoppingAppPausesPlayback` 
-    - [More information here](https://github.com/doublesymmetry/react-native-track-player/pull/1447#issuecomment-1195246389)
+    - [More information here](https://github.com/evergrace-co/react-native-track-player/pull/1447#issuecomment-1195246389)
 
-The full changelog of added features and bug fixes [can be found here](https://github.com/doublesymmetry/react-native-track-player/releases/tag/v3.0).
+The full changelog of added features and bug fixes [can be found here](https://github.com/evergrace-co/react-native-track-player/releases/tag/v3.0).
 
 When migrating from v2 to v3, the following has changed:
 

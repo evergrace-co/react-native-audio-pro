@@ -31,7 +31,7 @@ export const useTrackPlayerEvents = <
           'One or more of the events provided to useTrackPlayerEvents is ' +
             `not a valid TrackPlayer event: ${invalidTypes.join("', '")}. ` +
             'A list of available events can be found at ' +
-            'https://rntp.dev/docs/api/events'
+            'https://evergrace-co.github.io/react-native-music-pro/docs/api/events'
         );
       }
     }

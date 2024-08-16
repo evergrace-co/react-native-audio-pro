@@ -5,7 +5,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import TrackPlayer, { useIsPlaying } from 'react-native-track-player';
+import TrackPlayer, { useIsPlaying } from 'react-native-music-pro';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 
 export const PlayPauseButton: React.FC = () => {

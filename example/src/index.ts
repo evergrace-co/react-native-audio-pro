@@ -3,7 +3,7 @@
  ************************************************/
 import { AppRegistry } from 'react-native';
 import App from './App';
-import TrackPlayer from 'react-native-track-player';
+import TrackPlayer from 'react-native-music-pro';
 import { PlaybackService } from './services';
 import 'mux.js';
 

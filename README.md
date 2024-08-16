@@ -1,38 +1,20 @@
-<img src="https:/rntp.dev/img/optimized-logo.svg" width="300" />
-
-[![downloads](https://img.shields.io/npm/dw/react-native-track-player.svg)](https://www.npmjs.com/package/react-native-track-player)
-[![npm](https://img.shields.io/npm/v/react-native-track-player.svg)](https://www.npmjs.com/package/react-native-track-player)
-[![discord](https://img.shields.io/discord/567636850513018880.svg)](https://discordapp.com/invite/ya2XDCR)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![downloads](https://img.shields.io/npm/dw/react-native-music-pro.svg)](https://www.npmjs.com/package/react-native-music-pro)
+[![npm](https://img.shields.io/npm/v/react-native-music-pro.svg)](https://www.npmjs.com/package/react-native-music-pro)
 
 ----
 
 A fully-fledged audio module created for music apps. Provides audio playback, external media controls, background mode and more!
 
-<div align="left" valign="middle">
-<a href="https://runblaze.dev">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://www.runblaze.dev/logo_dark.png">
-   <img align="right" src="https://www.runblaze.dev/logo_light.png" height="102px"/>
- </picture>
-</a>
-
-<br style="display: none;"/>
-
-_[Blaze](https://runblaze.dev) sponsors RNTP by providing super fast Apple Silicon based macOS Github Action Runners. Use the discount code `RNTP50` at checkout to get 50% off your first year._
-
-</div>
-
 ## Overview
 
-- [Documentation](https://rntp.dev)
-  * [Installation](https://rntp.dev/docs/basics/installation/)
-  * [Getting Started](https://rntp.dev/docs/basics/getting-started/)
-  * [API Docs](https://rntp.dev/docs/api/events)
-  * [Platform Support](https://rntp.dev/docs/basics/platform-support)
-  * [Background Mode](https://rntp.dev/docs/basics/background-mode)
-  * [Build Preferences](https://rntp.dev/docs/basics/build-preferences)
-  * [v2 Migration Guide](https://rntp.dev/docs/v2-migration)
+- [Documentation](https://evergrace-co.github.io/react-native-music-pro)
+  * [Installation](https://evergrace-co.github.io/react-native-music-pro/docs/basics/installation/)
+  * [Getting Started](https://evergrace-co.github.io/react-native-music-pro/docs/basics/getting-started/)
+  * [API Docs](https://evergrace-co.github.io/react-native-music-pro/docs/api/events)
+  * [Platform Support](https://evergrace-co.github.io/react-native-music-pro/docs/basics/platform-support)
+  * [Background Mode](https://evergrace-co.github.io/react-native-music-pro/docs/basics/background-mode)
+  * [Build Preferences](https://evergrace-co.github.io/react-native-music-pro/docs/basics/build-preferences)
+  * [v2 Migration Guide](https://evergrace-co.github.io/react-native-music-pro/docs/v2-migration)
 - [Sponsors](#sponsors)
 - [Features](#features)
 - [Why another music module?](#why-another-music-module)
@@ -44,15 +26,9 @@ _[Blaze](https://runblaze.dev) sponsors RNTP by providing super fast Apple Silic
 
 Not sure where to start?
 
-1. Try [Getting Started](https://rntp.dev/docs/basics/getting-started).
-2. Peruse the [API Docs](https://rntp.dev/docs/api/events).
+1. Try [Getting Started](https://evergrace-co.github.io/react-native-music-pro/docs/basics/getting-started).
+2. Peruse the [API Docs](https://evergrace-co.github.io/react-native-music-pro/docs/api/events).
 3. Run the [Example Project](/example).
-
-## Commerical Usage
-
-**Are you using RNTP for a personal project?** Great! Sponsor us if you're able but otherwise you can support us by reporting any bugs you find, sending us screenshots of your projects and starring us on Github 🌟
-
-**Are you using RNTP at your organisation and/or making money from it?** Awesome! We rely on your support to keep RNTP developed and maintained under the Apache-2.0 license. You can do that through [Github Sponsors](https://github.com/sponsors/doublesymmetry).
 
 ## Features
 
@@ -78,10 +54,10 @@ All audio modules (like `react-native-sound`) don't play in a separated service 
 
 ## Example Setup
 
-First please take a look at the [Getting Started](https://rntp.dev/docs/basics/getting-started/) guide, but a basic example of how to play a track:
+First please take a look at the [Getting Started](https://evergrace-co.github.io/react-native-music-pro/docs/basics/getting-started/) guide, but a basic example of how to play a track:
 
 ```javascript
-import TrackPlayer from 'react-native-track-player';
+import TrackPlayer from 'react-native-music-pro';
 
 const start = async () => {
     // Set up the player
@@ -101,33 +77,6 @@ const start = async () => {
 };
 start();
 ```
-
-## Core Team ✨
-
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/dcvz"><img src="https://avatars.githubusercontent.com/u/2475932?v=4" width="100px;" alt=""/><br /><sub><b>David Chavez</b></sub></a><br /></td>
-  </tr>
-</table>
-
-## External Core Contributors ✨
-
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/jspizziri"><img src="https://avatars.githubusercontent.com/u/1452066?v=4" width="100px;" alt=""/><br /><sub><b>Jacob Spizziri</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/puckey"><img src="https://avatars.githubusercontent.com/u/271885?v=4" width="100px;" alt=""/><br /><sub><b>Jonathan Puckey</b></sub></a><br /></td>
-  </tr>
-</table>
-
-## Special Thanks ✨
-
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/Guichaguri"><img src="https://avatars.githubusercontent.com/u/1813032?v=4" width="100px;" alt=""/><br /><sub><b>Guilherme Chaguri</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/curiousdustin"><img src="https://avatars.githubusercontent.com/u/1706540?v=4" width="100px;" alt=""/><br /><sub><b>Dustin Bahr</b></sub></a><br /></td>
-  </tr>
-</table>
-
 ## Contributing
 
 You want this package to be awesome and we want to deliver on that. As you know
@@ -205,13 +154,3 @@ This command will:
 2. Bump the package version
 3. Tag & pushing the commit
 4. Build & publish the package
-
-
-## Community
-
-You can find us as part of the [React Native Track Player](https://discordapp.com/invite/ya2XDCR):
-
-- `#introduce-yourself` - Come greet the newest members of this group!
-- `#troubleshooting-forum` - Ask members of the community to trouble shoot issues with your app and make recommendations.
-- `#show-and-tell` - Tell the community about the app you made with this project!
-- `#news-and-releases` - Stay updated about the latest releases and dev efforts on the project.

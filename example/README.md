@@ -6,8 +6,8 @@ implementing new features and/or bugfixes.
 ## Running The Example App
 
 ```sh
-git clone git@github.com:DoubleSymmetry/react-native-track-player.git
-cd react-native-track-player
+git clone git@github.com:evergrace-co/react-native-music-pro.git
+cd react-native-music-pro
 yarn
 yarn build
 cd example
@@ -52,11 +52,11 @@ yarn example ios:ide
 
 Once opened you can simply navigate to the native dependencies, open their
 source files, modify them, or add breakpoints. See the screenshots below for
-specifically how to navigate to react-native-track-player and SwiftAudioEx
+specifically how to navigate to react-native-music-pro and SwiftAudioEx
 dependencies (see screenshots below).
 
-![Xcode RNTP](https://rntp.dev/img/debugging/debug-ios-rntp.png)
-![Xcode SwiftAudioEx](https://rntp.dev/img/debugging/debug-ios-swift-audio-ex.png)
+![Xcode RNTP](https://evergrace-co.github.io/react-native-music-pro/img/debugging/debug-ios-rntp.png)
+![Xcode SwiftAudioEx](https://evergrace-co.github.io/react-native-music-pro/img/debugging/debug-ios-swift-audio-ex.png)
 
 ## Android Native
 
@@ -115,7 +115,7 @@ Please note that `<version_number>` below will need to be replaced with the
 `versionNumber` you got from `KotlinAudio/kotlin-audio/build.gradle`.
 
 ```groovy
-// react-native-track-player/android/build.gradle
+// react-native-music-pro/android/build.gradle
 ...
 
 dependencies {

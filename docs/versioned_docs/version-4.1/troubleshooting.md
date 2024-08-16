@@ -33,7 +33,7 @@ This error occurs when you're mixing both AndroidX and the Support Library in th
 You have to either upgrade everything to AndroidX or downgrade everything to the support library.
 
 
-* For react-native-track-player, the last version to run the support library is **1.1.4** and the first version to run AndroidX is **1.2.0**.
+* For react-native-music-pro, the last version to run the support library is **1.1.4** and the first version to run AndroidX is **1.2.0**.
 * For react-native, the last version to run the support library is **0.59** and the first version to run AndroidX is **0.60**.
 
 You can also use [jetifier](https://github.com/mikehardy/jetifier#usage-for-source-files) to convert all of the native code to use only one of them.

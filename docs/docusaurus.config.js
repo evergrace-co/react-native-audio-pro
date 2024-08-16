@@ -8,13 +8,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'React Native Track Player',
   tagline: 'A fully fledged audio module created for music apps',
-  url: 'https://rntp.dev',
+  url: 'https://evergrace-co.github.io/react-native-music-pro',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.png',
   organizationName: 'doublesymmetry',
-  projectName: 'react-native-track-player',
+  projectName: 'react-native-music-pro',
   deploymentBranch: 'main',
   trailingSlash: false,
 
@@ -25,7 +25,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/doublesymmetry/react-native-track-player/tree/main/docs/',
+          editUrl: 'https://github.com/evergrace-co/react-native-music-pro/tree/main/docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -63,7 +63,7 @@ const config = {
             label: 'Docs',
           },
           {
-            href: 'https://github.com/doublesymmetry/react-native-track-player',
+            href: 'https://github.com/evergrace-co/react-native-music-pro',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',
@@ -95,7 +95,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/doublesymmetry/react-native-track-player',
+                href: 'https://github.com/evergrace-co/react-native-music-pro',
               },
               {
                 label: 'Discord',
@@ -103,7 +103,7 @@ const config = {
               },
               {
                 label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/react-native-track-player',
+                href: 'https://stackoverflow.com/questions/tagged/react-native-music-pro',
               },
             ],
           },
@@ -126,7 +126,7 @@ const config = {
       algolia: {
         appId: 'CYSR91W7SU',
         apiKey: 'a5ab4af3642fdd7fbc07030593017797',
-        indexName: 'react-native-track-player',
+        indexName: 'react-native-music-pro',
         contextualSearch: true,
       },
     }),

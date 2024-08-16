@@ -1,6 +1,6 @@
 {
-  "name": "react-native-track-player",
-  "version": "4.1.1",
+  "name": "react-native-music-pro",
+  "version": "0.0.1",
   "description": "A fully fledged audio module created for music apps",
   "main": "lib/src/index.js",
   "types": "lib/src/index.d.ts",
@@ -36,22 +36,7 @@
     "web/**/*",
     "*.podspec"
   ],
-  "contributors": [
-    {
-      "name": "David Chavez",
-      "email": "david@dcvz.io",
-      "url": "http://dcvz.io"
-    },
-    {
-      "name": "Guilherme Chaguri",
-      "email": "guichaguri@gmail.com",
-      "url": "http://guichaguri.com"
-    },
-    {
-      "name": "Dustin Bahr",
-      "email": "dustin@curiousmedia.com"
-    }
-  ],
+  "contributors": [],
   "keywords": [
     "react",
     "react-native",
@@ -70,10 +55,10 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/doublesymmetry/react-native-track-player.git"
+    "url": "https://github.com/evergrace-co/react-native-music-pro.git"
   },
   "bugs": {
-    "url": "https://github.com/doublesymmetry/react-native-track-player/issues"
+    "url": "https://github.com/evergrace-co/react-native-music-pro/issues"
   },
   "peerDependencies": {
     "react": ">=16.8.6",
@@ -107,7 +92,7 @@
     "shaka-player": "^4.7.9",
     "typescript": "^4.8.2"
   },
-  "funding": "https://github.com/doublesymmetry/react-native-track-player?sponsor=1",
+  "funding": "https://github.com/evergrace-co/react-native-music-pro?sponsor=1",
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"

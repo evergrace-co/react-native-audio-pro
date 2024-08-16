@@ -16,11 +16,11 @@ How can someone else reproduce this bug?
 Please provide a simple code example that allows others to replicate the bug.
 
 **Replicable on Example App?**
-Can you replicate this bug in the [React Native Track Player Example App](https://github.com/doublesymmetry/react-native-track-player/tree/main/example)?
+Can you replicate this bug in the [React Native Track Player Example App](https://github.com/evergrace-co/react-native-music-pro/tree/main/example)?
 
 **Environment Info:**
 Paste the results of `npx react-native info`
-Paste the exact `react-native-track-player` version you are using
+Paste the exact `react-native-music-pro` version you are using
 Real device? Or simulator?
 What OS are you running?
 

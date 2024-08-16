@@ -44,7 +44,7 @@ import TrackPlayer, {
 +  RatingType,
 +  Event,
 +  RepeatMode
-} from 'react-native-track-player'
+} from 'react-native-music-pro'
 
 // Hooks
 

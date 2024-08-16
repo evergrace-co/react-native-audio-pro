@@ -69,7 +69,7 @@ const track3 = {
     duration: 411
 };
 
-// You can then [add](https://rntp.dev/docs/api/functions/queue#addtracks-insertbeforeindex) the items to the queue
+// You can then [add](https://evergrace-co.github.io/react-native-music-pro/docs/api/functions/queue#addtracks-insertbeforeindex) the items to the queue
 await TrackPlayer.add([track1, track2, track3]);
 ```
 

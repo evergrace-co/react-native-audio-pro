@@ -9,7 +9,7 @@ module.exports = {
   webpack: {
     alias: {
       'react-native$': 'react-native-web',
-      'react-native-track-player': path.resolve(__dirname, '../'),
+      'react-native-music-pro': path.resolve(__dirname, '../'),
       // make sure we don't include multiple versions of react
       'react': path.resolve(__dirname, './node_modules/react'),
     },

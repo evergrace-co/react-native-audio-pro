@@ -23,7 +23,7 @@ TrackPlayer.registerPlaybackService(() => PlaybackService);
 
 ```ts
 // src/services/PlaybackService.ts
-import { Event } from 'react-native-track-player';
+import { Event } from 'react-native-music-pro';
 
 export const PlaybackService = async function() {
 
@@ -38,7 +38,7 @@ export const PlaybackService = async function() {
 
 ## Custom Media Controls Notification id & name
 
-react-native-track-player is using media controls.
+react-native-music-pro is using media controls.
 As a result, it creates a notification channel.
  - More information read here: https://developer.android.com/media/implement/surfaces/mobile
 

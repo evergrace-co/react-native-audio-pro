@@ -53,7 +53,7 @@ function resolveImportedAsset(id?: number) {
  * the app to be in the foreground and try again.
  *
  * @param options The options to initialize the player with.
- * @see https://rntp.dev/docs/api/functions/lifecycle
+ * @see https://evergrace-co.github.io/react-native-music-pro/docs/api/functions/lifecycle
  */
 export async function setupPlayer(options: PlayerOptions = {}): Promise<void> {
   return TrackPlayer.setupPlayer(options);
@@ -217,7 +217,7 @@ export async function skipToPrevious(initialPosition = -1): Promise<void> {
  * Updates the configuration for the components.
  *
  * @param options The options to update.
- * @see https://rntp.dev/docs/api/functions/player#updateoptionsoptions
+ * @see https://evergrace-co.github.io/react-native-music-pro/docs/api/functions/player#updateoptionsoptions
  */
 export async function updateOptions({
   alwaysPauseOnInterruption,
@@ -262,7 +262,7 @@ export async function updateMetadataForTrack(
 /**
  * @deprecated Nominated for removal in the next major version. If you object
  * to this, please describe your use-case in the following issue:
- * https://github.com/doublesymmetry/react-native-track-player/issues/1653
+ * https://github.com/evergrace-co/react-native-track-player/issues/1653
  */
 export function clearNowPlayingMetadata(): Promise<void> {
   return TrackPlayer.clearNowPlayingMetadata();
@@ -370,7 +370,7 @@ export async function setRate(rate: number): Promise<void> {
  * Sets the queue.
  *
  * @param tracks The tracks to set as the queue.
- * @see https://rntp.dev/docs/api/constants/repeat-mode
+ * @see https://evergrace-co.github.io/react-native-music-pro/docs/api/constants/repeat-mode
  */
 export async function setQueue(tracks: Track[]): Promise<void> {
   return TrackPlayer.setQueue(tracks);
@@ -380,7 +380,7 @@ export async function setQueue(tracks: Track[]): Promise<void> {
  * Sets the queue repeat mode.
  *
  * @param repeatMode The repeat mode to set.
- * @see https://rntp.dev/docs/api/constants/repeat-mode
+ * @see https://evergrace-co.github.io/react-native-music-pro/docs/api/constants/repeat-mode
  */
 export async function setRepeatMode(mode: RepeatMode): Promise<RepeatMode> {
   return TrackPlayer.setRepeatMode(mode);
@@ -489,7 +489,7 @@ export async function getState(): Promise<State> {
 /**
  * Gets the playback state of the player.
  *
- * @see https://rntp.dev/docs/api/constants/state
+ * @see https://evergrace-co.github.io/react-native-music-pro/docs/api/constants/state
  */
 export async function getPlaybackState(): Promise<PlaybackState> {
   return TrackPlayer.getPlaybackState();
@@ -498,7 +498,7 @@ export async function getPlaybackState(): Promise<PlaybackState> {
 /**
  * Gets the queue repeat mode.
  *
- * @see https://rntp.dev/docs/api/constants/repeat-mode
+ * @see https://evergrace-co.github.io/react-native-music-pro/docs/api/constants/repeat-mode
  */
 export async function getRepeatMode(): Promise<RepeatMode> {
   return TrackPlayer.getRepeatMode();

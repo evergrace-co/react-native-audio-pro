@@ -2,7 +2,7 @@ import TrackPlayer, {
   AppKilledPlaybackBehavior,
   Capability,
   RepeatMode,
-} from 'react-native-track-player';
+} from 'react-native-music-pro';
 
 export const DefaultRepeatMode = RepeatMode.Queue;
 export const DefaultAudioServiceBehaviour =

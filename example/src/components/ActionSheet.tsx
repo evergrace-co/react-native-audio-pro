@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { Spacer } from './Spacer';
 import { Button } from './Button';
-import TrackPlayer from 'react-native-track-player';
+import TrackPlayer from 'react-native-music-pro';
 
 const onUpdateNotificationMetadata = async () => {
   const randomTitle = Math.random().toString(36).substring(7);

@@ -5,7 +5,7 @@ import TrackPlayer, {
   AppKilledPlaybackBehavior,
   Capability,
   RepeatMode,
-} from 'react-native-track-player';
+} from 'react-native-music-pro';
 import { DefaultAudioServiceBehaviour, DefaultRepeatMode } from '../services';
 import { Spacer } from './Spacer';
 

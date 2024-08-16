@@ -15,7 +15,7 @@ Check out the [events section](./events.md) for a full list of supported events.
 ```tsx
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { useTrackPlayerEvents, Event, State } from 'react-native-track-player';
+import { useTrackPlayerEvents, Event, State } from 'react-native-music-pro';
 
 // Subscribing to the following events inside MyComponent
 const events = [

@@ -11326,7 +11326,7 @@ react-native-reanimated@3.3.0:
     convert-source-map "^2.0.0"
     invariant "^2.2.4"
 
-"react-native-track-player@link:..":
+"react-native-music-pro@link:..":
   version "4.0.1"
 
 react-native-vector-icons@^10.0.0:
