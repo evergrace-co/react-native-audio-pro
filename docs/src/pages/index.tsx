@@ -1,63 +1,26 @@
-import React from 'react';
 import clsx from 'clsx';
-import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import styles from './index.module.css';
+import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import Heading from '@theme/Heading';
 
-type Badge = { badge: string; link: string, alt: string };
-const BADGES: Badge[] = [
-  {
-    alt: 'downloads',
-    badge: 'https://img.shields.io/npm/dw/react-native-audio-pro.svg',
-    link: 'https://www.npmjs.com/package/react-native-audio-pro',
-  },
-  {
-    alt: 'npm',
-    badge: 'https://img.shields.io/npm/v/react-native-audio-pro.svg',
-    link: 'https://www.npmjs.com/package/react-native-audio-pro',
-  },
-  {
-    alt: 'discord',
-    badge: 'https://img.shields.io/discord/567636850513018880.svg',
-    link: 'https://discordapp.com/invite/ya2XDCR',
-  },
-];
+import styles from './index.module.css';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <img
-          src="/img/logo.svg"
-          style={{ width: 100, height: 100 }}
-          className="logo"
-        />
-        <h1 className="hero__title">{siteConfig.title}</h1>
+        <Heading as="h1" className="hero__title">
+          {siteConfig.title}
+        </Heading>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div>
-          {BADGES.map(({ alt, badge, link }, idx) => (
-            <Link to={link} key={idx} style={{ padding: 5 }}>
-              <img src={badge} alt={alt} />
-            </Link>
-          ))}
-        </div>
-        <hr/>
         <div className={styles.buttons}>
           <Link
-            style={{ margin: 5 }}
             className="button button--secondary button--lg"
-            to="/docs/basics/installation">
-            Get Started
-          </Link>
-
-          <Link
-            style={{ margin: 5 }}
-            className="button button--lg"
-            to="https://discordapp.com/invite/ya2XDCR">
-            Join the Community
+            to="/docs/intro">
+            Docusaurus Tutorial - 5min ⏱️
           </Link>
         </div>
       </div>
@@ -69,8 +32,8 @@ export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={siteConfig.title}
-      description="A fully fledged audio module created for music apps. Provides audio playback, external media controls, background mode and more!">
+      title={`Hello from ${siteConfig.title}`}
+      description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

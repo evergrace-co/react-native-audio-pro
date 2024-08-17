@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import AudioPro from './AudioProModule';
-import { Event, RepeatMode, State } from './constants';
+import { Event, State } from './constants';
 import type {
   AddTrack,
   EventPayloadByEvent,
@@ -47,11 +47,6 @@ function resolveImportedAsset(id?: number) {
 /**
  * Initializes the player with the specified options.
  *
- * Note that on Android this method must only be called while the app is in the
- * foreground, otherwise it will throw an error with code
- * `'android_cannot_setup_player_in_background'`. In this case you can wait for
- * the app to be in the foreground and try again.
- *
  * @param options The options to initialize the player with.
  * @see https://evergrace-co.github.io/react-native-audio-pro/docs/api/functions/lifecycle
  */
@@ -64,12 +59,8 @@ export async function setupPlayer(options: PlayerOptions = {}): Promise<void> {
  */
 export function registerPlaybackService(factory: () => ServiceHandler) {
   if (Platform.OS === 'android') {
-    // Registers the headless task
     AppRegistry.registerHeadlessTask('AudioPro', factory);
-  } else if (Platform.OS === 'web') {
-    factory()();
   } else {
-    // Initializes and runs the service in the next tick
     setImmediate(factory());
   }
 }
@@ -97,7 +88,7 @@ export function isServiceRunning(): Promise<boolean> {
  *
  * @param tracks The tracks to add to the queue.
  * @param insertBeforeIndex (Optional) The index to insert the tracks before.
- * By default the tracks will be added to the end of the queue.
+ * By default, the tracks will be added to the end of the queue.
  */
 export async function add(
   tracks: AddTrack[],
@@ -436,39 +427,6 @@ export async function getActiveTrack(): Promise<Track | undefined> {
   return (await AudioPro.getActiveTrack()) ?? undefined;
 }
 
-/**
- * Gets the index of the current track or null if there is no current track.
- *
- * @deprecated use `AudioPro.getActiveTrackIndex()` instead.
- */
-export async function getCurrentTrack(): Promise<number | null> {
-  return AudioPro.getActiveTrackIndex();
-}
-
-/**
- * Gets the duration of the current track in seconds.
- * @deprecated Use `AudioPro.getProgress().then((progress) => progress.duration)` instead.
- */
-export async function getDuration(): Promise<number> {
-  return AudioPro.getDuration();
-}
-
-/**
- * Gets the buffered position of the current track in seconds.
- *
- * @deprecated Use `AudioPro.getProgress().then((progress) => progress.buffered)` instead.
- */
-export async function getBufferedPosition(): Promise<number> {
-  return AudioPro.getBufferedPosition();
-}
-
-/**
- * Gets the playback position of the current track in seconds.
- * @deprecated Use `AudioPro.getProgress().then((progress) => progress.position)` instead.
- */
-export async function getPosition(): Promise<number> {
-  return AudioPro.getPosition();
-}
 
 /**
  * Gets information on the progress of the currently active track, including its
@@ -480,28 +438,12 @@ export async function getProgress(): Promise<Progress> {
 }
 
 /**
- * @deprecated use (await getPlaybackState()).state instead.
- */
-export async function getState(): Promise<State> {
-  return (await AudioPro.getPlaybackState()).state;
-}
-
-/**
  * Gets the playback state of the player.
  *
  * @see https://evergrace-co.github.io/react-native-audio-pro/docs/api/constants/state
  */
 export async function getPlaybackState(): Promise<PlaybackState> {
   return AudioPro.getPlaybackState();
-}
-
-/**
- * Gets the queue repeat mode.
- *
- * @see https://evergrace-co.github.io/react-native-audio-pro/docs/api/constants/repeat-mode
- */
-export async function getRepeatMode(): Promise<RepeatMode> {
-  return AudioPro.getRepeatMode();
 }
 
 /**
