@@ -5,7 +5,6 @@ node_modules/
 build/
 lib/
 DerivedData/
-package-lock.json
 .idea/
 
 # Android
