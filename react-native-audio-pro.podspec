@@ -18,5 +18,6 @@ Pod::Spec.new do |s|
   s.swift_version = "5.0"
 
   s.dependency "React-Core"
-  s.dependency "SwiftAudioPro", "0.1.2"
+  # s.dependency "SwiftAudioPro", "0.1.2"
+  s.dependency "SwiftAudioPro", :path => "../swift-audio-pro"
 end
