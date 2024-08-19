@@ -1,3 +1,3 @@
 import { NativeModules } from 'react-native';
-const { AudioProModule } = NativeModules;
+const { AudioProModule: AudioProModule } = NativeModules;
 export default AudioProModule;

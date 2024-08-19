@@ -57,6 +57,7 @@
     "react-native": ">=0.60.0"
   },
   "devDependencies": {
+    "@types/react": "^18.3.3",
     "@typescript-eslint/eslint-plugin": "^8.1.0",
     "@typescript-eslint/parser": "^8.1.0",
     "eslint": "^8.23.0",

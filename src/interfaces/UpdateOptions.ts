@@ -1,10 +1,11 @@
 import type { AndroidOptions } from './AndroidOptions';
 import type { FeedbackOptions } from './FeedbackOptions';
 import type { ResourceObject } from './ResourceObject';
-import type { Capability } from '../constants';
+import type { RatingType, Capability } from '../constants';
 
 export interface UpdateOptions {
   android?: AndroidOptions;
+  ratingType?: RatingType;
   forwardJumpInterval?: number;
   backwardJumpInterval?: number;
   progressUpdateEventInterval?: number; // in seconds
@@ -17,8 +18,25 @@ export interface UpdateOptions {
   capabilities?: Capability[];
 
   // android
+  /**
+   * @deprecated Use `android` options and `appKilledPlaybackMode` instead.
+   * @example
+   * ```
+   * await AudioPro.updateOptions({
+   *   android: {
+   *     appKilledPlaybackMode: AppKilledPlaybackMode.PausePlayback
+   *  },
+   * });
+   *  ```
+   */
+  stoppingAppPausesPlayback?: boolean;
+  /**
+   * @deprecated use `AudioPro.updateOptions({ android: { alwaysPauseOnInterruption: boolean }})` instead
+   */
+  alwaysPauseOnInterruption?: boolean;
   notificationCapabilities?: Capability[];
   compactCapabilities?: Capability[];
+
   icon?: ResourceObject;
   playIcon?: ResourceObject;
   pauseIcon?: ResourceObject;
