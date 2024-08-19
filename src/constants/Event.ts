@@ -8,23 +8,10 @@ export enum Event {
   /** Fired after playback has paused due to the queue having reached the end. */
   PlaybackQueueEnded = 'playback-queue-ended',
   /**
-   * Fired when another track has become active or when there no longer is an
-   * active track.
-   *
-   * @deprecated use `playback-active-track-changed` instead.
-   **/
-  PlaybackTrackChanged = 'playback-track-changed',
-  /**
-   * Fired when another track has become active or when there no longer is an
+   * Fired when another track has become active or when there is no longer is an
    * active track.
    **/
   PlaybackActiveTrackChanged = 'playback-active-track-changed',
-  /**
-   * Fired when the current track receives metadata encoded in. (e.g. ID3 tags,
-   * Icy Metadata, Vorbis Comments or QuickTime metadata).
-   * @deprecated use `AudioChapterMetadataReceived, AudioTimedMetadataReceived, AudioCommonMetadataReceived` instead.
-   **/
-  PlaybackMetadataReceived = 'playback-metadata-received',
   /**
    * Fired when playback play when ready has changed.
    **/
@@ -75,42 +62,10 @@ export enum Event {
    **/
   RemoteSeek = 'remote-seek',
   /**
-   * Fired when the user changes the rating for the track remotely.
-   * See https://evergrace-co.github.io/react-native-audio-pro/docs/api/events#remotesetrating
-   **/
-  RemoteSetRating = 'remote-set-rating',
-  /**
    * Fired when the app needs to handle an audio interruption.
    * See https://evergrace-co.github.io/react-native-audio-pro/docs/api/events#remoteduck
    **/
   RemoteDuck = 'remote-duck',
-  /**
-   * (iOS only) Fired when the user presses the like button in the now playing
-   * center.
-   * See https://evergrace-co.github.io/react-native-audio-pro/docs/api/events#remotelike-ios-only
-   **/
-  RemoteLike = 'remote-like',
-  /**
-   * (iOS only) Fired when the user presses the dislike button in the now playing
-   * center.
-   * See https://evergrace-co.github.io/react-native-audio-pro/docs/api/events#remotedislike-ios-only
-   **/
-  RemoteDislike = 'remote-dislike',
-  /** (iOS only) Fired when the user presses the bookmark button in the now
-   * playing center.
-   * See https://evergrace-co.github.io/react-native-audio-pro/docs/api/events#remotebookmark-ios-only
-   **/
-  RemoteBookmark = 'remote-bookmark',
-  /**
-   * (Android only) Fired when the user selects a track from an external device.
-   * See https://evergrace-co.github.io/react-native-audio-pro/docs/api/events#remoteplayid
-   **/
-  RemotePlayId = 'remote-play-id',
-  /**
-   * (Android only) Fired when the user searches for a track (usually voice search).
-   * See https://evergrace-co.github.io/react-native-audio-pro/docs/api/events#remoteplaysearch
-   **/
-  RemotePlaySearch = 'remote-play-search',
   /**
    * (Android only) Fired when the user presses the skip button.
    * See https://evergrace-co.github.io/react-native-audio-pro/docs/api/events#remoteskip
