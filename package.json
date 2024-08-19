@@ -1,6 +1,6 @@
 {
   "name": "react-native-audio-pro",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A minimalist and opinionated audio player for React Native",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
