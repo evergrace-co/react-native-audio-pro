@@ -21,10 +21,8 @@ import type {
 } from './interfaces';
 import resolveAssetSource from './resolveAssetSource';
 
-const emitter =
-  Platform.OS !== 'android'
-    ? new NativeEventEmitter(AudioPro)
-    : DeviceEventEmitter;
+// TODO: Start using NativeEventEmitter for Android as well
+const emitter = Platform.OS === 'ios' ? new NativeEventEmitter(AudioPro) : DeviceEventEmitter;
 
 // MARK: - Helpers
 

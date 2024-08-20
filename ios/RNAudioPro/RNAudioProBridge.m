@@ -1,7 +1,7 @@
 #import "RNAudioProBridge.h"
 #import <React/RCTBridgeModule.h>
 
-@interface RCT_EXTERN_REMAP_MODULE(TrackPlayerModule, RNAudioPro, NSObject)
+@interface RCT_EXTERN_REMAP_MODULE(AudioProModule, RNAudioPro, NSObject)
 
 RCT_EXTERN_METHOD(setupPlayer:(NSDictionary *)data
                   resolver:(RCTPromiseResolveBlock)resolve
