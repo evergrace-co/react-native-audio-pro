@@ -1,4 +1,3 @@
-export * from './AndroidOptions';
 export * from './FeedbackOptions';
 export * from './MetadataOptions';
 export * from './NowPlayingMetadata';

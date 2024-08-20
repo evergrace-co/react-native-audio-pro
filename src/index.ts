@@ -1,7 +1,6 @@
-import * as AudioPro from './audioPro';
+import * as AudioPro from './audio-pro';
 
 export * from './constants';
-// export * from './hooks';
-export * from './interfaces';
+export * from './types';
 
 export default AudioPro;
