@@ -1,4 +1,7 @@
 <resources>
     <string name="rnap_temporary_channel_id">rnap_temporary_channel</string>
     <string name="rnap_temporary_channel_name">temporary_channel</string>
+    <string name="play">Play</string>
+    <string name="playback_channel_name">Now Playing</string>
+    <string name="pause">Pause</string>
 </resources>
