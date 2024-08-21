@@ -1,6 +1,6 @@
 {
   "name": "react-native-audio-pro",
-  "version": "1.0.0",
+  "version": "0.0.13",
   "description": "A minimalist and opinionated audio player for React Native",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "patch": "npm version patch && npm publish && git push; git push --tags ",
-    "major": "npm version major && npm publish && git push; git push --tags ",
+    "minor": "npm version minor && npm publish && git push; git push --tags ",
     "watch": "nodemon --watch src --ext ts --exec 'npm run build'",
     "OLD:dev": "tsc --watch",
     "OLD:lint": "eslint src",
