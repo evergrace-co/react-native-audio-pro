@@ -1,19 +1,23 @@
 import {Capability} from '../constants';
 
-export interface CustomUpdateOptions {
+export type CustomUpdateOptions = {
+	// General (in seconds)
+	forwardJumpInterval?: number;
+	backwardJumpInterval?: number;
+	progressUpdateEventInterval?: number;
+
+	// iOS
+	capabilities?: Capability[];
+
+	// Android
+	notificationCapabilities?: Capability[];
+	compactCapabilities?: Capability[];
+};
+
+export type DefaultUpdateOptions = {
 	forwardJumpInterval: number;
 	backwardJumpInterval: number;
 	progressUpdateEventInterval: number; // in seconds
-
-	// iOS
-	capabilities: Capability[];
-
-	// Android
-	notificationCapabilities: Capability[];
-	compactCapabilities: Capability[];
-}
-
-export interface DefaultUpdateOptions {
 	android: {
 		/**
 		 * Whether the audio playback notification is also removed when the playback
@@ -33,6 +37,13 @@ export interface DefaultUpdateOptions {
 		 */
 		stopForegroundGracePeriod: number;
 	};
-}
+
+	// iOS
+	capabilities: Capability[];
+
+	// Android
+	notificationCapabilities: Capability[];
+	compactCapabilities: Capability[];
+};
 
 export type UpdateOptions = DefaultUpdateOptions & CustomUpdateOptions;

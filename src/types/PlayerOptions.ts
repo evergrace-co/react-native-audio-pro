@@ -1,11 +1,4 @@
-import type {
-	AndroidAudioContentType,
-	IOSCategory,
-	IOSCategoryMode,
-	IOSCategoryOptions,
-} from '../constants';
-
-export interface PlayerOptions {
+export type DefaultPlayerOptions = {
 	/**
 	 * Minimum duration of media that the player will attempt to buffer in seconds.
 	 *
@@ -14,7 +7,7 @@ export interface PlayerOptions {
 	 * @throws Will throw on Android if min buffer is higher than max buffer.
 	 * @default 50
 	 */
-	minBuffer?: number;
+	minBuffer: number;
 	/**
 	 * Maximum duration of media that the player will attempt to buffer in seconds.
 	 * Max buffer may not be lower than min buffer.
@@ -24,7 +17,7 @@ export interface PlayerOptions {
 	 * @throws Will throw if max buffer is lower than min buffer.
 	 * @default 50
 	 */
-	maxBuffer?: number;
+	maxBuffer: number;
 	/**
 	 * Duration in seconds that should be kept in the buffer behind the current
 	 * playhead time.
@@ -33,7 +26,7 @@ export interface PlayerOptions {
 	 *
 	 * @default 0
 	 */
-	backBuffer?: number;
+	backBuffer: number;
 	/**
 	 * Duration of media in seconds that must be buffered for playback to start or
 	 * resume following a user action such as a seek.
@@ -42,7 +35,7 @@ export interface PlayerOptions {
 	 *
 	 * @default 2.5
 	 */
-	playBuffer?: number;
+	playBuffer: number;
 	/**
 	 * Maximum cache size in kilobytes.
 	 *
@@ -50,12 +43,12 @@ export interface PlayerOptions {
 	 *
 	 * @default 0
 	 */
-	maxCacheSize?: number;
+	maxCacheSize: number;
 	/**
 	 * [AVAudioSession.Category](https://developer.apple.com/documentation/avfoundation/avaudiosession/1616615-category)
 	 * for iOS. Sets on `play()`.
 	 */
-	iosCategory?: IOSCategory;
+	iosCategory: 'playback';
 	/**
 	 * (iOS only) The audio session mode, together with the audio session category,
 	 * indicates to the system how you intend to use audio in your app. You can use
@@ -65,12 +58,7 @@ export interface PlayerOptions {
 	 *
 	 * See https://developer.apple.com/documentation/avfoundation/avaudiosession/1616508-mode
 	 */
-	iosCategoryMode?: IOSCategoryMode;
-	/**
-	 * [AVAudioSession.CategoryOptions](https://developer.apple.com/documentation/avfoundation/avaudiosession/1616503-categoryoptions) for iOS.
-	 * Sets on `play()`.
-	 */
-	iosCategoryOptions?: IOSCategoryOptions[];
+	iosCategoryMode: 'default';
 	/**
 	 * (Android only) The audio content type indicates to the android system how
 	 * you intend to use audio in your app.
@@ -82,15 +70,15 @@ export interface PlayerOptions {
 	 *
 	 * @default AndroidAudioContentType.Music
 	 */
-	androidAudioContentType?: AndroidAudioContentType;
+	androidAudioContentType: 'music';
 	/**
 	 * Indicates whether the player should automatically update now playing metadata data in control center / notification.
 	 * Defaults to `true`.
 	 */
-	autoUpdateMetadata?: boolean;
+	autoUpdateMetadata: true;
 	/**
 	 * Indicates whether the player should automatically handle audio interruptions.
 	 * Defaults to `false`.
 	 */
-	autoHandleInterruptions?: boolean;
-}
+	autoHandleInterruptions: false;
+};

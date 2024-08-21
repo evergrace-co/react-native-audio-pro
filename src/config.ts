@@ -1,26 +1,24 @@
-import type {PlayerOptions, UpdateOptions} from './types';
-import {AndroidAudioContentType, Capability} from './constants';
+import type {DefaultPlayerOptions, UpdateOptions} from './types';
+import {Capability} from './constants';
 
 const PLAYER_PROGRESS_UPDATE_INTERVAL = 1;
 const PLAYER_JUMP_DURATION = 30;
 const PLAYER_ANDROID_GRACE_PERIOD = 5;
 
-export const defaultPlayerOptions: PlayerOptions = {
-	minBuffer: 50,
+export const defaultPlayerConfig: DefaultPlayerOptions = {
+	minBuffer: 30,
 	maxBuffer: 50,
 	backBuffer: 0,
 	playBuffer: 2.5,
 	maxCacheSize: 0,
-	iosCategory: undefined,
-	iosCategoryMode: undefined,
-	iosCategoryOptions: undefined,
-	androidAudioContentType: AndroidAudioContentType.Music,
+	iosCategory: 'playback',
+	iosCategoryMode: 'default',
+	androidAudioContentType: 'music',
 	autoUpdateMetadata: true,
 	autoHandleInterruptions: false,
 };
-// TODO: Remove deprecated `waitForBuffer` from defaultPlayerOptions codes
 
-export const defaultUpdateOptions: UpdateOptions = {
+export const defaultUpdateConfig: UpdateOptions = {
 	capabilities: [
 		Capability.Play,
 		Capability.Pause,

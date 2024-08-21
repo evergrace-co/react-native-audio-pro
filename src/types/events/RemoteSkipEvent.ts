@@ -1,3 +1,3 @@
-export interface RemoteSkipEvent {
-  index: number;
-}
+export type RemoteSkipEvent = {
+	index: number;
+};

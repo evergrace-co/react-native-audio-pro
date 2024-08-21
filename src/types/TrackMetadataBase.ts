@@ -1,6 +1,6 @@
-export interface TrackMetadataBase {
-  title: string;
-  album?: string;
-  artist?: string;
-  artwork: string;
-}
+export type TrackMetadataBase = {
+	title: string;
+	artwork: string;
+	album?: string;
+	artist?: string;
+};

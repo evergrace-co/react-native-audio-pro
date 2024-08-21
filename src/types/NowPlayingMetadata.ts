@@ -1,5 +1,5 @@
-import type { TrackMetadataBase } from './TrackMetadataBase';
+import type {TrackMetadataBase} from './TrackMetadataBase';
 
-export interface NowPlayingMetadata extends TrackMetadataBase {
-  elapsedTime?: number;
-}
+export type NowPlayingMetadata = TrackMetadataBase & {
+	elapsedTime?: number;
+};

@@ -9,6 +9,7 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "patch": "npm version patch && npm publish && git push; git push --tags ",
+    "major": "npm version major && npm publish && git push; git push --tags ",
     "OLD:dev": "tsc --watch",
     "OLD:lint": "eslint src",
     "OLD:format": "prettier --write src",

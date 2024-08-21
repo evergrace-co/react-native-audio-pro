@@ -1,26 +1,20 @@
-import {DeviceEventEmitter, NativeEventEmitter, Platform} from 'react-native';
+import {AppRegistry, DeviceEventEmitter, NativeEventEmitter, Platform} from 'react-native';
 
 import AudioPro from './AudioProModule';
-import {RepeatMode} from './constants';
-import type {AddTrack, PlaybackState, PlayerOptions, Progress, Track, UpdateOptions} from './types';
-import resolveAssetSource from './resolveAssetSource';
-import {defaultPlayerOptions, defaultUpdateOptions} from './options';
+import {Event, RepeatMode} from './constants';
+import {
+	AddTrack,
+	CustomUpdateOptions,
+	type EventPayloadByEvent,
+	PlaybackState,
+	Progress,
+	Track,
+	UpdateOptions,
+} from './types';
+import {defaultPlayerConfig, defaultUpdateConfig} from './config';
 
-// TODO: Start using NativeEventEmitter for Android as well
 export const emitter =
 	Platform.OS === 'ios' ? new NativeEventEmitter(AudioPro) : DeviceEventEmitter;
-
-function resolveImportedAssetOrPath(pathOrAsset: string | number | undefined) {
-	return pathOrAsset === undefined
-		? undefined
-		: typeof pathOrAsset === 'string'
-		? pathOrAsset
-		: resolveImportedAsset(pathOrAsset);
-}
-
-function resolveImportedAsset(id?: number) {
-	return id ? (resolveAssetSource(id) as {uri: string} | null) ?? undefined : undefined;
-}
 
 /**
  * Initializes the player with the specified options.
@@ -30,57 +24,54 @@ function resolveImportedAsset(id?: number) {
  * `'android_cannot_setup_player_in_background'`. In this case you can wait for
  * the app to be in the foreground and try again.
  *
- * @param options The options to initialize the player with.
+ * @param config The options to initialize the player with.
  * @see https://rnap.dev/docs/api/functions/lifecycle
  */
-export async function setupPlayer(options: PlayerOptions = {}): Promise<void> {
-	return AudioPro.setupPlayer({
-		...defaultPlayerOptions,
-		options,
-	});
+export async function setup(config: CustomUpdateOptions): Promise<void> {
+	try {
+		await AudioPro.setupPlayer(defaultPlayerConfig);
+		await AudioPro.updateOptions({
+			...defaultUpdateConfig,
+			options: config,
+		} as UpdateOptions);
+	} catch (e) {
+		return Promise.reject(e);
+	}
 }
 
 /**
- * Updates the configuration for the components.
- * @param options The options to update.
- * @see https://rnap.dev/docs/api/functions/player#updateoptionsoptions
+ * Register the playback service.
  */
-export async function updateOptions(options: UpdateOptions): Promise<void> {
-	return AudioPro.updateOptions({
-		...defaultUpdateOptions,
-		options,
-	});
+export function registerPlaybackService(factory: () => Promise<void>) {
+	if (Platform.OS === 'android') {
+		// Registers the headless task
+		AppRegistry.registerHeadlessTask('AudioPro', () => factory);
+	} else {
+		// Initializes and runs the service in the next tick
+		setImmediate(factory);
+	}
 }
 
-// TODO: Remove all references of Web player
-// TODO: Removed deprecated `AudioPro.isServiceRunning()` method
-
 /**
- * Adds one or more tracks to the queue.
- *
- * @param tracks The tracks to add to the queue.
- * @param insertBeforeIndex (Optional) The index to insert the tracks before.
- * By default the tracks will be added to the end of the queue.
+ * Add an event listener.
  */
-export async function add(tracks: AddTrack[], insertBeforeIndex?: number): Promise<number | void>;
+export function addEventListener<T extends Event>(
+	event: T,
+	listener: EventPayloadByEvent[T] extends never
+		? () => void
+		: (event: EventPayloadByEvent[T]) => void,
+) {
+	return emitter.addListener(event, listener);
+}
+
 /**
  * Adds a track to the queue.
  *
  * @param track The track to add to the queue.
- * @param insertBeforeIndex (Optional) The index to insert the track before.
  * By default the track will be added to the end of the queue.
  */
-export async function add(track: AddTrack, insertBeforeIndex?: number): Promise<number | void>;
-export async function add(
-	tracks: AddTrack | AddTrack[],
-	insertBeforeIndex = -1,
-): Promise<number | void> {
-	const resolvedTracks = (Array.isArray(tracks) ? tracks : [tracks]).map((track) => ({
-		...track,
-		url: resolveImportedAssetOrPath(track.url),
-		artwork: resolveImportedAssetOrPath(track.artwork),
-	}));
-	return resolvedTracks.length < 1 ? undefined : AudioPro.add(resolvedTracks, insertBeforeIndex);
+export async function add(track: AddTrack): Promise<number | void> {
+	return AudioPro.add([track], -1);
 }
 
 /**
@@ -91,48 +82,6 @@ export async function add(
 export async function load(track: Track): Promise<number | void> {
 	return AudioPro.load(track);
 }
-
-/**
- * Move a track within the queue.
- *
- * @param fromIndex The index of the track to be moved.
- * @param toIndex The index to move the track to. If the index is larger than
- * the size of the queue, then the track is moved to the end of the queue.
- */
-export async function move(fromIndex: number, toIndex: number): Promise<void> {
-	return AudioPro.move(fromIndex, toIndex);
-}
-
-/**
- * Removes multiple tracks from the queue by their indexes.
- *
- * If the current track is removed, the next track will activated. If the
- * current track was the last track in the queue, the first track will be
- * activated.
- *
- * @param indexes The indexes of the tracks to be removed.
- */
-export async function remove(indexes: number[]): Promise<void>;
-/**
- * Removes a track from the queue by its index.
- *
- * If the current track is removed, the next track will activated. If the
- * current track was the last track in the queue, the first track will be
- * activated.
- *
- * @param index The index of the track to be removed.
- */
-export async function remove(index: number): Promise<void>;
-export async function remove(indexOrIndexes: number | number[]): Promise<void> {
-	return AudioPro.remove(Array.isArray(indexOrIndexes) ? indexOrIndexes : [indexOrIndexes]);
-}
-
-// TODO: Removed AudioPro.updateMetadataForTrack(...)
-// TODO: Removed AudioPro.clearNowPlayingMetadata();
-// TODO: Removed AudioPro.updateNowPlayingMetadata()
-// TODO: Removed AudioPro.removeUpcomingTracks()
-// TODO: Removed AudioPro.skip()
-// TODO: Removed AudioPro.skipToPrevious(initialPosition)
 
 /**
  * Resets the player stopping the current track and clearing the queue.
@@ -325,7 +274,7 @@ export async function getPlaybackState(): Promise<PlaybackState> {
 }
 
 /**
- * Gets the queue repeat mode.
+ * Gets the repeat mode.
  * @see https://rnap.dev/docs/api/constants/repeat-mode
  */
 export async function getRepeatMode(): Promise<RepeatMode> {
@@ -338,3 +287,14 @@ export async function getRepeatMode(): Promise<RepeatMode> {
 export async function retry() {
 	return AudioPro.retry();
 }
+
+// TODO: Remove all references of Web player
+// TODO: Removed deprecated `AudioPro.isServiceRunning()` method
+// TODO: Removed AudioPro.move(fromIndex, toIndex)
+// TODO: Removed AudioPro.remove(...)
+// TODO: Removed AudioPro.updateMetadataForTrack(...)
+// TODO: Removed AudioPro.clearNowPlayingMetadata();
+// TODO: Removed AudioPro.updateNowPlayingMetadata()
+// TODO: Removed AudioPro.removeUpcomingTracks()
+// TODO: Removed AudioPro.skip()
+// TODO: Removed AudioPro.skipToPrevious(initialPosition)
