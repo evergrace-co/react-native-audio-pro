@@ -12,6 +12,6 @@ data class CacheConfig(
     /**
      * Cache identifier, used to make cache directory.
      */
-    val identifier: String = "TrackPlayer"
+    val identifier: String = "AudioPro"
 )
 

@@ -820,7 +820,7 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         emit(event: EventType.MetadataTimedReceived, body: ["metadata": metadataItems])
 
         // SwiftAudioPro was updated to return the array of timed metadata
-        // Until we have support for that in RNTP, we take the first item to keep existing behaviour.
+        // Until we have support for that in RNAP, we take the first item to keep existing behaviour.
         let metadata = metadata.first?.items ?? []
         let metadataItem = MetadataAdapter.legacyConversion(metadata: metadata)
         emit(event: EventType.PlaybackMetadataReceived, body: metadataItem)
