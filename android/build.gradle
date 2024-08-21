@@ -60,4 +60,11 @@ dependencies {
     implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
     implementation "androidx.lifecycle:lifecycle-process:2.5.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3"
+
+    // kotlinaudiopro dependencies
+    implementation 'io.coil-kt:coil:2.2.0'
+    implementation 'androidx.media:media:1.6.0'
+    api 'com.google.android.exoplayer:exoplayer:2.19.0'
+    api 'com.google.android.exoplayer:extension-mediasession:2.19.0'
+    api 'com.jakewharton.timber:timber:5.0.1'
 }
