@@ -80,5 +80,6 @@ export type DefaultPlayerOptions = {
 	 * Indicates whether the player should automatically handle audio interruptions.
 	 * Defaults to `false`.
 	 */
-	autoHandleInterruptions: false;
+	autoHandleInterruptions: boolean;
+	// TODO: Investigate that auto actually works on both platforms
 };

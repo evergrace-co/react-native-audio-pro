@@ -5,7 +5,7 @@ const PLAYER_PROGRESS_UPDATE_INTERVAL = 1;
 const PLAYER_JUMP_DURATION = 30;
 const PLAYER_ANDROID_GRACE_PERIOD = 5;
 
-export const defaultPlayerConfig: DefaultPlayerOptions = {
+export const defaultPlayerOptions: DefaultPlayerOptions = {
 	minBuffer: 30,
 	maxBuffer: 50,
 	backBuffer: 0,
@@ -18,7 +18,7 @@ export const defaultPlayerConfig: DefaultPlayerOptions = {
 	autoHandleInterruptions: false,
 };
 
-export const defaultUpdateConfig: UpdateOptions = {
+export const defaultUpdateOptions: UpdateOptions = {
 	capabilities: [
 		Capability.Play,
 		Capability.Pause,

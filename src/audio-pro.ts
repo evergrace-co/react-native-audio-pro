@@ -5,13 +5,14 @@ import {Event, RepeatMode} from './constants';
 import {
 	AddTrack,
 	CustomUpdateOptions,
-	type EventPayloadByEvent,
+	EventPayloadByEvent,
 	PlaybackState,
 	Progress,
+	RemoteDuckEvent,
 	Track,
 	UpdateOptions,
 } from './types';
-import {defaultPlayerConfig, defaultUpdateConfig} from './config';
+import {defaultPlayerOptions, defaultUpdateOptions} from './options';
 
 export const emitter =
 	Platform.OS === 'ios' ? new NativeEventEmitter(AudioPro) : DeviceEventEmitter;
@@ -19,21 +20,31 @@ export const emitter =
 /**
  * Initializes the player with the specified options.
  *
- * Note that on Android this method must only be called while the app is in the
- * foreground, otherwise it will throw an error with code
- * `'android_cannot_setup_player_in_background'`. In this case you can wait for
- * the app to be in the foreground and try again.
- *
  * @param config The options to initialize the player with.
  * @see https://rnap.dev/docs/api/functions/lifecycle
  */
-export async function setup(config: CustomUpdateOptions): Promise<void> {
+export async function setup(config?: CustomUpdateOptions): Promise<void> {
 	try {
-		await AudioPro.setupPlayer(defaultPlayerConfig);
+		// Setup
+		await AudioPro.setupPlayer(defaultPlayerOptions);
 		await AudioPro.updateOptions({
-			...defaultUpdateConfig,
+			...defaultUpdateOptions,
 			options: config,
 		} as UpdateOptions);
+
+		// Handle ducking (// TODO: Ensure this works natively on both platforms)
+		const handleRemoteDuck = (event: RemoteDuckEvent) => {
+			if (event.paused || event.permanent) {
+				if (event.permanent && Platform.OS === 'android') {
+					void stop();
+				} else {
+					void pause();
+				}
+			} else {
+				void play();
+			}
+		};
+		addEventListener<Event.RemoteDuck>(Event.RemoteDuck, handleRemoteDuck);
 	} catch (e) {
 		return Promise.reject(e);
 	}

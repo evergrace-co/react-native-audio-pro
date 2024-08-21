@@ -15,5 +15,5 @@ yarn add react-native-audio-pro
 ## Usage
 
 ```tsx
-TODO
+TODO Usage Here
 ```
