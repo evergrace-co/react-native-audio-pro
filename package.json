@@ -57,7 +57,7 @@
     "url": "https://github.com/evergrace-co/react-native-audio-pro/issues"
   },
   "peerDependencies": {
-    "react-native": ">=0.60.0"
+    "react-native": ">=0.70.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

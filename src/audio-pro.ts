@@ -21,18 +21,37 @@ import {HandledEvent} from './constants/HandledEvent';
 export const emitter =
 	Platform.OS === 'ios' ? new NativeEventEmitter(AudioPro) : DeviceEventEmitter;
 
+const WAIT_FOR_SERVICE_TIMEOUT = 500;
 let isSetup = false;
+
 /**
  * Initializes the player with the specified options.
  *
+ * @param playbackService
  * @param config The options to initialize the player with.
  * @see https://rnap.dev/docs/api/functions/lifecycle
  */
-export async function setup(config?: CustomUpdateOptions): Promise<void> {
+export async function setup(
+	playbackService: () => Promise<void>,
+	config?: CustomUpdateOptions,
+): Promise<void> {
+	// TODO: Add logging option
 	try {
 		if (isSetup) {
-			throw new Error('AudioPro has already been setup.');
+			throw new Error('AudioPro has already run setup.');
 		}
+		isSetup = true;
+
+		if (Platform.OS === 'android') {
+			// Registers the headless task
+			AppRegistry.registerHeadlessTask('AudioPro', () => playbackService);
+		} else {
+			// Initialise and run the service
+			void playbackService();
+		}
+
+		// Wait for the service to be ready
+		await new Promise((resolve) => setTimeout(resolve, WAIT_FOR_SERVICE_TIMEOUT));
 
 		// Setup
 		await AudioPro.setupPlayer(defaultPlayerOptions);
@@ -83,23 +102,8 @@ export async function setup(config?: CustomUpdateOptions): Promise<void> {
 		// Jump backward
 		const handleRemoteJumpBackward = ({interval}: RemoteJumpBackwardEvent) => seekBy(-interval);
 		emitter.addListener(HandledEvent.RemoteJumpBackward, handleRemoteJumpBackward);
-
-		isSetup = true;
 	} catch (e) {
 		return Promise.reject(e);
-	}
-}
-
-/**
- * Register the playback service.
- */
-export function registerPlaybackService(factory: () => Promise<void>) {
-	if (Platform.OS === 'android') {
-		// Registers the headless task
-		AppRegistry.registerHeadlessTask('AudioPro', () => factory);
-	} else {
-		// Initializes and runs the service in the next tick
-		setImmediate(factory);
 	}
 }
 

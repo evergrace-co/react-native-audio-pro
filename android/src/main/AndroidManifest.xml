@@ -11,7 +11,7 @@
     <application>
 
         <!-- The main service, handles playback, playlists and media buttons -->
-        <service android:name="co.evergrace.audiopro.service.MusicService" android:enabled="true" android:exported="true" android:foregroundServiceType="mediaPlayback">
+        <service android:name="co.evergrace.audiopro.service.AudioProService" android:enabled="true" android:exported="true" android:foregroundServiceType="mediaPlayback">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
