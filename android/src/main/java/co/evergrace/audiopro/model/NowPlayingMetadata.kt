@@ -1,4 +1,4 @@
-package co.evergrace.audiopro.model
+package co.evergrace.rnaudiopro.model
 
 import android.content.Context
 import android.os.Bundle

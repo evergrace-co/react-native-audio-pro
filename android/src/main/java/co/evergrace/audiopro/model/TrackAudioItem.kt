@@ -1,4 +1,4 @@
-package co.evergrace.audiopro.model
+package co.evergrace.rnaudiopro.model
 
 import co.evergrace.kotlinaudiopro.models.AudioItem
 import co.evergrace.kotlinaudiopro.models.AudioItemOptions

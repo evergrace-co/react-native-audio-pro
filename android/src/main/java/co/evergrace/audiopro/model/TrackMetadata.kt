@@ -1,11 +1,11 @@
-package co.evergrace.audiopro.model
+package co.evergrace.rnaudiopro.model
 
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.media.RatingCompat
-import co.evergrace.audiopro.extensions.NumberExt.Companion.toMilliseconds
-import co.evergrace.audiopro.utils.BundleUtils
+import co.evergrace.rnaudiopro.extensions.NumberExt.Companion.toMilliseconds
+import co.evergrace.rnaudiopro.utils.BundleUtils
 
 abstract class TrackMetadata {
     var artwork: Uri? = null

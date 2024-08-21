@@ -1,7 +1,7 @@
-package co.evergrace.audiopro.extensions
+package co.evergrace.rnaudiopro.extensions
 
 import co.evergrace.kotlinaudiopro.models.AudioPlayerState
-import co.evergrace.audiopro.model.State
+import co.evergrace.rnaudiopro.model.State
 
 val AudioPlayerState.asLibState: State
     get() {

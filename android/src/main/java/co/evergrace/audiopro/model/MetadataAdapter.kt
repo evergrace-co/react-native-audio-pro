@@ -1,4 +1,4 @@
-package co.evergrace.audiopro.model
+package co.evergrace.rnaudiopro.model
 
 import android.os.Bundle
 import com.google.android.exoplayer2.MediaMetadata

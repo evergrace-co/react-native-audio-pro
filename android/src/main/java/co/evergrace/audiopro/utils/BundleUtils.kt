@@ -1,4 +1,4 @@
-package co.evergrace.audiopro.utils
+package co.evergrace.rnaudiopro.utils
 
 import android.content.ContentResolver
 import android.content.Context

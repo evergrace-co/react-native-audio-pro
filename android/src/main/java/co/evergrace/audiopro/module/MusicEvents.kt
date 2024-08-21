@@ -1,4 +1,4 @@
-package co.evergrace.audiopro.module
+package co.evergrace.rnaudiopro.module
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -52,6 +52,6 @@ class MusicEvents(private val reactContext: ReactContext) : BroadcastReceiver() 
         // Other
         const val PLAYER_ERROR = "player-error"
 
-        const val EVENT_INTENT = "co.evergrace.audiopro.event"
+        const val EVENT_INTENT = "co.evergrace.rnaudiopro.event"
     }
 }

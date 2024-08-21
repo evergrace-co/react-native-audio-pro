@@ -19,14 +19,14 @@ def getExtOrIntegerDefault(name) {
 
 android {
     compileSdkVersion getExtOrIntegerDefault('compileSdkVersion')
-    namespace 'co.evergrace.audiopro'
+    namespace 'co.evergrace.rnaudiopro'
 
     defaultConfig {
         minSdkVersion getExtOrIntegerDefault('minSdkVersion') // RN's minimum version
         targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
 
-        versionCode 300
-        versionName '3.0'
+        versionCode 1001
+        versionName '0.0.1'
 
         consumerProguardFiles 'proguard-rules.txt'
     }
@@ -50,7 +50,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.evergrace-co:kotlinaudio:v2.1.0'
+    implementation 'com.github.evergrace-co:kotlinaudio:v0.0.1'
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"

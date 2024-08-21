@@ -1,4 +1,4 @@
-package co.evergrace.audiopro.model
+package co.evergrace.rnaudiopro.model
 
 import com.google.android.exoplayer2.metadata.Metadata
 import com.google.android.exoplayer2.metadata.flac.VorbisComment

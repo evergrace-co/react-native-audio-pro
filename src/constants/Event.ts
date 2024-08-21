@@ -13,10 +13,6 @@ export enum Event {
 	 **/
 	PlaybackActiveTrackChanged = 'playback-active-track-changed',
 	/**
-	 * Fired when playback play when ready has changed.
-	 **/
-	PlaybackPlayWhenReadyChanged = 'playback-play-when-ready-changed',
-	/**
 	 * Fired when playback progress has been updated.
 	 * See https://rnap.dev/docs/api/events#playbackprogressupdated
 	 **/
@@ -34,6 +30,7 @@ export enum Event {
 	/**
 	 * (Android only) Fired when the user presses the skip button.
 	 * See https://rnap.dev/docs/api/events#remoteskip
+	 * // TODO: How does this differ from remote-next? Can this be deleted?
 	 **/
 	RemoteSkip = 'remote-skip',
 }

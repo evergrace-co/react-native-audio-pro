@@ -1,4 +1,4 @@
-package co.evergrace.audiopro.utils
+package co.evergrace.rnaudiopro.utils
 
 import com.facebook.react.bridge.Promise
 

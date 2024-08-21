@@ -1,4 +1,4 @@
-package co.evergrace.audiopro.extensions
+package co.evergrace.rnaudiopro.extensions
 
 class NumberExt {
     companion object {
