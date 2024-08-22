@@ -9,7 +9,7 @@
 
 	<application>
 		<!-- The Background Service -->
-		<service android:name="co.evergrace.audiopro.service.AudioProService" android:enabled="true"
+		<service android:name="co.evergrace.audiopro.service.MusicService" android:enabled="true"
 				 android:exported="true" android:foregroundServiceType="mediaPlayback">
 			<intent-filter>
 				<action android:name="android.intent.action.MEDIA_BUTTON"/>
