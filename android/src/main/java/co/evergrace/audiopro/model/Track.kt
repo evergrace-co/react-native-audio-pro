@@ -3,7 +3,7 @@ package co.evergrace.rnaudiopro.model
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import co.evergrace.kotlinaudiopro.models.AudioItemOptions
+import co.evergrace.audiopro.models.AudioItemOptions
 import co.evergrace.kotlinaudiopro.models.MediaType
 import co.evergrace.rnaudiopro.utils.BundleUtils
 import com.google.android.exoplayer2.upstream.RawResourceDataSource

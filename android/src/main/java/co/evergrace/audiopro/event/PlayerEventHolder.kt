@@ -1,6 +1,6 @@
-package co.evergrace.kotlinaudiopro.event
+package co.evergrace.audiopro.event
 
-import co.evergrace.kotlinaudiopro.models.*
+import co.evergrace.audiopro.models.*
 import com.google.android.exoplayer2.MediaMetadata
 import com.google.android.exoplayer2.metadata.Metadata
 import kotlinx.coroutines.MainScope
@@ -24,7 +24,7 @@ class PlayerEventHolder {
 
     private var _playWhenReadyChange = MutableSharedFlow<PlayWhenReadyChangeData>(1)
     /**
-     * Use these events to track when [co.evergrace.kotlinaudiopro.players.BaseAudioPlayer.playWhenReady]
+     * Use these events to track when [co.evergrace.audiopro.players.BaseAudioPlayer.playWhenReady]
      * changes.
      */
     var playWhenReadyChange = _playWhenReadyChange.asSharedFlow()
@@ -57,7 +57,7 @@ class PlayerEventHolder {
      *
      * The sources can be: media buttons on headphones, Android Wear, Android Auto, Google Assistant, media notification, etc.
      *
-     * For this observable to send events, set [interceptPlayerActionsTriggeredExternally][co.evergrace.kotlinaudiopro.models.PlayerConfig.interceptPlayerActionsTriggeredExternally] to true.
+     * For this observable to send events, set [interceptPlayerActionsTriggeredExternally][co.evergrace.audiopro.models.PlayerConfig.interceptPlayerActionsTriggeredExternally] to true.
     */
     var onPlayerActionTriggeredExternally = _onPlayerActionTriggeredExternally.asSharedFlow()
 

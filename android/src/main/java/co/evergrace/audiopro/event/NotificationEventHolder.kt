@@ -1,6 +1,6 @@
-package co.evergrace.kotlinaudiopro.event
+package co.evergrace.audiopro.event
 
-import co.evergrace.kotlinaudiopro.models.NotificationState
+import co.evergrace.audiopro.models.NotificationState
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

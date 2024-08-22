@@ -1,4 +1,4 @@
-package co.evergrace.kotlinaudiopro.event
+package co.evergrace.audiopro.event
 
 class EventHolder internal constructor(private val notificationEventHolder: NotificationEventHolder, private val playerEventHolder: PlayerEventHolder) {
     val audioItemTransition
