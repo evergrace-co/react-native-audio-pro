@@ -70,34 +70,6 @@ object BundleUtils {
         return if (icon == 0) null else icon
     }
 
-    fun getRating(data: Bundle?, key: String?, ratingType: Int): RatingCompat? {
-        return if (!data!!.containsKey(key) || ratingType == RatingCompat.RATING_NONE) {
-            RatingCompat.newUnratedRating(ratingType)
-        } else if (ratingType == RatingCompat.RATING_HEART) {
-            RatingCompat.newHeartRating(data.getBoolean(key, true))
-        } else if (ratingType == RatingCompat.RATING_THUMB_UP_DOWN) {
-            RatingCompat.newThumbRating(data.getBoolean(key, true))
-        } else if (ratingType == RatingCompat.RATING_PERCENTAGE) {
-            RatingCompat.newPercentageRating(data.getFloat(key, 0f))
-        } else {
-            RatingCompat.newStarRating(ratingType, data.getFloat(key, 0f))
-        }
-    }
-
-    fun setRating(data: Bundle, key: String?, rating: RatingCompat) {
-        if (!rating.isRated) return
-        val ratingType = rating.ratingStyle
-        if (ratingType == RatingCompat.RATING_HEART) {
-            data.putBoolean(key, rating.hasHeart())
-        } else if (ratingType == RatingCompat.RATING_THUMB_UP_DOWN) {
-            data.putBoolean(key, rating.isThumbUp)
-        } else if (ratingType == RatingCompat.RATING_PERCENTAGE) {
-            data.putDouble(key, rating.percentRating.toDouble())
-        } else {
-            data.putDouble(key, rating.starRating.toDouble())
-        }
-    }
-
     fun getInt(data: Bundle?, key: String?, defaultValue: Int): Int {
         val value = data!![key]
         return if (value is Number) {

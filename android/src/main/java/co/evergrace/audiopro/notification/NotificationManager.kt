@@ -391,9 +391,6 @@ class NotificationManager internal constructor(
             getAlbumTitle()?.let {
                 putString(MediaMetadataCompat.METADATA_KEY_ALBUM, it)
             }
-            getGenre()?.let {
-                putString(MediaMetadataCompat.METADATA_KEY_GENRE, it)
-            }
             getDuration()?.let {
                 putLong(MediaMetadataCompat.METADATA_KEY_DURATION, it)
             }
@@ -403,9 +400,6 @@ class NotificationManager internal constructor(
             getCachedArtworkBitmap()?.let {
                 putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, it);
                 putBitmap(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON, it);
-            }
-            getUserRating()?.let {
-                putRating(MediaMetadataCompat.METADATA_KEY_RATING, it)
             }
         }.build()
     }

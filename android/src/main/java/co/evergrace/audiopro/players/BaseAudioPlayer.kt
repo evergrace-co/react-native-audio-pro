@@ -170,41 +170,6 @@ abstract class BaseAudioPlayer internal constructor(
     private val notificationEventHolder = NotificationEventHolder()
     private val playerEventHolder = PlayerEventHolder()
 
-    var ratingType: Int = RatingCompat.RATING_NONE
-        set(value) {
-            field = value
-
-            mediaSession.setRatingType(ratingType)
-            mediaSessionConnector.setRatingCallback(object : MediaSessionConnector.RatingCallback {
-                override fun onCommand(
-                    player: Player,
-                    command: String,
-                    extras: Bundle?,
-                    cb: ResultReceiver?
-                ): Boolean {
-                    return true
-                }
-
-                override fun onSetRating(player: Player, rating: RatingCompat) {
-                    playerEventHolder.updateOnPlayerActionTriggeredExternally(
-                        MediaSessionCallback.RATING(
-                            rating,
-                            null
-                        )
-                    )
-                }
-
-                override fun onSetRating(player: Player, rating: RatingCompat, extras: Bundle?) {
-                    playerEventHolder.updateOnPlayerActionTriggeredExternally(
-                        MediaSessionCallback.RATING(
-                            rating,
-                            extras
-                        )
-                    )
-                }
-            })
-        }
-
     val event = EventHolder(notificationEventHolder, playerEventHolder)
 
     private var focus: AudioFocusRequestCompat? = null

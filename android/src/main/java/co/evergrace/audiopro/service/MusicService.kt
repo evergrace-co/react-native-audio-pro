@@ -178,8 +178,6 @@ class MusicService : HeadlessJsTaskService() {
             }
         }
 
-        ratingType = BundleUtils.getInt(options, "ratingType", RatingCompat.RATING_NONE)
-
         player.playerOptions.alwaysPauseOnInterruption = androidOptions?.getBoolean(PAUSE_ON_INTERRUPTION_KEY) ?: false
 
         capabilities = options.getIntegerArrayList("capabilities")?.map { Capability.values()[it] } ?: emptyList()
