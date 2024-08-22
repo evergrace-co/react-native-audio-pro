@@ -1,4 +1,4 @@
-package co.evergrace.rnaudiopro.module
+package co.evergrace.audiopro.module
 
 import android.content.*
 import android.os.Build
@@ -8,13 +8,13 @@ import android.support.v4.media.RatingCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import co.evergrace.kotlinaudiopro.models.Capability
 import co.evergrace.kotlinaudiopro.models.RepeatMode
-import co.evergrace.rnaudiopro.extensions.NumberExt.Companion.toMilliseconds
-import co.evergrace.rnaudiopro.model.State
-import co.evergrace.rnaudiopro.model.Track
-import co.evergrace.rnaudiopro.module.MusicEvents.Companion.EVENT_INTENT
-import co.evergrace.rnaudiopro.service.MusicService
-import co.evergrace.rnaudiopro.utils.AppForegroundTracker
-import co.evergrace.rnaudiopro.utils.RejectionException
+import co.evergrace.audiopro.extensions.NumberExt.Companion.toMilliseconds
+import co.evergrace.audiopro.model.State
+import co.evergrace.audiopro.model.Track
+import co.evergrace.audiopro.module.MusicEvents.Companion.EVENT_INTENT
+import co.evergrace.audiopro.service.MusicService
+import co.evergrace.audiopro.utils.AppForegroundTracker
+import co.evergrace.audiopro.utils.RejectionException
 import com.facebook.react.bridge.*
 import com.google.android.exoplayer2.DefaultLoadControl.*
 import com.google.android.exoplayer2.Player

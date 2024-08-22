@@ -1,4 +1,4 @@
-package co.evergrace.rnaudiopro.model
+package co.evergrace.audiopro.model
 
 enum class State(val state: String) {
     Buffering("buffering"),

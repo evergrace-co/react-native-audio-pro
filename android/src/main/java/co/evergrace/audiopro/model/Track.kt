@@ -1,11 +1,11 @@
-package co.evergrace.rnaudiopro.model
+package co.evergrace.audiopro.model
 
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import co.evergrace.audiopro.models.AudioItemOptions
 import co.evergrace.kotlinaudiopro.models.MediaType
-import co.evergrace.rnaudiopro.utils.BundleUtils
+import co.evergrace.audiopro.utils.BundleUtils
 import com.google.android.exoplayer2.upstream.RawResourceDataSource
 
 class Track(context: Context, bundle: Bundle, ratingType: Int) : TrackMetadata() {

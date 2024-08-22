@@ -1,4 +1,4 @@
-package co.evergrace.rnaudiopro.utils
+package co.evergrace.audiopro.utils
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner

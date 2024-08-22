@@ -1,4 +1,4 @@
-package co.evergrace.rnaudiopro.model
+package co.evergrace.audiopro.model
 
 import co.evergrace.audiopro.models.AudioItem
 import co.evergrace.audiopro.models.AudioItemOptions

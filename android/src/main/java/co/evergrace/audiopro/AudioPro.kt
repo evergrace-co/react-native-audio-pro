@@ -1,6 +1,6 @@
-package co.evergrace.rnaudiopro
+package co.evergrace.audiopro
 
-import co.evergrace.rnaudiopro.module.MusicModule
+import co.evergrace.audiopro.module.MusicModule
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext

@@ -1,4 +1,4 @@
-package co.evergrace.rnaudiopro.service
+package co.evergrace.audiopro.service
 
 import android.app.*
 import android.content.Context
@@ -16,19 +16,19 @@ import androidx.core.app.NotificationCompat.PRIORITY_LOW
 import co.evergrace.kotlinaudiopro.models.*
 import co.evergrace.kotlinaudiopro.models.NotificationButton.*
 import co.evergrace.kotlinaudiopro.players.QueuedAudioPlayer
-import co.evergrace.rnaudiopro.R as AudioProR
-import co.evergrace.rnaudiopro.extensions.NumberExt.Companion.toMilliseconds
-import co.evergrace.rnaudiopro.extensions.NumberExt.Companion.toSeconds
-import co.evergrace.rnaudiopro.extensions.asLibState
-import co.evergrace.rnaudiopro.extensions.find
-import co.evergrace.rnaudiopro.model.MetadataAdapter
-import co.evergrace.rnaudiopro.model.PlaybackMetadata
-import co.evergrace.rnaudiopro.model.Track
-import co.evergrace.rnaudiopro.model.TrackAudioItem
-import co.evergrace.rnaudiopro.module.MusicEvents
-import co.evergrace.rnaudiopro.module.MusicEvents.Companion.METADATA_PAYLOAD_KEY
-import co.evergrace.rnaudiopro.utils.BundleUtils
-import co.evergrace.rnaudiopro.utils.BundleUtils.setRating
+import co.evergrace.audiopro.R as AudioProR
+import co.evergrace.audiopro.extensions.NumberExt.Companion.toMilliseconds
+import co.evergrace.audiopro.extensions.NumberExt.Companion.toSeconds
+import co.evergrace.audiopro.extensions.asLibState
+import co.evergrace.audiopro.extensions.find
+import co.evergrace.audiopro.model.MetadataAdapter
+import co.evergrace.audiopro.model.PlaybackMetadata
+import co.evergrace.audiopro.model.Track
+import co.evergrace.audiopro.model.TrackAudioItem
+import co.evergrace.audiopro.module.MusicEvents
+import co.evergrace.audiopro.module.MusicEvents.Companion.METADATA_PAYLOAD_KEY
+import co.evergrace.audiopro.utils.BundleUtils
+import co.evergrace.audiopro.utils.BundleUtils.setRating
 import com.facebook.react.HeadlessJsTaskService
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.jstasks.HeadlessJsTaskConfig
