@@ -45,10 +45,6 @@ sealed class MetadataAdapter {
                                     putString("creationDate", entry.value)
                                     rawEntry.putString("commonKey", "creationDate")
                                 }
-                                "TCON", "TCO" -> {
-                                    putString("genre", entry.value)
-                                    rawEntry.putString("commonKey", "genre")
-                                }
                             }
 
                             rawEntry.putString("key", entry.id.uppercase())
@@ -69,7 +65,6 @@ sealed class MetadataAdapter {
 
                         is IcyHeaders -> {
                             putString("title", entry.name)
-                            putString("genre", entry.genre)
 
                             rawEntries.add(Bundle().apply {
                                 putString("value", entry.name)
@@ -133,10 +128,6 @@ sealed class MetadataAdapter {
                                 "DATE" -> {
                                     putString("creationDate", entry.value)
                                     rawEntry.putString("commonKey", "creationDate")
-                                }
-                                "GENRE" -> {
-                                    putString("genre", entry.value)
-                                    rawEntry.putString("commonKey", "genre")
                                 }
                                 "URL" -> {
                                     putString("url", entry.value)

@@ -4,9 +4,6 @@ import android.content.Context
 import android.media.AudioManager
 import android.media.AudioManager.AUDIOFOCUS_LOSS
 import android.net.Uri
-import android.os.Bundle
-import android.os.ResultReceiver
-import android.support.v4.media.RatingCompat
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.annotation.CallSuper
 import androidx.core.content.ContextCompat
@@ -28,7 +25,6 @@ import co.evergrace.audiopro.models.BufferConfig
 import co.evergrace.audiopro.models.CacheConfig
 import co.evergrace.audiopro.models.DefaultPlayerOptions
 import co.evergrace.audiopro.models.MediaSessionCallback
-import co.evergrace.audiopro.models.MediaType
 import co.evergrace.audiopro.models.PlayWhenReadyChangeData
 import co.evergrace.audiopro.models.PlaybackError
 import co.evergrace.audiopro.models.PlayerConfig
@@ -38,7 +34,6 @@ import co.evergrace.audiopro.models.WakeMode
 import co.evergrace.audiopro.notification.NotificationManager
 import co.evergrace.audiopro.players.components.PlayerCache
 import co.evergrace.audiopro.players.components.getAudioItemHolder
-import co.evergrace.audiopro.utils.isUriLocalFile
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.DefaultLoadControl
 import com.google.android.exoplayer2.DefaultLoadControl.Builder
@@ -50,14 +45,12 @@ import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MIN_BUFFER_MS
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ForwardingPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.MediaMetadata
 import com.google.android.exoplayer2.PlaybackException
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.Player.Listener
 import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
-import com.google.android.exoplayer2.metadata.Metadata
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.source.dash.DashMediaSource
@@ -66,13 +59,9 @@ import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource
 import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DataSpec
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
-import com.google.android.exoplayer2.upstream.RawResourceDataSource
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
-import com.google.android.exoplayer2.util.Util
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import timber.log.Timber

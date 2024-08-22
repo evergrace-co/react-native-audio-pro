@@ -12,7 +12,6 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
-import android.support.v4.media.RatingCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.annotation.DrawableRes
@@ -155,11 +154,6 @@ class NotificationManager internal constructor(
             ?: audioItem?.artist
     }
 
-    private fun getGenre(index: Int? = null): String? {
-        val mediaItem = if (index == null) player.currentMediaItem else player.getMediaItemAt(index)
-        return mediaItem?.mediaMetadata?.genre?.toString()
-    }
-
     private fun getAlbumTitle(index: Int? = null): String? {
         val mediaItem = if (index == null) player.currentMediaItem else player.getMediaItemAt(index)
         return mediaItem?.mediaMetadata?.albumTitle?.toString()
@@ -210,12 +204,6 @@ class NotificationManager internal constructor(
         } else {
             overrideAudioItem?.duration ?: player.duration
         }
-    }
-
-    private fun getUserRating(index: Int? = null): RatingCompat? {
-        val mediaItem = if (index == null) player.currentMediaItem
-            else player.getMediaItemAt(index)
-        return RatingCompat.fromRating(mediaItem?.mediaMetadata?.userRating)
     }
 
     var showPlayPauseButton = false

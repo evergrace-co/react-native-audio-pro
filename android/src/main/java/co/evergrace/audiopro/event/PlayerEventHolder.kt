@@ -5,9 +5,7 @@ import com.google.android.exoplayer2.MediaMetadata
 import com.google.android.exoplayer2.metadata.Metadata
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class PlayerEventHolder {

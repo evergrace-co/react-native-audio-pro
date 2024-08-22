@@ -8,24 +8,23 @@ import co.evergrace.audiopro.models.MediaType
 import co.evergrace.audiopro.utils.BundleUtils
 import com.google.android.exoplayer2.upstream.RawResourceDataSource
 
-class Track(context: Context, bundle: Bundle, ratingType: Int) : TrackMetadata() {
+class Track(context: Context, bundle: Bundle) : TrackMetadata() {
     var uri: Uri? = null
     var resourceId: Int?
     var type = MediaType.DEFAULT
     var contentType: String?
-    var userAgent: String?
     var originalItem: Bundle?
     var headers: MutableMap<String, String>? = null
     val queueId: Long
 
-    override fun setMetadata(context: Context, bundle: Bundle?, ratingType: Int) {
-        super.setMetadata(context, bundle, ratingType)
+    override fun setMetadata(context: Context, bundle: Bundle?) {
+        super.setMetadata(context, bundle)
         if (originalItem != null && originalItem != bundle) originalItem!!.putAll(bundle)
     }
 
     fun toAudioItem(): TrackAudioItem {
         return TrackAudioItem(this, type, uri.toString(), artist, title, album, artwork.toString(), duration,
-                AudioItemOptions(headers, userAgent, resourceId))
+                AudioItemOptions(headers, resourceId))
     }
 
     init {
@@ -44,7 +43,6 @@ class Track(context: Context, bundle: Bundle, ratingType: Int) : TrackMetadata()
             }
         }
         contentType = bundle.getString("contentType")
-        userAgent = bundle.getString("userAgent")
         val httpHeaders = bundle.getBundle("headers")
         if (httpHeaders != null) {
             headers = HashMap()
@@ -52,7 +50,7 @@ class Track(context: Context, bundle: Bundle, ratingType: Int) : TrackMetadata()
                 headers!![header] = httpHeaders.getString(header)!!
             }
         }
-        setMetadata(context, bundle, ratingType)
+        setMetadata(context, bundle)
         queueId = System.currentTimeMillis()
         originalItem = bundle
     }

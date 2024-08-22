@@ -4,7 +4,6 @@ import android.content.*
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
-import android.support.v4.media.RatingCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import co.evergrace.audiopro.models.Capability
 import co.evergrace.audiopro.models.RepeatMode
@@ -83,7 +82,7 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
     }
 
     private fun bundleToTrack(bundle: Bundle): Track {
-        return Track(context, bundle, musicService.ratingType)
+        return Track(context, bundle)
     }
 
     private fun rejectWithException(callback: Promise, exception: Exception) {
@@ -325,7 +324,7 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
             } else {
                 val context: ReactContext = context
                 val track = musicService.tracks[index]
-                track.setMetadata(context, Arguments.toBundle(map), musicService.ratingType)
+                track.setMetadata(context, Arguments.toBundle(map))
                 musicService.updateMetadataForTrack(index, track)
 
                 callback.resolve(null)

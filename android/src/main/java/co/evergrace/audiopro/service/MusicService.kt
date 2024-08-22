@@ -9,7 +9,6 @@ import android.os.Binder
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
-import android.support.v4.media.RatingCompat
 import androidx.annotation.MainThread
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_LOW
@@ -21,13 +20,10 @@ import co.evergrace.audiopro.extensions.NumberExt.Companion.toMilliseconds
 import co.evergrace.audiopro.extensions.NumberExt.Companion.toSeconds
 import co.evergrace.audiopro.extensions.asLibState
 import co.evergrace.audiopro.extensions.find
-import co.evergrace.audiopro.model.MetadataAdapter
-import co.evergrace.audiopro.model.PlaybackMetadata
 import co.evergrace.audiopro.model.Track
 import co.evergrace.audiopro.model.TrackAudioItem
 import co.evergrace.audiopro.module.MusicEvents
 import co.evergrace.audiopro.utils.BundleUtils
-import co.evergrace.audiopro.utils.BundleUtils.setRating
 import com.facebook.react.HeadlessJsTaskService
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.jstasks.HeadlessJsTaskConfig
@@ -68,12 +64,6 @@ class MusicService : HeadlessJsTaskService() {
 
     val state
         get() = player.playerState
-
-    var ratingType: Int
-        get() = player.ratingType
-        set(value) {
-            player.ratingType = value
-        }
 
     val playbackError
         get() = player.playbackError

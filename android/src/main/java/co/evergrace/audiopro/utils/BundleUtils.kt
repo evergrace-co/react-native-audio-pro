@@ -4,7 +4,6 @@ import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.media.RatingCompat
 import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper
 
 object BundleUtils {
@@ -68,13 +67,6 @@ object BundleUtils {
         val helper = ResourceDrawableIdHelper.getInstance()
         val icon = helper.getResourceDrawableId(context, bundle.getString("uri"))
         return if (icon == 0) null else icon
-    }
-
-    fun getInt(data: Bundle?, key: String?, defaultValue: Int): Int {
-        val value = data!![key]
-        return if (value is Number) {
-            value.toInt()
-        } else defaultValue
     }
 
     fun getIntOrNull(data: Bundle?, key: String?): Int? {
