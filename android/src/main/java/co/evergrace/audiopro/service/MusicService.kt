@@ -26,7 +26,6 @@ import co.evergrace.audiopro.model.PlaybackMetadata
 import co.evergrace.audiopro.model.Track
 import co.evergrace.audiopro.model.TrackAudioItem
 import co.evergrace.audiopro.module.MusicEvents
-import co.evergrace.audiopro.module.MusicEvents.Companion.METADATA_PAYLOAD_KEY
 import co.evergrace.audiopro.utils.BundleUtils
 import co.evergrace.audiopro.utils.BundleUtils.setRating
 import com.facebook.react.HeadlessJsTaskService
@@ -637,12 +636,6 @@ class MusicService : HeadlessJsTaskService() {
         scope.launch {
             event.onPlayerActionTriggeredExternally.collect {
                 when (it) {
-                    is MediaSessionCallback.RATING -> {
-                        Bundle().apply {
-                            setRating(this, "rating", it.rating)
-                            emit(MusicEvents.BUTTON_SET_RATING, this)
-                        }
-                    }
                     is MediaSessionCallback.SEEK -> {
                         Bundle().apply {
                             putDouble("position", it.positionMs.toSeconds())
@@ -669,45 +662,6 @@ class MusicService : HeadlessJsTaskService() {
                         }
                     }
                 }
-            }
-        }
-
-        scope.launch {
-            event.onTimedMetadata.collect {
-                val data = MetadataAdapter.fromMetadata(it)
-                val bundle = Bundle().apply {
-                    putParcelableArrayList(METADATA_PAYLOAD_KEY, ArrayList(data))
-                }
-                emit(MusicEvents.METADATA_TIMED_RECEIVED, bundle)
-
-                // TODO: Handle the different types of metadata and publish to new events
-                val metadata = PlaybackMetadata.fromId3Metadata(it)
-                    ?: PlaybackMetadata.fromIcy(it)
-                    ?: PlaybackMetadata.fromVorbisComment(it)
-                    ?: PlaybackMetadata.fromQuickTime(it)
-
-                if (metadata != null) {
-                    Bundle().apply {
-                        putString("source", metadata.source)
-                        putString("title", metadata.title)
-                        putString("url", metadata.url)
-                        putString("artist", metadata.artist)
-                        putString("album", metadata.album)
-                        putString("date", metadata.date)
-                        putString("genre", metadata.genre)
-                        emit(MusicEvents.PLAYBACK_METADATA, this)
-                    }
-                }
-            }
-        }
-
-        scope.launch {
-            event.onCommonMetadata.collect {
-                val data = MetadataAdapter.fromMediaMetadata(it)
-                val bundle = Bundle().apply {
-                    putBundle(METADATA_PAYLOAD_KEY, data)
-                }
-                emit(MusicEvents.METADATA_COMMON_RECEIVED, bundle)
             }
         }
 
