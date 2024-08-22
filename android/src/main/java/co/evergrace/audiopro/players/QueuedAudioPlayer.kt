@@ -1,8 +1,8 @@
-package co.evergrace.kotlinaudiopro.players
+package co.evergrace.audiopro.players
 
 import android.content.Context
-import co.evergrace.kotlinaudiopro.models.*
-import co.evergrace.kotlinaudiopro.players.components.getAudioItemHolder
+import co.evergrace.audiopro.models.*
+import co.evergrace.audiopro.players.components.getAudioItemHolder
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.IllegalSeekPositionException
 import com.google.android.exoplayer2.source.MediaSource

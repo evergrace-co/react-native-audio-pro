@@ -1,7 +1,7 @@
-package co.evergrace.kotlinaudiopro.players.components
+package co.evergrace.audiopro.players.components
 
 import android.content.Context
-import co.evergrace.kotlinaudiopro.models.CacheConfig
+import co.evergrace.audiopro.models.CacheConfig
 import com.google.android.exoplayer2.database.DatabaseProvider
 import com.google.android.exoplayer2.database.StandaloneDatabaseProvider
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor

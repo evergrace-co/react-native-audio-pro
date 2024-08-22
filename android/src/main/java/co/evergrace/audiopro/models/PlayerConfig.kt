@@ -1,4 +1,4 @@
-package co.evergrace.kotlinaudiopro.models
+package co.evergrace.audiopro.models
 
 data class PlayerConfig(
     /**
@@ -6,7 +6,7 @@ data class PlayerConfig(
      *
      * The sources can be: media buttons on headphones, Android Wear, Android Auto, Google Assistant, media notification, etc.
      *
-     * Setting this to true enables the use of [onPlayerActionTriggeredExternally][co.evergrace.kotlinaudiopro.event.PlayerEventHolder.onPlayerActionTriggeredExternally] events.
+     * Setting this to true enables the use of [onPlayerActionTriggeredExternally][co.evergrace.audiopro.event.PlayerEventHolder.onPlayerActionTriggeredExternally] events.
      *
      * **Example**:
      * ```

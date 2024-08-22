@@ -1,6 +1,6 @@
-package co.evergrace.kotlinaudiopro.players.components
+package co.evergrace.audiopro.players.components
 
-import co.evergrace.kotlinaudiopro.models.AudioItemHolder
+import co.evergrace.audiopro.models.AudioItemHolder
 import com.google.android.exoplayer2.MediaItem
 
 fun MediaItem.getAudioItemHolder(): AudioItemHolder {

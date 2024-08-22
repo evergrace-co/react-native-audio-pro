@@ -1,4 +1,4 @@
-package co.evergrace.kotlinaudiopro.models
+package co.evergrace.audiopro.models
 
 /**
  * Use these events to track when and why the positionMs of an [AudioItem] changes.

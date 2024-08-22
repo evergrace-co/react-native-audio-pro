@@ -1,4 +1,4 @@
-package co.evergrace.kotlinaudiopro.models
+package co.evergrace.audiopro.models
 
 interface PlayerOptions {
     var alwaysPauseOnInterruption: Boolean

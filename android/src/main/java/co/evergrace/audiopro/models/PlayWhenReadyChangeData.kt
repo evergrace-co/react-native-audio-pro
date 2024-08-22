@@ -1,4 +1,4 @@
-package co.evergrace.kotlinaudiopro.models
+package co.evergrace.audiopro.models
 
 import com.google.android.exoplayer2.Player
 

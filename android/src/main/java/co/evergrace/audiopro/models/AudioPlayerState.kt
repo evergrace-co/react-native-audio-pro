@@ -1,4 +1,4 @@
-package co.evergrace.kotlinaudiopro.models
+package co.evergrace.audiopro.models
 
 enum class AudioPlayerState {
     /** The current [AudioItem] is being loaded for playback. */

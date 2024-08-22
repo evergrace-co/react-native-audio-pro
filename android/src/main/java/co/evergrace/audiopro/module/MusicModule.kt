@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.os.IBinder
 import android.support.v4.media.RatingCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import co.evergrace.kotlinaudiopro.models.Capability
-import co.evergrace.kotlinaudiopro.models.RepeatMode
+import co.evergrace.audiopro.models.Capability
+import co.evergrace.audiopro.models.RepeatMode
 import co.evergrace.audiopro.extensions.NumberExt.Companion.toMilliseconds
 import co.evergrace.audiopro.model.State
 import co.evergrace.audiopro.model.Track

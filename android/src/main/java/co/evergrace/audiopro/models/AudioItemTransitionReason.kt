@@ -1,4 +1,4 @@
-package co.evergrace.kotlinaudiopro.models
+package co.evergrace.audiopro.models
 
 /**
  * Use these events to track when and why an [AudioItem] transitions to another.
@@ -14,8 +14,8 @@ sealed class AudioItemTransitionReason(val oldPosition: Long) {
 
     /**
      * A seek to another [AudioItem] has occurred. Usually triggered when calling
-     * [QueuedAudioPlayer.next][co.evergrace.kotlinaudiopro.players.QueuedAudioPlayer.next]
-     * or [QueuedAudioPlayer.previous][co.evergrace.kotlinaudiopro.players.QueuedAudioPlayer.previous].
+     * [QueuedAudioPlayer.next][co.evergrace.audiopro.players.QueuedAudioPlayer.next]
+     * or [QueuedAudioPlayer.previous][co.evergrace.audiopro.players.QueuedAudioPlayer.previous].
      */
     class SEEK_TO_ANOTHER_AUDIO_ITEM(oldPosition: Long) : AudioItemTransitionReason(oldPosition)
 

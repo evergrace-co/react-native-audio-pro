@@ -13,9 +13,9 @@ import android.support.v4.media.RatingCompat
 import androidx.annotation.MainThread
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_LOW
-import co.evergrace.kotlinaudiopro.models.*
-import co.evergrace.kotlinaudiopro.models.NotificationButton.*
-import co.evergrace.kotlinaudiopro.players.QueuedAudioPlayer
+import co.evergrace.audiopro.models.*
+import co.evergrace.audiopro.models.NotificationButton.*
+import co.evergrace.audiopro.players.QueuedAudioPlayer
 import co.evergrace.audiopro.R as AudioProR
 import co.evergrace.audiopro.extensions.NumberExt.Companion.toMilliseconds
 import co.evergrace.audiopro.extensions.NumberExt.Companion.toSeconds

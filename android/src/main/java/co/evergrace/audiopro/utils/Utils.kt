@@ -1,4 +1,4 @@
-package co.evergrace.kotlinaudiopro.utils
+package co.evergrace.audiopro.utils
 
 import android.content.ContentResolver
 import android.net.Uri

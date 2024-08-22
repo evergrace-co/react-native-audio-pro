@@ -1,4 +1,4 @@
-package co.evergrace.kotlinaudiopro.notification
+package co.evergrace.audiopro.notification
 
 import android.app.Notification
 import android.app.PendingIntent
@@ -20,15 +20,15 @@ import androidx.core.app.NotificationCompat
 import coil.imageLoader
 import coil.request.Disposable
 import coil.request.ImageRequest
-import co.evergrace.kotlinaudiopro.R
-import co.evergrace.kotlinaudiopro.event.NotificationEventHolder
-import co.evergrace.kotlinaudiopro.event.PlayerEventHolder
-import co.evergrace.kotlinaudiopro.models.AudioItem
-import co.evergrace.kotlinaudiopro.models.MediaSessionCallback
-import co.evergrace.kotlinaudiopro.models.NotificationButton
-import co.evergrace.kotlinaudiopro.models.NotificationConfig
-import co.evergrace.kotlinaudiopro.models.NotificationState
-import co.evergrace.kotlinaudiopro.players.components.getAudioItemHolder
+import co.evergrace.audiopro.R
+import co.evergrace.audiopro.event.NotificationEventHolder
+import co.evergrace.audiopro.event.PlayerEventHolder
+import co.evergrace.audiopro.models.AudioItem
+import co.evergrace.audiopro.models.MediaSessionCallback
+import co.evergrace.audiopro.models.NotificationButton
+import co.evergrace.audiopro.models.NotificationConfig
+import co.evergrace.audiopro.models.NotificationState
+import co.evergrace.audiopro.players.components.getAudioItemHolder
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
