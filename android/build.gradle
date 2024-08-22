@@ -79,6 +79,3 @@ dependencies {
     api 'com.jakewharton.timber:timber:5.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
-kotlin {
-    jvmToolchain(8)
-}
