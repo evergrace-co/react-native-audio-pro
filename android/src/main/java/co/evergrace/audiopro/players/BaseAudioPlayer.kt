@@ -448,48 +448,30 @@ abstract class BaseAudioPlayer internal constructor(
     }
 
     protected fun getMediaSourceFromAudioItem(audioItem: AudioItem): MediaSource {
+        // Parse the audio URL from the AudioItem object
         val uri = Uri.parse(audioItem.audioUrl)
+
+        // Ensure the URL begins with HTTPS, fail if not
+        if (!uri.scheme.equals("https", ignoreCase = true)) {
+            throw IllegalArgumentException("Only HTTPS URLs are supported")
+        }
+
+        // Build the MediaItem, which holds the URI and any associated tags (like the AudioItem)
         val mediaItem = MediaItem.Builder()
             .setUri(audioItem.audioUrl)
             .setTag(AudioItemHolder(audioItem))
             .build()
 
-        val userAgent =
-            if (audioItem.options == null || audioItem.options!!.userAgent.isNullOrBlank()) {
-                Util.getUserAgent(context, APPLICATION_NAME)
-            } else {
-                audioItem.options!!.userAgent
-            }
-
-        val factory: DataSource.Factory = when {
-            audioItem.options?.resourceId != null -> {
-                val raw = RawResourceDataSource(context)
-                raw.open(DataSpec(uri))
-                DataSource.Factory { raw }
-            }
-            isUriLocalFile(uri) -> {
-                DefaultDataSourceFactory(context, userAgent)
-            }
-            else -> {
-                val tempFactory = DefaultHttpDataSource.Factory().apply {
-                    setUserAgent(userAgent)
-                    setAllowCrossProtocolRedirects(true)
-
-                    audioItem.options?.headers?.let {
-                        setDefaultRequestProperties(it.toMap())
-                    }
-                }
-
-                enableCaching(tempFactory)
+        // Create a data source factory for handling HTTP-based media sources
+        val factory = DefaultHttpDataSource.Factory().apply {
+            // If there are custom headers provided in the audioItem options, set them in the request
+            audioItem.options?.headers?.let {
+                setDefaultRequestProperties(it.toMap())
             }
         }
 
-        return when (audioItem.type) {
-            MediaType.DASH -> createDashSource(mediaItem, factory)
-            MediaType.HLS -> createHlsSource(mediaItem, factory)
-            MediaType.SMOOTH_STREAMING -> createSsSource(mediaItem, factory)
-            else -> createProgressiveSource(mediaItem, factory)
-        }
+        // Create and return a MediaSource for a progressive download (e.g., an MP3 file)
+        return createProgressiveSource(mediaItem, factory)
     }
 
     private fun createDashSource(mediaItem: MediaItem, factory: DataSource.Factory?): MediaSource {
@@ -597,21 +579,10 @@ abstract class BaseAudioPlayer internal constructor(
     }
 
     companion object {
-        const val APPLICATION_NAME = "react-native-track-player"
+        const val APPLICATION_NAME = "react-native-audio-pro"
     }
 
     inner class PlayerListener : Listener {
-        /**
-         * Called when there is metadata associated with the current playback time.
-         */
-        override fun onMetadata(metadata: Metadata) {
-            playerEventHolder.updateOnTimedMetadata(metadata)
-        }
-
-        override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
-            playerEventHolder.updateOnCommonMetadata(mediaMetadata)
-        }
-
         /**
          * A position discontinuity occurs when the playing period changes, the playback position
          * jumps within the period currently being played, or when the playing period has been
