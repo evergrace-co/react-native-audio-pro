@@ -1,14 +1,10 @@
 import Foundation
-import SwiftAudioPro
 
 enum Capability: String {
-    case play, pause, togglePlayPause, stop, next, previous, jumpForward, jumpBackward, seek, like, dislike, bookmark
+    case play, pause, togglePlayPause, stop, next, previous, jumpForward, jumpBackward, seek
 
     func mapToPlayerCommand(forwardJumpInterval: NSNumber?,
-                            backwardJumpInterval: NSNumber?,
-                            likeOptions: [String: Any]?,
-                            dislikeOptions: [String: Any]?,
-                            bookmarkOptions: [String: Any]?) -> RemoteCommand {
+                            backwardJumpInterval: NSNumber?) -> RemoteCommand {
         switch self {
         case .stop:
             return .stop
@@ -28,18 +24,6 @@ enum Capability: String {
             return .skipForward(preferredIntervals: [(forwardJumpInterval ?? backwardJumpInterval) ?? 15])
         case .jumpBackward:
             return .skipBackward(preferredIntervals: [(backwardJumpInterval ?? forwardJumpInterval) ?? 15])
-        case .like:
-            return .like(isActive: likeOptions?["isActive"] as? Bool ?? false,
-                         localizedTitle: likeOptions?["title"] as? String ?? "Like",
-                         localizedShortTitle: likeOptions?["title"] as? String ?? "Like")
-        case .dislike:
-            return .dislike(isActive: dislikeOptions?["isActive"] as? Bool ?? false,
-                            localizedTitle: dislikeOptions?["title"] as? String ?? "Dislike",
-                            localizedShortTitle: dislikeOptions?["title"] as? String ?? "Dislike")
-        case .bookmark:
-            return .bookmark(isActive: bookmarkOptions?["isActive"] as? Bool ?? false,
-                             localizedTitle: bookmarkOptions?["title"] as? String ?? "Bookmark",
-                             localizedShortTitle: bookmarkOptions?["title"] as? String ?? "Bookmark")
         }
     }
 }

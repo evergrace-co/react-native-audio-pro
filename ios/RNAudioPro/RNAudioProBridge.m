@@ -111,17 +111,4 @@ RCT_EXTERN_METHOD(getProgress:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(getPlaybackState:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject);
 
-RCT_EXTERN_METHOD(getSleepTimerProgress:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject);
-
-RCT_EXTERN_METHOD(setSleepTimer:(double)time
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject);
-
-RCT_EXTERN_METHOD(sleepWhenActiveTrackReachesEnd:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject);
-
-RCT_EXTERN_METHOD(clearSleepTimer:(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject);
-
 @end

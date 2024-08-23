@@ -360,23 +360,9 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
         }
     }
 
-    private func setTimePitchingAlgorithmForCurrentItem() {
-        if let item = currentItem as? TimePitching {
-            wrapper.currentItem?.audioTimePitchAlgorithm = item.getPitchAlgorithmType()
-        } else {
-            wrapper.currentItem?.audioTimePitchAlgorithm = audioTimePitchAlgorithm
-        }
-    }
-
     // MARK: - AVPlayerWrapperDelegate
 
     func AVWrapper(didChangeState state: AVPlayerWrapperState) {
-        switch state {
-        case .ready, .loading:
-            setTimePitchingAlgorithmForCurrentItem()
-        default: break
-        }
-
         switch state {
         case .ready, .loading, .playing, .paused:
             if (automaticallyUpdateNowPlayingInfo) {
@@ -405,18 +391,6 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
 
     func AVWrapper(didUpdateDuration duration: Double) {
         event.updateDuration.emit(data: duration)
-    }
-
-    func AVWrapper(didReceiveCommonMetadata metadata: [AVMetadataItem]) {
-        event.receiveCommonMetadata.emit(data: metadata)
-    }
-
-    func AVWrapper(didReceiveChapterMetadata metadata: [AVTimedMetadataGroup]) {
-        event.receiveChapterMetadata.emit(data: metadata)
-    }
-
-    func AVWrapper(didReceiveTimedMetadata metadata: [AVTimedMetadataGroup]) {
-        event.receiveTimedMetadata.emit(data: metadata)
     }
 
     func AVWrapper(didChangePlayWhenReady playWhenReady: Bool) {

@@ -67,24 +67,6 @@ extension AudioPlayer {
         public let updateDuration: AudioPlayer.Event<UpdateDurationEventData> = AudioPlayer.Event()
 
         /**
-         Emitted when the player receives common metadata.
-         - Important: Remember to dispatch to the main queue if any UI is updated in the event handler.
-         */
-        public let receiveCommonMetadata: AudioPlayer.Event<MetadataCommonEventData> = AudioPlayer.Event()
-
-        /**
-         Emitted when the player receives timed metadata.
-         - Important: Remember to dispatch to the main queue if any UI is updated in the event handler.
-         */
-        public let receiveTimedMetadata: AudioPlayer.Event<MetadataTimedEventData> = AudioPlayer.Event()
-
-        /**
-         Emitted when the player receives chapter metadata.
-         - Important: Remember to dispatch to the main queue if any UI is updated in the event handler.
-         */
-        public let receiveChapterMetadata: AudioPlayer.Event<MetadataTimedEventData> = AudioPlayer.Event()
-
-        /**
          Emitted when the underlying AVPlayer instance is recreated. Recreation happens if the current player fails.
          - Important: Remember to dispatch to the main queue if any UI is updated in the event handler.
          - Note: It can be necessary to set the AVAudioSession's category again when this event is emitted.
@@ -121,7 +103,7 @@ extension AudioPlayer {
     }
 
     public class Event<EventData> {
-        private let queue: DispatchQueue = DispatchQueue(label: "com.SwiftAudioPro.eventQueue")
+        private let queue: DispatchQueue = DispatchQueue(label: "com.RNAudioPro.eventQueue")
         var invokers: [Invoker<EventData>] = []
 
         public func addListener<Listener: AnyObject>(_ listener: Listener, _ closure: @escaping EventClosure<EventData>) {

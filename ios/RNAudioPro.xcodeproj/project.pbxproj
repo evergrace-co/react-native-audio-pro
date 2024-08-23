@@ -34,7 +34,6 @@
 		14E2CFCF2C7813C10015C456 /* RemoteCommandController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E2CFB12C7813C10015C456 /* RemoteCommandController.swift */; };
 		14E2CFD02C7813C10015C456 /* AudioPlayerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E2CF982C7813C10015C456 /* AudioPlayerError.swift */; };
 		14E2CFD12C7813C10015C456 /* AVPlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E2CFAB2C7813C10015C456 /* AVPlayerObserver.swift */; };
-		9A0CF10E2046E5AC0093A5DF /* PitchAlgorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0CF10D2046E5AC0093A5DF /* PitchAlgorithms.swift */; };
 		9B0E282E1F07D76F00B71D2A /* RNAudioProBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E282D1F07D76F00B71D2A /* RNAudioProBridge.m */; };
 		9B0E282F1F07D76F00B71D2A /* RNAudioProBridge.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9B0E282C1F07D76F00B71D2A /* RNAudioProBridge.h */; };
 		9B18C2FA226356560019375A /* SessionCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B18C2F9226356560019375A /* SessionCategories.swift */; };
@@ -88,7 +87,6 @@
 		14E2CFB32C7813C10015C456 /* RepeatMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatMode.swift; sourceTree = "<group>"; };
 		14E2CFB42C7813C10015C456 /* TimeEventFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEventFrequency.swift; sourceTree = "<group>"; };
 		14E2CFB52C7813C10015C456 /* DispatchQueueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueType.swift; sourceTree = "<group>"; };
-		9A0CF10D2046E5AC0093A5DF /* PitchAlgorithms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchAlgorithms.swift; sourceTree = "<group>"; };
 		9B0E28291F07D76F00B71D2A /* libRNAudioPro.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNAudioPro.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B0E282C1F07D76F00B71D2A /* RNAudioProBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNAudioProBridge.h; sourceTree = "<group>"; };
 		9B0E282D1F07D76F00B71D2A /* RNAudioProBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNAudioProBridge.m; sourceTree = "<group>"; };
@@ -224,7 +222,6 @@
 				9B78A2451F3F12BC002B5E3C /* Track.swift */,
 				9B78A2471F3F12C9002B5E3C /* MediaURL.swift */,
 				9BFC1FDC1F61A8E8008795BF /* Capabilities.swift */,
-				9A0CF10D2046E5AC0093A5DF /* PitchAlgorithms.swift */,
 				9B18C2F9226356560019375A /* SessionCategories.swift */,
 			);
 			path = Models;
@@ -340,7 +337,6 @@
 				F03B44972912BCA50035FE01 /* EventType.swift in Sources */,
 				9BFC1FDD1F61A8E8008795BF /* Capabilities.swift in Sources */,
 				9B78A2461F3F12BC002B5E3C /* Track.swift in Sources */,
-				9A0CF10E2046E5AC0093A5DF /* PitchAlgorithms.swift in Sources */,
 				9B58DF3B1F40C0F000C2105E /* RNAudioPro.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

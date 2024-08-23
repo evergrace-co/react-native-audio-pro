@@ -1,6 +1,5 @@
 import Foundation
 import MediaPlayer
-import SwiftAudioPro
 
 @objc(RNAudioPro)
 public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
@@ -26,9 +25,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         EventEmitter.shared.register(eventEmitter: self)
         audioSessionController.delegate = self
         player.playWhenReady = false;
-        player.event.receiveChapterMetadata.addListener(self, handleAudioPlayerChapterMetadataReceived)
-        player.event.receiveTimedMetadata.addListener(self, handleAudioPlayerTimedMetadataReceived)
-        player.event.receiveCommonMetadata.addListener(self, handleAudioPlayerCommonMetadataReceived)
         player.event.stateChange.addListener(self, handleAudioPlayerStateChange)
         player.event.fail.addListener(self, handleAudioPlayerFailed)
         player.event.currentItem.addListener(self, handleAudioPlayerCurrentItemChange)
@@ -64,10 +60,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             "TRACK_PLAYBACK_ENDED_REASON_PREVIOUS": PlaybackEndedReason.skippedToPrevious.rawValue,
             "TRACK_PLAYBACK_ENDED_REASON_STOPPED": PlaybackEndedReason.playerStopped.rawValue,
 
-            "PITCH_ALGORITHM_LINEAR": PitchAlgorithm.linear.rawValue,
-            "PITCH_ALGORITHM_MUSIC": PitchAlgorithm.music.rawValue,
-            "PITCH_ALGORITHM_VOICE": PitchAlgorithm.voice.rawValue,
-
             "CAPABILITY_PLAY": Capability.play.rawValue,
             "CAPABILITY_PLAY_FROM_ID": "NOOP",
             "CAPABILITY_PLAY_FROM_SEARCH": "NOOP",
@@ -80,9 +72,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             "CAPABILITY_SET_RATING": "NOOP",
             "CAPABILITY_JUMP_FORWARD": Capability.jumpForward.rawValue,
             "CAPABILITY_JUMP_BACKWARD": Capability.jumpBackward.rawValue,
-            "CAPABILITY_LIKE": Capability.like.rawValue,
-            "CAPABILITY_DISLIKE": Capability.dislike.rawValue,
-            "CAPABILITY_BOOKMARK": Capability.bookmark.rawValue,
 
             "REPEAT_OFF": RepeatMode.off.rawValue,
             "REPEAT_TRACK": RepeatMode.track.rawValue,
@@ -264,21 +253,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             return MPRemoteCommandHandlerStatus.success
         }
 
-        player.remoteCommandController.handleLikeCommand = { [weak self] _ in
-            self?.emit(event: EventType.RemoteLike)
-            return MPRemoteCommandHandlerStatus.success
-        }
-
-        player.remoteCommandController.handleDislikeCommand = { [weak self] _ in
-            self?.emit(event: EventType.RemoteDislike)
-            return MPRemoteCommandHandlerStatus.success
-        }
-
-        player.remoteCommandController.handleBookmarkCommand = { [weak self] _ in
-            self?.emit(event: EventType.RemoteBookmark)
-            return MPRemoteCommandHandlerStatus.success
-        }
-
         hasInitialized = true
         resolve(NSNull())
     }
@@ -327,10 +301,7 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             .map { capability in
                 capability.mapToPlayerCommand(
                     forwardJumpInterval: forwardJumpInterval,
-                    backwardJumpInterval: backwardJumpInterval,
-                    likeOptions: options["likeOptions"] as? [String: Any],
-                    dislikeOptions: options["dislikeOptions"] as? [String: Any],
-                    bookmarkOptions: options["bookmarkOptions"] as? [String: Any]
+                    backwardJumpInterval: backwardJumpInterval
                 )
             }
 
@@ -546,7 +517,7 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
     public func setRepeatMode(repeatMode: NSNumber, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
         if (rejectWhenNotInitialized(reject: reject)) { return }
 
-        player.repeatMode = SwiftAudioPro.RepeatMode(rawValue: repeatMode.intValue) ?? .off
+        player.repeatMode = RNAudioPro.RepeatMode(rawValue: repeatMode.intValue) ?? .off
         resolve(NSNull())
     }
 
@@ -698,27 +669,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         }
     }
 
-    func handleAudioPlayerCommonMetadataReceived(metadata: [AVMetadataItem]) {
-        let commonMetadata = MetadataAdapter.convertToCommonMetadata(metadata: metadata, skipRaw: true)
-        emit(event: EventType.MetadataCommonReceived, body: ["metadata": commonMetadata])
-    }
-
-    func handleAudioPlayerChapterMetadataReceived(metadata: [AVTimedMetadataGroup]) {
-        let metadataItems = MetadataAdapter.convertToGroupedMetadata(metadataGroups: metadata);
-        emit(event: EventType.MetadataChapterReceived, body:  ["metadata": metadataItems])
-    }
-
-    func handleAudioPlayerTimedMetadataReceived(metadata: [AVTimedMetadataGroup]) {
-        let metadataItems = MetadataAdapter.convertToGroupedMetadata(metadataGroups: metadata);
-        emit(event: EventType.MetadataTimedReceived, body: ["metadata": metadataItems])
-
-        // SwiftAudioPro was updated to return the array of timed metadata
-        // Until we have support for that in RNAP, we take the first item to keep existing behaviour.
-        let metadata = metadata.first?.items ?? []
-        let metadataItem = MetadataAdapter.legacyConversion(metadata: metadata)
-        emit(event: EventType.PlaybackMetadataReceived, body: metadataItem)
-    }
-
     func handleAudioPlayerFailed(error: Error?) {
         emit(event: EventType.PlaybackError, body: ["error": error?.localizedDescription])
     }
@@ -734,11 +684,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         if let item = item {
             DispatchQueue.main.async {
                 UIApplication.shared.beginReceivingRemoteControlEvents();
-            }
-            // Update now playing controller with isLiveStream option from track
-            if self.player.automaticallyUpdateNowPlayingInfo {
-                let isTrackLiveStream = (item as? Track)?.isLiveStream ?? false
-                self.player.nowPlayingInfoController.set(keyValue: NowPlayingInfoProperty.isLiveStream(isTrackLiveStream))
             }
         } else {
             DispatchQueue.main.async {

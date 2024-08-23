@@ -230,31 +230,6 @@ class AVPlayerWrapper: AVPlayerWrapperProtocol {
             asset = pendingAsset
             state = .loading
 
-            // Load metadata keys asynchronously and separate from playable, to allow that to execute as quickly as it can
-            let metdataKeys = ["commonMetadata", "availableChapterLocales", "availableMetadataFormats"]
-            pendingAsset.loadValuesAsynchronously(forKeys: metdataKeys, completionHandler: { [weak self] in
-                guard let self = self else { return }
-                if (pendingAsset != self.asset) { return; }
-
-                let commonData = pendingAsset.commonMetadata
-                if (!commonData.isEmpty) {
-                    self.delegate?.AVWrapper(didReceiveCommonMetadata: commonData)
-                }
-
-                if pendingAsset.availableChapterLocales.count > 0 {
-                    for locale in pendingAsset.availableChapterLocales {
-                        let chapters = pendingAsset.chapterMetadataGroups(withTitleLocale: locale, containingItemsWithCommonKeys: nil)
-                        self.delegate?.AVWrapper(didReceiveChapterMetadata: chapters)
-                    }
-                } else {
-                    for format in pendingAsset.availableMetadataFormats {
-                        let timeRange = CMTimeRange(start: CMTime(seconds: 0, preferredTimescale: 1000), end: pendingAsset.duration)
-                        let group = AVTimedMetadataGroup(items: pendingAsset.metadata(forFormat: format), timeRange: timeRange)
-                        self.delegate?.AVWrapper(didReceiveTimedMetadata: [group])
-                    }
-                }
-            })
-
             // Load playable portion of the track and commence when ready
             let playableKeys = ["playable"]
             pendingAsset.loadValuesAsynchronously(forKeys: playableKeys, completionHandler: { [weak self] in

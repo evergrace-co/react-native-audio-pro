@@ -1,5 +1,4 @@
 import Foundation
-import SwiftAudioPro
 
 enum State: String {
     case none, ready, playing, paused, stopped, buffering, loading, error, ended
