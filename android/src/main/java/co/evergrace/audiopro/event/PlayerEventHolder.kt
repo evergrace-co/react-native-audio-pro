@@ -1,8 +1,14 @@
 package co.evergrace.audiopro.event
 
-import co.evergrace.audiopro.models.*
-import com.google.android.exoplayer2.MediaMetadata
-import com.google.android.exoplayer2.metadata.Metadata
+import co.evergrace.audiopro.models.AudioItem
+import co.evergrace.audiopro.models.AudioItemTransitionReason
+import co.evergrace.audiopro.models.AudioPlayerState
+import co.evergrace.audiopro.models.FocusChangeData
+import co.evergrace.audiopro.models.MediaSessionCallback
+import co.evergrace.audiopro.models.PlayWhenReadyChangeData
+import co.evergrace.audiopro.models.PlaybackEndedReason
+import co.evergrace.audiopro.models.PlaybackError
+import co.evergrace.audiopro.models.PositionChangedReason
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -56,12 +62,6 @@ class PlayerEventHolder {
     internal fun updateAudioPlayerState(state: AudioPlayerState) {
         coroutineScope.launch {
             _stateChange.emit(state)
-        }
-    }
-
-    internal fun updatePlaybackEndedReason(reason: PlaybackEndedReason) {
-        coroutineScope.launch {
-            _playbackEnd.emit(reason)
         }
     }
 

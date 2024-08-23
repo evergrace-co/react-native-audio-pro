@@ -1,12 +1,12 @@
 buildscript {
-    ext.kotlin_version = '2.0.10'
+    ext.kotlin_version = '2.0.20'
     repositories {
         mavenLocal()
         mavenCentral()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.4.1'
+        classpath 'com.android.tools.build:gradle:8.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -28,8 +28,8 @@ android {
         minSdkVersion safeExtGet('minSdkVersion')
         targetSdkVersion safeExtGet('targetSdkVersion')
 
-        versionCode 1001
-        versionName '0.0.1'
+        versionCode 1
+        versionName '1.0.0'
 
         consumerProguardFiles 'proguard-rules.txt'
     }
@@ -63,16 +63,16 @@ dependencies {
     implementation "com.facebook.react:react-android:+"
 
     // Make sure we're using androidx
-    implementation "androidx.core:core-ktx:1.9.0"
+    implementation "androidx.core:core-ktx:1.13.1"
     implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
-    implementation "androidx.lifecycle:lifecycle-process:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-process:2.8.4"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3"
 
     // kotlinaudiopro dependencies
     implementation 'io.coil-kt:coil:2.2.0'
-    implementation 'androidx.media:media:1.6.0'
-    api 'com.google.android.exoplayer:exoplayer:2.19.0'
-    api 'com.google.android.exoplayer:extension-mediasession:2.19.0'
+    implementation 'androidx.media:media:1.7.0'
+    api 'com.google.android.exoplayer:exoplayer:2.19.1'
+    api 'com.google.android.exoplayer:extension-mediasession:2.19.1'
     api 'com.jakewharton.timber:timber:5.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }

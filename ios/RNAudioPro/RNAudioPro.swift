@@ -550,13 +550,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         resolve(player.bufferedPosition)
     }
 
-    @objc(getPosition:rejecter:)
-    public func getPosition(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        resolve(player.currentTime)
-    }
-
     @objc(getProgress:rejecter:)
     public func getProgress(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
         if (rejectWhenNotInitialized(reject: reject)) { return }

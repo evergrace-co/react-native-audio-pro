@@ -282,5 +282,4 @@ export async function retry() {
 }
 
 // TODO: Remove getDuration()
-// TODO: Remove getPosition()
 // TODO: Remove getBufferedPosition()

@@ -25,17 +25,6 @@ enum class MediaType(val value: String) {
     DEFAULT("default"),
 }
 
-data class DefaultAudioItem(
-    override var audioUrl: String,
-    override val type: MediaType = MediaType.DEFAULT,
-    override var artist: String? = null,
-    override var title: String? = null,
-    override var albumTitle: String? = null,
-    override var artwork: String? = null,
-    override val duration: Long? = null,
-    override val options: AudioItemOptions? = null,
-) : AudioItem
-
 class AudioItemHolder(
     var audioItem: AudioItem
 ) {

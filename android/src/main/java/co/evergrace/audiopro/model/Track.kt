@@ -5,8 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import co.evergrace.audiopro.models.AudioItemOptions
 import co.evergrace.audiopro.models.MediaType
-import co.evergrace.audiopro.utils.BundleUtils
-import com.google.android.exoplayer2.upstream.RawResourceDataSource
 
 class Track(context: Context, bundle: Bundle) : TrackMetadata() {
     var uri: Uri? = null
@@ -29,14 +27,7 @@ class Track(context: Context, bundle: Bundle) : TrackMetadata() {
 
     init {
         resourceId = null
-        uri = BundleUtils.getUri(context, bundle, "url")
-        val trackType = bundle.getString("type", "default")
-        for (t in MediaType.values()) {
-            if (t.name.equals(trackType, ignoreCase = true)) {
-                type = t
-                break
-            }
-        }
+        uri = Uri.parse(bundle.getString("url"))
         contentType = bundle.getString("contentType")
         val httpHeaders = bundle.getBundle("headers")
         if (httpHeaders != null) {
