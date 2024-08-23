@@ -152,6 +152,7 @@ public class RemoteCommandController {
 
     private func handleNextTrackCommandDefault(event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         if let player = audioPlayer as? QueuedAudioPlayer {
+        	// TODO: Investigate
             player.next()
             return MPRemoteCommandHandlerStatus.success
         }
@@ -160,6 +161,7 @@ public class RemoteCommandController {
 
     private func handlePreviousTrackCommandDefault(event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         if let player = audioPlayer as? QueuedAudioPlayer {
+        	// TODO: Investigate
             player.previous()
             return MPRemoteCommandHandlerStatus.success
         }

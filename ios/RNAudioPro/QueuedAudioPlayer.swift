@@ -95,18 +95,6 @@ public class QueuedAudioPlayer: AudioPlayer, QueueManagerDelegate {
     }
 
     /**
-     Step to the next item in the queue.
-     */
-    public func next() {
-        let lastIndex = currentIndex
-        let playbackWasActive = wrapper.playbackActive;
-        _ = queue.next(wrap: repeatMode == .queue)
-        if (playbackWasActive && lastIndex != currentIndex || repeatMode == .queue) {
-            event.playbackEnd.emit(data: .skippedToNext)
-        }
-    }
-
-    /**
      Step to the previous item in the queue.
      */
     public func previous() {
@@ -186,8 +174,6 @@ public class QueuedAudioPlayer: AudioPlayer, QueueManagerDelegate {
 
             // quick workaround for race condition - schedule a call after 2 frames
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.016 * 2) { [weak self] in self?.replay() }
-        } else if (repeatMode == .queue) {
-            _ = queue.next(wrap: true)
         } else if (currentIndex != items.count - 1) {
             _ = queue.next(wrap: false)
         } else {

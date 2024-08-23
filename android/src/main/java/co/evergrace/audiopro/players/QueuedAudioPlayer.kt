@@ -158,24 +158,6 @@ class QueuedAudioPlayer(
     }
 
     /**
-     * Skip to the next item in the queue, which may depend on the current repeat mode.
-     * Does nothing if there is no next item to skip to.
-     */
-    fun next() {
-        exoPlayer.seekToNextMediaItem()
-        exoPlayer.prepare()
-    }
-
-    /**
-     * Skip to the previous item in the queue, which may depend on the current repeat mode.
-     * Does nothing if there is no previous item to skip to.
-     */
-    fun previous() {
-        exoPlayer.seekToPreviousMediaItem()
-        exoPlayer.prepare()
-    }
-
-    /**
      * Move an item in the queue from one position to another.
      * @param fromIndex The index of the item ot move.
      * @param toIndex The index to move the item to. If the index is larger than the size of the queue, the item is moved to the end of the queue instead.

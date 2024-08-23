@@ -250,30 +250,6 @@ export async function getActiveTrack(): Promise<Track | undefined> {
 }
 
 /**
- * Gets the duration of the current track in seconds.
- * @deprecated Use `AudioPro.getProgress().then((progress) => progress.duration)` instead.
- */
-export async function getDuration(): Promise<number> {
-	return AudioPro.getDuration();
-}
-
-/**
- * Gets the buffered position of the current track in seconds.
- * @deprecated Use `AudioPro.getProgress().then((progress) => progress.buffered)` instead.
- */
-export async function getBufferedPosition(): Promise<number> {
-	return AudioPro.getBufferedPosition();
-}
-
-/**
- * Gets the playback position of the current track in seconds.
- * @deprecated Use `AudioPro.getProgress().then((progress) => progress.position)` instead.
- */
-export async function getPosition(): Promise<number> {
-	return AudioPro.getPosition();
-}
-
-/**
  * Gets information on the progress of the currently active track, including its
  * current playback position in seconds, buffered position in seconds and
  * duration in seconds.
@@ -305,8 +281,6 @@ export async function retry() {
 	return AudioPro.retry();
 }
 
-// TODO: Remove all references of Web player
-// TODO: Removed deprecated `AudioPro.isServiceRunning()` method
-// TODO: Removed AudioPro.move(fromIndex, toIndex)
-// TODO: Removed AudioPro.remove(...)
-// TODO: Removed AudioPro.skip()
+// TODO: Remove getDuration()
+// TODO: Remove getPosition()
+// TODO: Remove getBufferedPosition()

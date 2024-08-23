@@ -145,59 +145,6 @@ class QueueManager<Element> {
         }
     }
 
-    internal enum SkipDirection : Int {
-        case next = 1
-        case previous = -1
-    }
-
-    private func skip(direction: SkipDirection, wrap: Bool) -> Element? {
-        let count = items.count
-        if (current == nil || count == 0) {
-            return nil
-        }
-        if (count == 1) {
-            if (wrap) {
-                delegate?.onSkippedToSameCurrentItem()
-            }
-        } else {
-            var index = currentIndex + direction.rawValue
-            if (wrap) {
-                index = (items.count + index) % items.count;
-            }
-            let oldIndex = currentIndex
-            currentIndex = max(0, min(items.count - 1, index))
-            if (oldIndex != currentIndex) {
-                delegate?.onCurrentItemChanged()
-            }
-        }
-        return current
-    }
-
-    /**
-     Makes the next item in the queue active, or the last item when already at the end of the queue. When wrap is true and at the end of the queue, the first track in the queue is made active.
-     - parameter wrap: Whether to wrap to the start of the queue
-     - returns: The next (or current) item.
-     */
-    @discardableResult
-    public func next(wrap: Bool = false) -> Element? {
-        synchronize {
-            return skip(direction: SkipDirection.next, wrap: wrap);
-        }
-    }
-
-    /**
-     Makes the previous item in the queue active, or the first item when already at the start of the queue. When wrap is true and at the start of the queue, the last track in the queue is made active.
-
-     - parameter wrap: Whether to wrap to the end of the queue
-     - returns: The previous item.
-     */
-    @discardableResult
-    public func previous(wrap: Bool = false) -> Element? {
-        return synchronize {
-            return skip(direction: SkipDirection.previous, wrap: wrap);
-        }
-    }
-
     /**
      Jump to a position in the queue.
      Will update the current item.

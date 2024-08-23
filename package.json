@@ -36,7 +36,6 @@
     "android/src/**/*",
     "android/build.gradle",
     "android/proguard-rules.txt",
-    "web/**/*",
     "*.podspec"
   ],
   "keywords": [

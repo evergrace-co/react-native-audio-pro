@@ -332,16 +332,6 @@ class MusicService : HeadlessJsTaskService() {
     }
 
     @MainThread
-    fun skip(index: Int) {
-        player.jumpToItem(index)
-    }
-
-    @MainThread
-    fun skipToNext() {
-        player.next()
-    }
-
-    @MainThread
     fun seekTo(seconds: Float) {
         player.seek((seconds * 1000).toLong(), TimeUnit.MILLISECONDS)
     }

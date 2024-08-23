@@ -228,12 +228,6 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
     }
 
     @ReactMethod
-    @Deprecated("Backwards compatible function from the old android implementation. Should be removed in the next major release.")
-    fun isServiceRunning(callback: Promise) {
-        callback.resolve(isServiceBound)
-    }
-
-    @ReactMethod
     fun updateOptions(data: ReadableMap?, callback: Promise) = scope.launch {
         if (verifyServiceBoundOrReject(callback)) return@launch
 
@@ -310,32 +304,6 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
             }
             musicService.remove(indexes)
         }
-        callback.resolve(null)
-    }
-
-    @ReactMethod
-    fun skip(index: Int, initialTime: Float, callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        musicService.skip(index)
-
-        if (initialTime >= 0) {
-            musicService.seekTo(initialTime)
-        }
-
-        callback.resolve(null)
-    }
-
-    @ReactMethod
-    fun skipToNext(initialTime: Float, callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        musicService.skipToNext()
-
-        if (initialTime >= 0) {
-            musicService.seekTo(initialTime)
-        }
-
         callback.resolve(null)
     }
 

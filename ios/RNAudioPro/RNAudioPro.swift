@@ -278,12 +278,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         }
     }
 
-    @objc(isServiceRunning:rejecter:)
-    public func isServiceRunning(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        // TODO That is probably always true
-        resolve(player != nil)
-    }
-
     @objc(updateOptions:resolver:rejecter:)
     public func update(options: [String: Any], resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
         if (rejectWhenNotInitialized(reject: reject)) { return }
@@ -408,47 +402,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         ) { return }
         try? player.moveItem(fromIndex: fromIndex.intValue, toIndex: toIndex.intValue)
         resolve(NSNull())
-    }
-
-    @objc(skip:initialTime:resolver:rejecter:)
-    public func skip(
-        to trackIndex: NSNumber,
-        initialTime: Double,
-        resolve: RCTPromiseResolveBlock,
-        reject: RCTPromiseRejectBlock
-    ) {
-        let index = trackIndex.intValue;
-        if (rejectWhenTrackIndexOutOfBounds(index: index, reject: reject)) { return }
-
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        print("Skipping to track:", index)
-        try? player.jumpToItem(atIndex: index, playWhenReady: player.playerState == .playing)
-
-        // if an initialTime is passed the seek to it
-        if (initialTime >= 0) {
-            self.seekTo(time: initialTime, resolve: resolve, reject: reject)
-        } else {
-            resolve(NSNull())
-        }
-    }
-
-    @objc(skipToNext:resolver:rejecter:)
-    public func skipToNext(
-        initialTime: Double,
-        resolve: RCTPromiseResolveBlock,
-        reject: RCTPromiseRejectBlock
-    ) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        player.next()
-
-        // if an initialTime is passed the seek to it
-        if (initialTime >= 0) {
-            self.seekTo(time: initialTime, resolve: resolve, reject: reject)
-        } else {
-            resolve(NSNull())
-        }
     }
 
     @objc(reset:rejecter:)
