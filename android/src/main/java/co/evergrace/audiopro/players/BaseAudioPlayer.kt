@@ -22,7 +22,6 @@ import co.evergrace.audiopro.models.AudioItemHolder
 import co.evergrace.audiopro.models.AudioItemTransitionReason
 import co.evergrace.audiopro.models.AudioPlayerState
 import co.evergrace.audiopro.models.BufferConfig
-import co.evergrace.audiopro.models.CacheConfig
 import co.evergrace.audiopro.models.DefaultPlayerOptions
 import co.evergrace.audiopro.models.MediaSessionCallback
 import co.evergrace.audiopro.models.PlayWhenReadyChangeData
@@ -32,7 +31,6 @@ import co.evergrace.audiopro.models.PlayerOptions
 import co.evergrace.audiopro.models.PositionChangedReason
 import co.evergrace.audiopro.models.WakeMode
 import co.evergrace.audiopro.notification.NotificationManager
-import co.evergrace.audiopro.players.components.PlayerCache
 import co.evergrace.audiopro.players.components.getAudioItemHolder
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.DefaultLoadControl
@@ -60,8 +58,6 @@ import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
-import com.google.android.exoplayer2.upstream.cache.CacheDataSource
-import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -72,11 +68,9 @@ abstract class BaseAudioPlayer internal constructor(
     internal val context: Context,
     playerConfig: PlayerConfig,
     private val bufferConfig: BufferConfig?,
-    private val cacheConfig: CacheConfig?
 ) : AudioManager.OnAudioFocusChangeListener {
     protected val exoPlayer: ExoPlayer
 
-    private var cache: SimpleCache? = null
     private val scope = MainScope()
     private var playerConfig: PlayerConfig = playerConfig
 
@@ -169,10 +163,6 @@ abstract class BaseAudioPlayer internal constructor(
     private val mediaSessionConnector = MediaSessionConnector(mediaSession)
 
     init {
-        if (cacheConfig != null) {
-            cache = PlayerCache.getInstance(context, cacheConfig)
-        }
-
         exoPlayer = ExoPlayer.Builder(context)
             .setHandleAudioBecomingNoisy(playerConfig.handleAudioBecomingNoisy)
             .setWakeMode(
@@ -330,12 +320,6 @@ abstract class BaseAudioPlayer internal constructor(
         }
     }
 
-    var skipSilence: Boolean
-        get() = exoPlayer.skipSilenceEnabled
-        set(value) {
-            exoPlayer.skipSilenceEnabled = value;
-        }
-
     fun play() {
         exoPlayer.play()
         if (currentItem != null) {
@@ -386,8 +370,6 @@ abstract class BaseAudioPlayer internal constructor(
         stop()
         notificationManager.destroy()
         exoPlayer.release()
-        cache?.release()
-        cache = null
         mediaSession.isActive = false
     }
 
@@ -452,18 +434,6 @@ abstract class BaseAudioPlayer internal constructor(
                 .setConstantBitrateSeekingEnabled(true)
         )
             .createMediaSource(mediaItem)
-    }
-
-    private fun enableCaching(factory: DataSource.Factory): DataSource.Factory {
-        return if (cache == null || cacheConfig == null || (cacheConfig.maxCacheSize ?: 0) <= 0) {
-            factory
-        } else {
-            CacheDataSource.Factory().apply {
-                setCache(this@BaseAudioPlayer.cache!!)
-                setUpstreamDataSourceFactory(factory)
-                setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
-            }
-        }
     }
 
     private fun requestAudioFocus() {

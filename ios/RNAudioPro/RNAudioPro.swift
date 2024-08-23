@@ -439,15 +439,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         resolve(NSNull())
     }
 
-
-    @objc(removeUpcomingTracks:rejecter:)
-    public func removeUpcomingTracks(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        player.removeUpcomingItems()
-        resolve(NSNull())
-    }
-
     @objc(skip:initialTime:resolver:rejecter:)
     public func skip(
         to trackIndex: NSNumber,
@@ -489,24 +480,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         }
     }
 
-    @objc(skipToPrevious:resolver:rejecter:)
-    public func skipToPrevious(
-        initialTime: Double,
-        resolve: RCTPromiseResolveBlock,
-        reject: RCTPromiseRejectBlock
-    ) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        player.previous()
-
-        // if an initialTime is passed the seek to it
-        if (initialTime >= 0) {
-            self.seekTo(time: initialTime, resolve: resolve, reject: reject)
-        } else {
-            resolve(NSNull())
-        }
-    }
-
     @objc(reset:rejecter:)
     public func reset(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
         if (rejectWhenNotInitialized(reject: reject)) { return }
@@ -536,12 +509,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         if (rejectWhenNotInitialized(reject: reject)) { return }
         player.playWhenReady = playWhenReady
         resolve(NSNull())
-    }
-
-    @objc(getPlayWhenReady:rejecter:)
-    public func getPlayWhenReady(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-        resolve(player.playWhenReady)
     }
 
     @objc(stop:rejecter:)
@@ -632,36 +599,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         }
     }
 
-    @objc(getQueue:rejecter:)
-    public func getQueue(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        let serializedQueue = player.items.map { ($0 as! Track).toObject() }
-        resolve(serializedQueue)
-    }
-
-    @objc(setQueue:resolver:rejecter:)
-    public func setQueue(
-        trackDicts: [[String: Any]],
-        resolve: RCTPromiseResolveBlock,
-        reject: RCTPromiseRejectBlock
-    ) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        var tracks = [Track]()
-        for trackDict in trackDicts {
-            guard let track = Track(dictionary: trackDict) else {
-                reject("invalid_track_object", "Track is missing a required key", nil)
-                return
-            }
-
-            tracks.append(track)
-        }
-        player.clear()
-        try? player.add(items: tracks)
-        resolve(index)
-    }
-
     @objc(getActiveTrack:rejecter:)
     public func getActiveTrack(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
         if (rejectWhenNotInitialized(reject: reject)) { return }
@@ -672,18 +609,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             resolve((track as? Track)?.toObject())
         } else {
             resolve(NSNull())
-        }
-    }
-
-    @objc(getActiveTrackIndex:rejecter:)
-    public func getActiveTrackIndex(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        let index = player.currentIndex
-        if index < 0 || index >= player.items.count {
-            resolve(NSNull())
-        } else {
-            resolve(index)
         }
     }
 
@@ -722,38 +647,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
     public func getPlaybackState(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
         if (rejectWhenNotInitialized(reject: reject)) { return }
         resolve(getPlaybackStateBodyKeyValues(state: player.playerState))
-    }
-
-    @objc(updateMetadataForTrack:metadata:resolver:rejecter:)
-    public func updateMetadata(for trackIndex: NSNumber, metadata: [String: Any], resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        let index = trackIndex.intValue;
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-        if (rejectWhenTrackIndexOutOfBounds(index: index, reject: reject)) { return }
-
-        let track : Track = player.items[index] as! Track;
-        track.updateMetadata(dictionary: metadata)
-
-        if (player.currentIndex == index) {
-            Metadata.update(for: player, with: metadata)
-        }
-
-        resolve(NSNull())
-    }
-
-    @objc(clearNowPlayingMetadata:rejecter:)
-    public func clearNowPlayingMetadata(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        player.nowPlayingInfoController.clear()
-        resolve(NSNull())
-    }
-
-    @objc(updateNowPlayingMetadata:resolver:rejecter:)
-    public func updateNowPlayingMetadata(metadata: [String: Any], resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        Metadata.update(for: player, with: metadata)
-        resolve(NSNull())
     }
 
     private func getPlaybackStateErrorKeyValues() -> Dictionary<String, Any> {

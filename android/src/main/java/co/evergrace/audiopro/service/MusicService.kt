@@ -128,7 +128,6 @@ class MusicService : HeadlessJsTaskService() {
             playerOptions?.getDouble(BACK_BUFFER_KEY)?.toMilliseconds()?.toInt(),
         )
 
-        val cacheConfig = CacheConfig(playerOptions?.getDouble(MAX_CACHE_SIZE_KEY)?.toLong())
         val playerConfig = PlayerConfig(
             interceptPlayerActionsTriggeredExternally = true,
             handleAudioBecomingNoisy = true,
@@ -145,7 +144,7 @@ class MusicService : HeadlessJsTaskService() {
 
         val automaticallyUpdateNotificationMetadata = playerOptions?.getBoolean(AUTO_UPDATE_METADATA, true) ?: true
 
-        player = QueuedAudioPlayer(this@MusicService, playerConfig, bufferConfig, cacheConfig)
+        player = QueuedAudioPlayer(this@MusicService, playerConfig, bufferConfig)
         player.automaticallyUpdateNotificationMetadata = automaticallyUpdateNotificationMetadata
         observeEvents()
         setupForegrounding()
@@ -328,11 +327,6 @@ class MusicService : HeadlessJsTaskService() {
     }
 
     @MainThread
-    fun removeUpcomingTracks() {
-        player.removeUpcomingItems()
-    }
-
-    @MainThread
     fun removePreviousTracks() {
         player.removePreviousItems()
     }
@@ -345,11 +339,6 @@ class MusicService : HeadlessJsTaskService() {
     @MainThread
     fun skipToNext() {
         player.next()
-    }
-
-    @MainThread
-    fun skipToPrevious() {
-        player.previous()
     }
 
     @MainThread
@@ -411,16 +400,6 @@ class MusicService : HeadlessJsTaskService() {
             bundle.putBundle(ERROR_KEY, getPlaybackErrorBundle())
         }
         return bundle
-    }
-
-    @MainThread
-    fun updateMetadataForTrack(index: Int, track: Track) {
-        player.replaceItem(index, track.toAudioItem())
-    }
-
-    @MainThread
-    fun updateNowPlayingMetadata(track: Track) {
-        player.notificationManager.overrideMetadata(track.toAudioItem())
     }
 
     @MainThread
@@ -775,8 +754,6 @@ class MusicService : HeadlessJsTaskService() {
         const val FORWARD_JUMP_INTERVAL_KEY = "forwardJumpInterval"
         const val BACKWARD_JUMP_INTERVAL_KEY = "backwardJumpInterval"
         const val PROGRESS_UPDATE_EVENT_INTERVAL_KEY = "progressUpdateEventInterval"
-
-        const val MAX_CACHE_SIZE_KEY = "maxCacheSize"
 
         const val ANDROID_OPTIONS_KEY = "android"
 

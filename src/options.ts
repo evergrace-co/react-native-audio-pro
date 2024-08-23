@@ -10,7 +10,6 @@ export const defaultPlayerOptions: DefaultPlayerOptions = {
 	maxBuffer: 50,
 	backBuffer: 0,
 	playBuffer: 2.5,
-	maxCacheSize: 0,
 	iosCategory: 'playback',
 	iosCategoryMode: 'default',
 	androidAudioContentType: 'music',

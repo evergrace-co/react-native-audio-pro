@@ -37,14 +37,6 @@ export type DefaultPlayerOptions = {
 	 */
 	playBuffer: number;
 	/**
-	 * Maximum cache size in kilobytes.
-	 *
-	 * Supported on Android only.
-	 *
-	 * @default 0
-	 */
-	maxCacheSize: number;
-	/**
 	 * [AVAudioSession.Category](https://developer.apple.com/documentation/avfoundation/avaudiosession/1616615-category)
 	 * for iOS. Sets on `play()`.
 	 */

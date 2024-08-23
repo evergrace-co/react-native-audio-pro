@@ -176,13 +176,6 @@ export async function setPlayWhenReady(playWhenReady: boolean): Promise<boolean>
 }
 
 /**
- * Gets weather the player will play automatically when it is ready to do so.
- */
-export async function getPlayWhenReady(): Promise<boolean> {
-	return AudioPro.getPlayWhenReady();
-}
-
-/**
  * Seeks to a specified time position in the current track.
  * @param position The position to seek to in seconds.
  */
@@ -213,14 +206,6 @@ export async function setVolume(level: number): Promise<void> {
  */
 export async function setRate(rate: number): Promise<void> {
 	return AudioPro.setRate(rate);
-}
-
-/**
- * Sets the queue.
- * @param tracks The tracks to set as the queue.
- */
-export async function setQueue(tracks: Track[]): Promise<void> {
-	return AudioPro.setQueue(tracks);
 }
 
 /**
@@ -258,33 +243,10 @@ export async function getTrack(index: number): Promise<Track | undefined> {
 }
 
 /**
- * Gets the whole queue.
- */
-export async function getQueue(): Promise<Track[]> {
-	return AudioPro.getQueue();
-}
-
-/**
- * Gets the index of the active track in the queue or undefined if there is no
- * current track.
- */
-export async function getActiveTrackIndex(): Promise<number | undefined> {
-	return (await AudioPro.getActiveTrackIndex()) ?? undefined;
-}
-
-/**
  * Gets the active track or undefined if there is no current track.
  */
 export async function getActiveTrack(): Promise<Track | undefined> {
 	return (await AudioPro.getActiveTrack()) ?? undefined;
-}
-
-/**
- * Gets the index of the current track or null if there is no current track.
- * @deprecated use `AudioPro.getActiveTrackIndex()` instead.
- */
-export async function getCurrentTrack(): Promise<number | null> {
-	return AudioPro.getActiveTrackIndex();
 }
 
 /**
@@ -347,9 +309,4 @@ export async function retry() {
 // TODO: Removed deprecated `AudioPro.isServiceRunning()` method
 // TODO: Removed AudioPro.move(fromIndex, toIndex)
 // TODO: Removed AudioPro.remove(...)
-// TODO: Removed AudioPro.updateMetadataForTrack(...)
-// TODO: Removed AudioPro.clearNowPlayingMetadata();
-// TODO: Removed AudioPro.updateNowPlayingMetadata()
-// TODO: Removed AudioPro.removeUpcomingTracks()
 // TODO: Removed AudioPro.skip()
-// TODO: Removed AudioPro.skipToPrevious(initialPosition)
