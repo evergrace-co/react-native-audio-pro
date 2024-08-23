@@ -36,19 +36,6 @@ object BundleUtils {
         return null
     }
 
-    fun getRawResourceId(context: Context, data: Bundle, key: String?): Int {
-        if (!data.containsKey(key)) return 0
-        val obj = data[key] as? Bundle ?: return 0
-        var name = obj.getString("uri")
-        if (name == null || name.isEmpty()) return 0
-        name = name.lowercase().replace("-", "_")
-        return try {
-            name.toInt()
-        } catch (ex: NumberFormatException) {
-            context.resources.getIdentifier(name, "raw", context.packageName)
-        }
-    }
-
     fun getIcon(context: Context, options: Bundle, propertyName: String, defaultIcon: Int): Int {
         if (!options.containsKey(propertyName)) return defaultIcon
 

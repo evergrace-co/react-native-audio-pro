@@ -110,9 +110,6 @@ abstract class BaseAudioPlayer internal constructor(
             else exoPlayer.duration
         }
 
-    val isCurrentMediaItemLive: Boolean
-        get() = exoPlayer.isCurrentMediaItemLive
-
     private var oldPosition = 0L
 
     val position: Long
@@ -408,21 +405,6 @@ abstract class BaseAudioPlayer internal constructor(
 
         // Create and return a MediaSource for a progressive download (e.g., an MP3 file)
         return createProgressiveSource(mediaItem, factory)
-    }
-
-    private fun createDashSource(mediaItem: MediaItem, factory: DataSource.Factory?): MediaSource {
-        return DashMediaSource.Factory(DefaultDashChunkSource.Factory(factory!!), factory)
-            .createMediaSource(mediaItem)
-    }
-
-    private fun createHlsSource(mediaItem: MediaItem, factory: DataSource.Factory?): MediaSource {
-        return HlsMediaSource.Factory(factory!!)
-            .createMediaSource(mediaItem)
-    }
-
-    private fun createSsSource(mediaItem: MediaItem, factory: DataSource.Factory?): MediaSource {
-        return SsMediaSource.Factory(DefaultSsChunkSource.Factory(factory!!), factory)
-            .createMediaSource(mediaItem)
     }
 
     private fun createProgressiveSource(

@@ -327,11 +327,6 @@ class MusicService : HeadlessJsTaskService() {
     }
 
     @MainThread
-    fun removePreviousTracks() {
-        player.removePreviousItems()
-    }
-
-    @MainThread
     fun seekTo(seconds: Float) {
         player.seek((seconds * 1000).toLong(), TimeUnit.MILLISECONDS)
     }
@@ -390,11 +385,6 @@ class MusicService : HeadlessJsTaskService() {
             bundle.putBundle(ERROR_KEY, getPlaybackErrorBundle())
         }
         return bundle
-    }
-
-    @MainThread
-    fun clearNotificationMetadata() {
-        player.notificationManager.hideNotification()
     }
 
     private fun emitPlaybackTrackChangedEvents(

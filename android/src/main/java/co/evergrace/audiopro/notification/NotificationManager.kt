@@ -345,16 +345,6 @@ class NotificationManager internal constructor(
         mediaSessionConnector.setMetadataDeduplicationEnabled(true)
     }
 
-    /**
-     * Overrides the notification metadata with the given [AudioItem].
-     *
-     * _Note: If [BaseAudioPlayer.automaticallyUpdateNotificationMetadata] is true, this will
-     * get override on a track change._
-     */
-    public fun overrideMetadata(item: AudioItem) {
-        overrideAudioItem = item
-    }
-
     public fun getMediaMetadataCompat(): MediaMetadataCompat {
         val currentItemMetadata = player.currentMediaItem?.mediaMetadata
 

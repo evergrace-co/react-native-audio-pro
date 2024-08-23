@@ -28,13 +28,8 @@ class Track(context: Context, bundle: Bundle) : TrackMetadata() {
     }
 
     init {
-        resourceId = BundleUtils.getRawResourceId(context, bundle, "url")
-        uri = if (resourceId == 0) {
-            resourceId = null
-            BundleUtils.getUri(context, bundle, "url")
-        } else {
-            RawResourceDataSource.buildRawResourceUri(resourceId!!)
-        }
+        resourceId = null
+        uri = BundleUtils.getUri(context, bundle, "url")
         val trackType = bundle.getString("type", "default")
         for (t in MediaType.values()) {
             if (t.name.equals(trackType, ignoreCase = true)) {

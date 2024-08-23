@@ -42,12 +42,6 @@ class PlayerEventHolder {
     private var _onAudioFocusChanged = MutableSharedFlow<FocusChangeData>(1)
     var onAudioFocusChanged = _onAudioFocusChanged.asSharedFlow()
 
-    private var _onCommonMetadata = MutableSharedFlow<MediaMetadata>(1)
-    var onCommonMetadata = _onCommonMetadata.asSharedFlow()
-
-    private var _onTimedMetadata = MutableSharedFlow<Metadata>(1)
-    var onTimedMetadata = _onTimedMetadata.asSharedFlow()
-
     private var _onPlayerActionTriggeredExternally = MutableSharedFlow<MediaSessionCallback>()
 
     /**
@@ -92,18 +86,6 @@ class PlayerEventHolder {
     internal fun updateOnAudioFocusChanged(isPaused: Boolean, isPermanent: Boolean) {
         coroutineScope.launch {
             _onAudioFocusChanged.emit(FocusChangeData(isPaused, isPermanent))
-        }
-    }
-
-    internal fun updateOnCommonMetadata(metadata: MediaMetadata) {
-        coroutineScope.launch {
-            _onCommonMetadata.emit(metadata)
-        }
-    }
-
-    internal fun updateOnTimedMetadata(metadata: Metadata) {
-        coroutineScope.launch {
-            _onTimedMetadata.emit(metadata)
         }
     }
 

@@ -10,12 +10,6 @@ class EventHolder internal constructor(private val notificationEventHolder: Noti
     val onAudioFocusChanged
         get() = playerEventHolder.onAudioFocusChanged
 
-    val onCommonMetadata
-        get() = playerEventHolder.onCommonMetadata
-
-    val onTimedMetadata
-        get() = playerEventHolder.onTimedMetadata
-
     val onPlayerActionTriggeredExternally
         get() = playerEventHolder.onPlayerActionTriggeredExternally
 
