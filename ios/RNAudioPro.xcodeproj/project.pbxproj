@@ -165,14 +165,6 @@
 			path = RemoteCommandController;
 			sourceTree = "<group>";
 		};
-		14E2CFB62C7813C10015C456 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				14E2CFB52C7813C10015C456 /* DispatchQueueType.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		9B0E28201F07D76E00B71D2A = {
 			isa = PBXGroup;
 			children = (
@@ -211,7 +203,6 @@
 				14E2CFB22C7813C10015C456 /* RemoteCommandController */,
 				14E2CFB32C7813C10015C456 /* RepeatMode.swift */,
 				14E2CFB42C7813C10015C456 /* TimeEventFrequency.swift */,
-				14E2CFB62C7813C10015C456 /* Utils */,
 			);
 			path = RNAudioPro;
 			sourceTree = "<group>";
@@ -230,6 +221,7 @@
 		9B70466322BFFDDD00065A77 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				14E2CFB52C7813C10015C456 /* DispatchQueueType.swift */,
 				F03B44962912BCA50035FE01 /* EventEmitter.swift */,
 				F03B44952912BCA50035FE01 /* EventType.swift */,
 				9B70466422BFFDEE00065A77 /* Metadata.swift */,
