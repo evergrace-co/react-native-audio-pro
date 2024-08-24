@@ -1,7 +1,7 @@
 import Foundation
 
 enum Capability: String {
-    case play, pause, togglePlayPause, stop, next, previous, jumpForward, jumpBackward, seek
+    case play, pause, togglePlayPause, stop, jumpForward, jumpBackward, seek
 
     func mapToPlayerCommand(forwardJumpInterval: NSNumber?,
                             backwardJumpInterval: NSNumber?) -> RemoteCommand {
@@ -14,10 +14,6 @@ enum Capability: String {
             return .pause
         case .togglePlayPause:
             return .togglePlayPause
-        case .next:
-            return .next
-        case .previous:
-            return .previous
         case .seek:
             return .changePlaybackPosition
         case .jumpForward:

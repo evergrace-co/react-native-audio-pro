@@ -55,12 +55,6 @@ class AVPlayerItemObserver: NSObject {
         item.addObserver(self, forKeyPath: AVPlayerItemKeyPath.duration, options: [.new], context: &AVPlayerItemObserver.context)
         item.addObserver(self, forKeyPath: AVPlayerItemKeyPath.loadedTimeRanges, options: [.new], context: &AVPlayerItemObserver.context)
         item.addObserver(self, forKeyPath: AVPlayerItemKeyPath.playbackLikelyToKeepUp, options: [.new], context: &AVPlayerItemObserver.context)
-
-        // Create and add a new metadata output to the item.
-        let metadataOutput = AVPlayerItemMetadataOutput()
-        metadataOutput.setDelegate(self, queue: .main)
-        item.add(metadataOutput)
-        self.currentMetadataOutput = metadataOutput
     }
 
     func stopObservingCurrentItem() {
@@ -104,14 +98,6 @@ class AVPlayerItemObserver: NSObject {
 
         default: break
 
-        }
-    }
-}
-
-extension AVPlayerItemObserver: AVPlayerItemMetadataOutputPushDelegate {
-    func metadataOutput(_ output: AVPlayerItemMetadataOutput, didOutputTimedMetadataGroups groups: [AVTimedMetadataGroup], from track: AVPlayerItemTrack?) {
-        if output == currentMetadataOutput {
-            delegate?.item(didReceiveTimedMetadata: groups)
         }
     }
 }

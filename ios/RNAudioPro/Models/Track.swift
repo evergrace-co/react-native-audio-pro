@@ -45,7 +45,7 @@ class Track: AudioItem, AssetOptionsProviding {
     // MARK: - AudioItem Protocol
 
     func getSourceUrl() -> String {
-        return url.isLocal ? url.value.path : url.value.absoluteString
+        return url.value.absoluteString
     }
 
     func getArtist() -> String? {
@@ -61,7 +61,7 @@ class Track: AudioItem, AssetOptionsProviding {
     }
 
     func getSourceType() -> SourceType {
-        return url.isLocal ? .file : .stream
+        return .stream
     }
 
     func getArtwork(_ handler: @escaping (UIImage?) -> Void) {

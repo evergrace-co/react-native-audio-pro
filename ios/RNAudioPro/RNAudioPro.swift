@@ -161,28 +161,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         player.automaticallyUpdateNowPlayingInfo = config["autoUpdateMetadata"] as? Bool ?? true
 
         // configure audio session - category, options & mode
-        if
-            let sessionCategoryStr = config["iosCategory"] as? String,
-            let mappedCategory = SessionCategory(rawValue: sessionCategoryStr) {
-            sessionCategory = mappedCategory.mapConfigToAVAudioSessionCategory()
-        }
-
-        if
-            let sessionCategoryModeStr = config["iosCategoryMode"] as? String,
-            let mappedCategoryMode = SessionCategoryMode(rawValue: sessionCategoryModeStr) {
-            sessionCategoryMode = mappedCategoryMode.mapConfigToAVAudioSessionCategoryMode()
-        }
-
-        if
-            let sessionCategoryPolicyStr = config["iosCategoryPolicy"] as? String,
-            let mappedCategoryPolicy = SessionCategoryPolicy(rawValue: sessionCategoryPolicyStr) {
-            sessionCategoryPolicy = mappedCategoryPolicy.mapConfigToAVAudioSessionCategoryPolicy()
-        }
-
-        let sessionCategoryOptsStr = config["iosCategoryOptions"] as? [String]
-        let mappedCategoryOpts = sessionCategoryOptsStr?.compactMap { SessionCategoryOptions(rawValue: $0)?.mapConfigToAVAudioSessionCategoryOptions() } ?? []
-        sessionCategoryOptions = AVAudioSession.CategoryOptions(mappedCategoryOpts)
-
         configureAudioSession()
 
         // setup event listeners
@@ -195,11 +173,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             return MPRemoteCommandHandlerStatus.commandFailed
         }
 
-        player.remoteCommandController.handleNextTrackCommand = { [weak self] _ in
-            self?.emit(event: EventType.RemoteNext)
-            return MPRemoteCommandHandlerStatus.success
-        }
-
         player.remoteCommandController.handlePauseCommand = { [weak self] _ in
             self?.emit(event: EventType.RemotePause)
             return MPRemoteCommandHandlerStatus.success
@@ -207,11 +180,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
 
         player.remoteCommandController.handlePlayCommand = { [weak self] _ in
             self?.emit(event: EventType.RemotePlay)
-            return MPRemoteCommandHandlerStatus.success
-        }
-
-        player.remoteCommandController.handlePreviousTrackCommand = { [weak self] _ in
-            self?.emit(event: EventType.RemotePrevious)
             return MPRemoteCommandHandlerStatus.success
         }
 

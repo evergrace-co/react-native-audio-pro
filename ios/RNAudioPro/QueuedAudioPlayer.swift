@@ -156,8 +156,6 @@ public class QueuedAudioPlayer: AudioPlayer, QueueManagerDelegate {
 
             // quick workaround for race condition - schedule a call after 2 frames
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.016 * 2) { [weak self] in self?.replay() }
-        } else if (currentIndex != items.count - 1) {
-            _ = queue.next(wrap: false)
         } else {
             wrapper.state = .ended
         }
