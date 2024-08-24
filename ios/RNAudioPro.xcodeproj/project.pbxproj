@@ -201,7 +201,6 @@
 				14E2CFAE2C7813C10015C456 /* QueuedAudioPlayer.swift */,
 				14E2CFAF2C7813C10015C456 /* QueueManager.swift */,
 				14E2CFB22C7813C10015C456 /* RemoteCommandController */,
-				14E2CFB32C7813C10015C456 /* RepeatMode.swift */,
 				14E2CFB42C7813C10015C456 /* TimeEventFrequency.swift */,
 			);
 			path = RNAudioPro;
@@ -214,6 +213,7 @@
 				9B78A2471F3F12C9002B5E3C /* MediaURL.swift */,
 				9BFC1FDC1F61A8E8008795BF /* Capabilities.swift */,
 				9B18C2F9226356560019375A /* SessionCategories.swift */,
+				14E2CFB32C7813C10015C456 /* RepeatMode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
