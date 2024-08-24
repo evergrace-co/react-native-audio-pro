@@ -432,7 +432,7 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
     public func setRepeatMode(repeatMode: NSNumber, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
         if (rejectWhenNotInitialized(reject: reject)) { return }
 
-        player.repeatMode = RNAudioPro.RepeatMode(rawValue: repeatMode.intValue) ?? .off
+        player.repeatMode = RepeatMode(rawValue: repeatMode.intValue) ?? .off
         resolve(NSNull())
     }
 
