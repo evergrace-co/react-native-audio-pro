@@ -55,8 +55,6 @@ public class RemoteCommandController {
         case .pause: self.enableCommand(PlayBackCommand.pause)
         case .stop: self.enableCommand(PlayBackCommand.stop)
         case .togglePlayPause: self.enableCommand(PlayBackCommand.togglePlayPause)
-        case .next: self.enableCommand(PlayBackCommand.nextTrack)
-        case .previous: self.enableCommand(PlayBackCommand.previousTrack)
         case .changePlaybackPosition: self.enableCommand(ChangePlaybackPositionCommand.changePlaybackPosition)
         case .skipForward(let preferredIntervals): self.enableCommand(SkipIntervalCommand.skipForward.set(preferredIntervals: preferredIntervals))
         case .skipBackward(let preferredIntervals): self.enableCommand(SkipIntervalCommand.skipBackward.set(preferredIntervals: preferredIntervals))
@@ -69,8 +67,6 @@ public class RemoteCommandController {
         case .pause: self.disableCommand(PlayBackCommand.pause)
         case .stop: self.disableCommand(PlayBackCommand.stop)
         case .togglePlayPause: self.disableCommand(PlayBackCommand.togglePlayPause)
-        case .next: self.disableCommand(PlayBackCommand.nextTrack)
-        case .previous: self.disableCommand(PlayBackCommand.previousTrack)
         case .changePlaybackPosition: self.disableCommand(ChangePlaybackPositionCommand.changePlaybackPosition)
         case .skipForward(_): self.disableCommand(SkipIntervalCommand.skipForward)
         case .skipBackward(_): self.disableCommand(SkipIntervalCommand.skipBackward)
@@ -86,8 +82,6 @@ public class RemoteCommandController {
     public lazy var handleSkipForwardCommand: RemoteCommandHandler  = handleSkipForwardCommandDefault
     public lazy var handleSkipBackwardCommand: RemoteCommandHandler = handleSkipBackwardDefault
     public lazy var handleChangePlaybackPositionCommand: RemoteCommandHandler  = handleChangePlaybackPositionCommandDefault
-    public lazy var handleNextTrackCommand: RemoteCommandHandler = handleNextTrackCommandDefault
-    public lazy var handlePreviousTrackCommand: RemoteCommandHandler = handlePreviousTrackCommandDefault
 
     private func handlePlayCommandDefault(event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         if let audioPlayer = audioPlayer {
@@ -145,24 +139,6 @@ public class RemoteCommandController {
         if let event = event as? MPChangePlaybackPositionCommandEvent,
             let audioPlayer = audioPlayer {
             audioPlayer.seek(to: event.positionTime)
-            return MPRemoteCommandHandlerStatus.success
-        }
-        return MPRemoteCommandHandlerStatus.commandFailed
-    }
-
-    private func handleNextTrackCommandDefault(event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        if let player = audioPlayer as? QueuedAudioPlayer {
-        	// TODO: Investigate
-            player.next()
-            return MPRemoteCommandHandlerStatus.success
-        }
-        return MPRemoteCommandHandlerStatus.commandFailed
-    }
-
-    private func handlePreviousTrackCommandDefault(event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        if let player = audioPlayer as? QueuedAudioPlayer {
-        	// TODO: Investigate
-            player.previous()
             return MPRemoteCommandHandlerStatus.success
         }
         return MPRemoteCommandHandlerStatus.commandFailed

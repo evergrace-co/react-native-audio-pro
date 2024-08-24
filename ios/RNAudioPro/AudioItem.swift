@@ -23,11 +23,6 @@ public protocol AudioItem {
     func getArtwork(_ handler: @escaping (AudioItemImage?) -> Void)
 }
 
-/// Make your `AudioItem`-subclass conform to this protocol to control which AVAudioTimePitchAlgorithm is used for each item.
-public protocol TimePitching {
-    func getPitchAlgorithmType() -> AVAudioTimePitchAlgorithm
-}
-
 /// Make your `AudioItem`-subclass conform to this protocol to control enable the ability to start an item at a specific time of playback.
 public protocol InitialTiming {
     func getInitialTime() -> TimeInterval
@@ -85,26 +80,6 @@ public class DefaultAudioItem: AudioItem, Identifiable {
         handler(artwork)
     }
 
-}
-
-/// An AudioItem that also conforms to the `TimePitching`-protocol
-public class DefaultAudioItemTimePitching: DefaultAudioItem, TimePitching {
-
-    public var pitchAlgorithmType: AVAudioTimePitchAlgorithm
-
-    public override init(audioUrl: String, artist: String?, title: String?, albumTitle: String?, sourceType: SourceType, artwork: AudioItemImage?) {
-        pitchAlgorithmType = AVAudioTimePitchAlgorithm.timeDomain
-        super.init(audioUrl: audioUrl, artist: artist, title: title, albumTitle: albumTitle, sourceType: sourceType, artwork: artwork)
-    }
-
-    public init(audioUrl: String, artist: String?, title: String?, albumTitle: String?, sourceType: SourceType, artwork: AudioItemImage?, audioTimePitchAlgorithm: AVAudioTimePitchAlgorithm) {
-        pitchAlgorithmType = audioTimePitchAlgorithm
-        super.init(audioUrl: audioUrl, artist: artist, title: title, albumTitle: albumTitle, sourceType: sourceType, artwork: artwork)
-    }
-
-    public func getPitchAlgorithmType() -> AVAudioTimePitchAlgorithm {
-        pitchAlgorithmType
-    }
 }
 
 /// An AudioItem that also conforms to the `InitialTiming`-protocol

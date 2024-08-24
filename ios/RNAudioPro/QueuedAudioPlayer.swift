@@ -100,10 +100,6 @@ public class QueuedAudioPlayer: AudioPlayer, QueueManagerDelegate {
     public func previous() {
         let lastIndex = currentIndex
         let playbackWasActive = wrapper.playbackActive;
-        _ = queue.previous(wrap: repeatMode == .queue)
-        if (playbackWasActive && lastIndex != currentIndex || repeatMode == .queue) {
-            event.playbackEnd.emit(data: .skippedToPrevious)
-        }
     }
 
     /**
@@ -144,20 +140,6 @@ public class QueuedAudioPlayer: AudioPlayer, QueueManagerDelegate {
      */
     public func moveItem(fromIndex: Int, toIndex: Int) throws {
         try queue.moveItem(fromIndex: fromIndex, toIndex: toIndex)
-    }
-
-    /**
-     Remove all upcoming items, those returned by `next()`
-     */
-    public func removeUpcomingItems() {
-        queue.removeUpcomingItems()
-    }
-
-    /**
-     Remove all previous items, those returned by `previous()`
-     */
-    public func removePreviousItems() {
-        queue.removePreviousItems()
     }
 
     func replay() {

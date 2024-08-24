@@ -61,21 +61,17 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             "TRACK_PLAYBACK_ENDED_REASON_STOPPED": PlaybackEndedReason.playerStopped.rawValue,
 
             "CAPABILITY_PLAY": Capability.play.rawValue,
-            "CAPABILITY_PLAY_FROM_ID": "NOOP",
-            "CAPABILITY_PLAY_FROM_SEARCH": "NOOP",
             "CAPABILITY_PAUSE": Capability.pause.rawValue,
             "CAPABILITY_STOP": Capability.stop.rawValue,
             "CAPABILITY_SEEK_TO": Capability.seek.rawValue,
             "CAPABILITY_SKIP": "NOOP",
             "CAPABILITY_SKIP_TO_NEXT": Capability.next.rawValue,
             "CAPABILITY_SKIP_TO_PREVIOUS": Capability.previous.rawValue,
-            "CAPABILITY_SET_RATING": "NOOP",
             "CAPABILITY_JUMP_FORWARD": Capability.jumpForward.rawValue,
             "CAPABILITY_JUMP_BACKWARD": Capability.jumpBackward.rawValue,
 
             "REPEAT_OFF": RepeatMode.off.rawValue,
-            "REPEAT_TRACK": RepeatMode.track.rawValue,
-            "REPEAT_QUEUE": RepeatMode.queue.rawValue,
+            "REPEAT_TRACK": RepeatMode.track.rawValue
         ]
     }
 

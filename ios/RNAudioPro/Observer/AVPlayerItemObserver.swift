@@ -12,10 +12,6 @@ protocol AVPlayerItemObserverDelegate: AnyObject {
      Called when the playback of the observed item is or is no longer likely to keep up.
      */
     func item(didUpdatePlaybackLikelyToKeepUp playbackLikelyToKeepUp: Bool)
-    /**
-     Called when the observed item receives metadata
-     */
-    func item(didReceiveTimedMetadata metadata: [AVTimedMetadataGroup])
 
 }
 

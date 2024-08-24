@@ -479,8 +479,5 @@ extension AVPlayerWrapper: AVPlayerItemObserverDelegate {
     func item(didUpdateDuration duration: Double) {
         delegate?.AVWrapper(didUpdateDuration: duration)
     }
-
-    func item(didReceiveTimedMetadata metadata: [AVTimedMetadataGroup]) {
-        delegate?.AVWrapper(didReceiveTimedMetadata: metadata)
-    }
+    
 }

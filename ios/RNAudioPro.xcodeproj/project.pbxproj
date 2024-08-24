@@ -112,16 +112,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		14E2CF9B2C7813C10015C456 /* AudioSessionController 2 */ = {
+		14E2CF9B2C7813C10015C456 /* AudioSessionController */ = {
 			isa = PBXGroup;
 			children = (
 				14E2CF992C7813C10015C456 /* AudioSession.swift */,
 				14E2CF9A2C7813C10015C456 /* AudioSessionController.swift */,
 			);
-			path = "AudioSessionController 2";
+			path = AudioSessionController;
 			sourceTree = "<group>";
 		};
-		14E2CFA02C7813C10015C456 /* AVPlayerWrapper 2 */ = {
+		14E2CFA02C7813C10015C456 /* AVPlayerWrapper */ = {
 			isa = PBXGroup;
 			children = (
 				14E2CF9C2C7813C10015C456 /* AVPlayerWrapper.swift */,
@@ -129,10 +129,10 @@
 				14E2CF9E2C7813C10015C456 /* AVPlayerWrapperProtocol.swift */,
 				14E2CF9F2C7813C10015C456 /* AVPlayerWrapperState.swift */,
 			);
-			path = "AVPlayerWrapper 2";
+			path = AVPlayerWrapper;
 			sourceTree = "<group>";
 		};
-		14E2CFA82C7813C10015C456 /* NowPlayingInfoController 2 */ = {
+		14E2CFA82C7813C10015C456 /* NowPlayingInfoController */ = {
 			isa = PBXGroup;
 			children = (
 				14E2CFA22C7813C10015C456 /* MediaItemProperty.swift */,
@@ -142,10 +142,10 @@
 				14E2CFA62C7813C10015C456 /* NowPlayingInfoKeyValue.swift */,
 				14E2CFA72C7813C10015C456 /* NowPlayingInfoProperty.swift */,
 			);
-			path = "NowPlayingInfoController 2";
+			path = NowPlayingInfoController;
 			sourceTree = "<group>";
 		};
-		14E2CFAD2C7813C10015C456 /* Observer 2 */ = {
+		14E2CFAD2C7813C10015C456 /* Observer */ = {
 			isa = PBXGroup;
 			children = (
 				14E2CFA92C7813C10015C456 /* AVPlayerItemNotificationObserver.swift */,
@@ -153,24 +153,24 @@
 				14E2CFAB2C7813C10015C456 /* AVPlayerObserver.swift */,
 				14E2CFAC2C7813C10015C456 /* AVPlayerTimeObserver.swift */,
 			);
-			path = "Observer 2";
+			path = Observer;
 			sourceTree = "<group>";
 		};
-		14E2CFB22C7813C10015C456 /* RemoteCommandController 2 */ = {
+		14E2CFB22C7813C10015C456 /* RemoteCommandController */ = {
 			isa = PBXGroup;
 			children = (
 				14E2CFB02C7813C10015C456 /* RemoteCommand.swift */,
 				14E2CFB12C7813C10015C456 /* RemoteCommandController.swift */,
 			);
-			path = "RemoteCommandController 2";
+			path = RemoteCommandController;
 			sourceTree = "<group>";
 		};
-		14E2CFB62C7813C10015C456 /* Utils 2 */ = {
+		14E2CFB62C7813C10015C456 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				14E2CFB52C7813C10015C456 /* DispatchQueueType.swift */,
 			);
-			path = "Utils 2";
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		9B0E28201F07D76E00B71D2A = {
@@ -201,17 +201,17 @@
 				14E2CF962C7813C10015C456 /* AudioItem.swift */,
 				14E2CF972C7813C10015C456 /* AudioPlayer.swift */,
 				14E2CF982C7813C10015C456 /* AudioPlayerError.swift */,
-				14E2CF9B2C7813C10015C456 /* AudioSessionController 2 */,
-				14E2CFA02C7813C10015C456 /* AVPlayerWrapper 2 */,
+				14E2CF9B2C7813C10015C456 /* AudioSessionController */,
+				14E2CFA02C7813C10015C456 /* AVPlayerWrapper */,
 				14E2CFA12C7813C10015C456 /* Event.swift */,
-				14E2CFA82C7813C10015C456 /* NowPlayingInfoController 2 */,
-				14E2CFAD2C7813C10015C456 /* Observer 2 */,
+				14E2CFA82C7813C10015C456 /* NowPlayingInfoController */,
+				14E2CFAD2C7813C10015C456 /* Observer */,
 				14E2CFAE2C7813C10015C456 /* QueuedAudioPlayer.swift */,
 				14E2CFAF2C7813C10015C456 /* QueueManager.swift */,
-				14E2CFB22C7813C10015C456 /* RemoteCommandController 2 */,
+				14E2CFB22C7813C10015C456 /* RemoteCommandController */,
 				14E2CFB32C7813C10015C456 /* RepeatMode.swift */,
 				14E2CFB42C7813C10015C456 /* TimeEventFrequency.swift */,
-				14E2CFB62C7813C10015C456 /* Utils 2 */,
+				14E2CFB62C7813C10015C456 /* Utils */,
 			);
 			path = RNAudioPro;
 			sourceTree = "<group>";

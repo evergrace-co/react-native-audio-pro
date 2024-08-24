@@ -8,7 +8,6 @@ class Track: AudioItem, AssetOptionsProviding {
     @objc var title: String?
     @objc var artist: String?
 
-    var desc: String?
     var duration: Double?
     var artworkURL: MediaURL?
     let headers: [String: Any]?
@@ -37,7 +36,6 @@ class Track: AudioItem, AssetOptionsProviding {
         self.title = (dictionary["title"] as? String) ?? self.title
         self.artist = (dictionary["artist"] as? String) ?? self.artist
         self.album = dictionary["album"] as? String
-        self.desc = dictionary["description"] as? String
         self.duration = dictionary["duration"] as? Double
         self.artworkURL = MediaURL(object: dictionary["artwork"])
 
@@ -68,18 +66,13 @@ class Track: AudioItem, AssetOptionsProviding {
 
     func getArtwork(_ handler: @escaping (UIImage?) -> Void) {
         if let artworkURL = artworkURL?.value {
-            if(self.artworkURL?.isLocal ?? false){
-                let image = UIImage.init(contentsOfFile: artworkURL.path);
-                handler(image);
-            } else {
-                URLSession.shared.dataTask(with: artworkURL, completionHandler: { (data, _, error) in
-                    if let data = data, let artwork = UIImage(data: data), error == nil {
-                        handler(artwork)
-                    } else {
-                        handler(nil)
-                    }
-                }).resume()
-            }
+            URLSession.shared.dataTask(with: artworkURL, completionHandler: { (data, _, error) in
+                if let data = data, let artwork = UIImage(data: data), error == nil {
+                    handler(artwork)
+                } else {
+                    handler(nil)
+                }
+            }).resume()
         } else {
             handler(nil)
         }
