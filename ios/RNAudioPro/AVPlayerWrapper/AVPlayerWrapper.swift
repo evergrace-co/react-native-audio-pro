@@ -69,23 +69,6 @@ class AVPlayerWrapper: AVPlayerWrapperProtocol {
 
     fileprivate(set) var lastPlayerTimeControlStatus: AVPlayer.TimeControlStatus = AVPlayer.TimeControlStatus.paused
 
-    /**
-     Whether AVPlayer should start playing automatically when the item is ready.
-     */
-    public var playWhenReady: Bool = false {
-        didSet {
-            if (playWhenReady == true && (state == .failed || state == .stopped)) {
-                reload(startFromCurrentTime: state == .failed)
-            }
-
-            applyAVPlayerRate()
-
-            if oldValue != playWhenReady {
-                delegate?.AVWrapper(didChangePlayWhenReady: playWhenReady)
-            }
-        }
-    }
-
     var currentItem: AVPlayerItem? {
         avPlayer.currentItem
     }
@@ -104,14 +87,7 @@ class AVPlayerWrapper: AVPlayerWrapperProtocol {
     }
 
     var duration: TimeInterval {
-        if let seconds = currentItem?.asset.duration.seconds, !seconds.isNaN {
-            return seconds
-        }
-        else if let seconds = currentItem?.duration.seconds, !seconds.isNaN {
-            return seconds
-        }
-        else if let seconds = currentItem?.seekableTimeRanges.last?.timeRangeValue.duration.seconds,
-                !seconds.isNaN {
+        if let seconds = currentItem?.duration.seconds, !seconds.isNaN {
             return seconds
         }
         return 0.0

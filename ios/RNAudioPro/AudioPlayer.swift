@@ -64,8 +64,19 @@ public class AudioPlayer: AVPlayerWrapperDelegate {
     // MARK: - Setters for AVPlayerWrapper
 
     /**
-     The amount of seconds to be buffered by the player.
-     Adjusting this can impact buffering behavior and playback stability.
+     Whether the player should start playing automatically when the item is ready.
+     */
+    public var playWhenReady: Bool {
+        get { wrapper.playWhenReady }
+        set {
+            wrapper.playWhenReady = newValue
+        }
+    }
+
+    /**
+     The amount of seconds to be buffered by the player. Default value is 0 seconds, this means the AVPlayer will choose an appropriate level of buffering. Setting `bufferDuration` to larger than zero automatically disables `automaticallyWaitsToMinimizeStalling`. Setting it back to zero automatically enables `automaticallyWaitsToMinimizeStalling`.
+
+     [Read more from Apple Documentation](https://developer.apple.com/documentation/avfoundation/avplayeritem/1643630-preferredforwardbufferduration)
      */
     public var bufferDuration: TimeInterval {
         get { wrapper.bufferDuration }
