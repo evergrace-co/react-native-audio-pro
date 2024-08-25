@@ -24,7 +24,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         super.init()
         EventEmitter.shared.register(eventEmitter: self)
         audioSessionController.delegate = self
-        player.playWhenReady = false;
         player.event.stateChange.addListener(self, handleAudioPlayerStateChange)
         player.event.fail.addListener(self, handleAudioPlayerFailed)
         player.event.currentItem.addListener(self, handleAudioPlayerCurrentItemChange)
@@ -65,6 +64,8 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             "CAPABILITY_STOP": Capability.stop.rawValue,
             "CAPABILITY_SEEK_TO": Capability.seek.rawValue,
             "CAPABILITY_SKIP": "NOOP",
+            "CAPABILITY_SKIP_TO_NEXT": Capability.next.rawValue,
+            "CAPABILITY_SKIP_TO_PREVIOUS": Capability.previous.rawValue,
             "CAPABILITY_JUMP_FORWARD": Capability.jumpForward.rawValue,
             "CAPABILITY_JUMP_BACKWARD": Capability.jumpBackward.rawValue,
 
@@ -232,21 +233,17 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
 
     private func configureAudioSession() {
 
-        // deactivate the session when there is no current item to be played
-        if (player.currentItem == nil) {
+        // Deactivate the session when there is no current item to be played
+        if player.currentItem == nil {
             try? audioSessionController.deactivateSession()
             return
         }
 
-        // activate the audio session when there is an item to be played
-        // and the player has been configured to start when it is ready loading:
-        if (player.playWhenReady) {
+        // Activate the audio session when there is an item to be played
+        // and the player has been configured to start when it is ready loading
+        if player.playWhenReady {
             try? audioSessionController.activateSession()
-            if #available(iOS 11.0, *) {
-                try? AVAudioSession.sharedInstance().setCategory(sessionCategory, mode: sessionCategoryMode, policy: sessionCategoryPolicy, options: sessionCategoryOptions)
-            } else {
-                try? AVAudioSession.sharedInstance().setCategory(sessionCategory, mode: sessionCategoryMode, options: sessionCategoryOptions)
-            }
+            try? AVAudioSession.sharedInstance().setCategory(sessionCategory, mode: sessionCategoryMode, policy: sessionCategoryPolicy, options: sessionCategoryOptions)
         }
     }
 

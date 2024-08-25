@@ -1,58 +1,49 @@
 import Foundation
 import AVFoundation
-
-#if os(iOS)
 import UIKit
+
 public typealias AudioItemImage = UIImage
-#elseif os(macOS)
-import AppKit
-public typealias AudioItemImage = NSImage
-#endif
 
-public enum SourceType {
-    case stream
-    case file
-}
-
+// Defines the required properties and methods for an audio item, which represents
+// a track or media item that can be played. Since this module only supports remote URLs,
+// the interface focuses on retrieving metadata and the source URL.
 public protocol AudioItem {
     func getSourceUrl() -> String
     func getArtist() -> String?
-    func getTitle() -> String?
+    func getTitle() -> String
     func getAlbumTitle() -> String?
-    func getSourceType() -> SourceType
-    func getArtwork(_ handler: @escaping (AudioItemImage?) -> Void)
+    func getArtwork(_ handler: @escaping (AudioItemImage) -> Void)
 }
 
-/// Make your `AudioItem`-subclass conform to this protocol to control enable the ability to start an item at a specific time of playback.
+// Protocol for audio items that need to start playback from a specific time rather than the beginning.
+// Useful for resuming playback or starting from a bookmarked position.
 public protocol InitialTiming {
     func getInitialTime() -> TimeInterval
 }
 
-/// Make your `AudioItem`-subclass conform to this protocol to set initialization options for the asset. Available keys available at [Apple Developer Documentation](https://developer.apple.com/documentation/avfoundation/avurlasset/initialization_options).
+// Protocol for providing custom asset options when initializing an AVURLAsset.
+// This allows fine-tuning of how the asset is prepared for playback, like caching policies or network access.
 public protocol AssetOptionsProviding {
     func getAssetOptions() -> [String: Any]
 }
 
+// Default implementation of the AudioItem protocol, representing a typical media item with associated metadata.
+// This class assumes all media is streamed from a remote URL, consistent with the module's focus.
 public class DefaultAudioItem: AudioItem, Identifiable {
 
     public var audioUrl: String
-
     public var artist: String?
-
-    public var title: String?
-
+    public var title: String
     public var albumTitle: String?
+    public var artwork: AudioItemImage
 
-    public var sourceType: SourceType
-
-    public var artwork: AudioItemImage?
-
-    public init(audioUrl: String, artist: String? = nil, title: String? = nil, albumTitle: String? = nil, sourceType: SourceType, artwork: AudioItemImage? = nil) {
+    // Initializes a new audio item with the provided metadata.
+    // `audioUrl` is mandatory since streaming is the primary focus of this module.
+    public init(audioUrl: String, artist: String? = nil, title: String, albumTitle: String? = nil, artwork: AudioItemImage) {
         self.audioUrl = audioUrl
         self.artist = artist
         self.title = title
         self.albumTitle = albumTitle
-        self.sourceType = sourceType
         self.artwork = artwork
     }
 
@@ -64,7 +55,7 @@ public class DefaultAudioItem: AudioItem, Identifiable {
         artist
     }
 
-    public func getTitle() -> String? {
+    public func getTitle() -> String {
         title
     }
 
@@ -72,29 +63,28 @@ public class DefaultAudioItem: AudioItem, Identifiable {
         albumTitle
     }
 
-    public func getSourceType() -> SourceType {
-        sourceType
-    }
-
-    public func getArtwork(_ handler: @escaping (AudioItemImage?) -> Void) {
+    // Retrieves the artwork associated with this audio item.
+    // The artwork is provided asynchronously through a callback, making it easy to update UI elements without blocking the main thread.
+    public func getArtwork(_ handler: @escaping (AudioItemImage) -> Void) {
         handler(artwork)
     }
-
 }
 
-/// An AudioItem that also conforms to the `InitialTiming`-protocol
+// Subclass of DefaultAudioItem that includes the ability to start playback at a specific time.
+// This is useful for implementing features like resuming playback from where the user left off.
 public class DefaultAudioItemInitialTime: DefaultAudioItem, InitialTiming {
 
     public var initialTime: TimeInterval
 
-    public override init(audioUrl: String, artist: String?, title: String?, albumTitle: String?, sourceType: SourceType, artwork: AudioItemImage?) {
-        initialTime = 0.0
-        super.init(audioUrl: audioUrl, artist: artist, title: title, albumTitle: albumTitle, sourceType: sourceType, artwork: artwork)
+    // Initializes an audio item with an initial playback time, allowing the player to start at a specified point.
+    public override init(audioUrl: String, artist: String?, title: String, albumTitle: String?, artwork: AudioItemImage) {
+        self.initialTime = 0.0
+        super.init(audioUrl: audioUrl, artist: artist, title: title, albumTitle: albumTitle, artwork: artwork)
     }
 
-    public init(audioUrl: String, artist: String?, title: String?, albumTitle: String?, sourceType: SourceType, artwork: AudioItemImage?, initialTime: TimeInterval) {
+    public init(audioUrl: String, artist: String?, title: String, albumTitle: String?, artwork: AudioItemImage, initialTime: TimeInterval) {
         self.initialTime = initialTime
-        super.init(audioUrl: audioUrl, artist: artist, title: title, albumTitle: albumTitle, sourceType: sourceType, artwork: artwork)
+        super.init(audioUrl: audioUrl, artist: artist, title: title, albumTitle: albumTitle, artwork: artwork)
     }
 
     public func getInitialTime() -> TimeInterval {
@@ -102,19 +92,20 @@ public class DefaultAudioItemInitialTime: DefaultAudioItem, InitialTiming {
     }
 }
 
-/// An AudioItem that also conforms to the `AssetOptionsProviding`-protocol
+// Subclass of DefaultAudioItem that supports custom asset options.
+// This allows for more advanced configurations when initializing the media asset, such as specifying caching policies or custom headers.
 public class DefaultAudioItemAssetOptionsProviding: DefaultAudioItem, AssetOptionsProviding {
 
     public var options: [String: Any]
-
-    public override init(audioUrl: String, artist: String?, title: String?, albumTitle: String?, sourceType: SourceType, artwork: AudioItemImage?) {
-        options = [:]
-        super.init(audioUrl: audioUrl, artist: artist, title: title, albumTitle: albumTitle, sourceType: sourceType, artwork: artwork)
+    
+    public override init(audioUrl: String, artist: String?, title: String, albumTitle: String?, artwork: AudioItemImage) {
+        self.options = [:]
+        super.init(audioUrl: audioUrl, artist: artist, title: title, albumTitle: albumTitle, artwork: artwork)
     }
 
-    public init(audioUrl: String, artist: String?, title: String?, albumTitle: String?, sourceType: SourceType, artwork: AudioItemImage?, options: [String: Any]) {
+    public init(audioUrl: String, artist: String?, title: String, albumTitle: String?, artwork: AudioItemImage, options: [String: Any]) {
         self.options = options
-        super.init(audioUrl: audioUrl, artist: artist, title: title, albumTitle: albumTitle, sourceType: sourceType, artwork: artwork)
+        super.init(audioUrl: audioUrl, artist: artist, title: title, albumTitle: albumTitle, artwork: artwork)
     }
 
     public func getAssetOptions() -> [String: Any] {

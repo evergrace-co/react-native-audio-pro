@@ -22,6 +22,10 @@ public struct PlayBackCommand: RemoteCommandProtocol {
 
     public static let togglePlayPause = PlayBackCommand(id: "TogglePlayPause", commandKeyPath: \MPRemoteCommandCenter.togglePlayPauseCommand, handlerKeyPath: \RemoteCommandController.handleTogglePlayPauseCommand)
 
+    public static let nextTrack = PlayBackCommand(id: "NextTrackCommand", commandKeyPath: \MPRemoteCommandCenter.nextTrackCommand, handlerKeyPath: \RemoteCommandController.handleNextTrackCommand)
+
+    public static let previousTrack = PlayBackCommand(id: "PreviousTrack", commandKeyPath: \MPRemoteCommandCenter.previousTrackCommand, handlerKeyPath: \RemoteCommandController.handlePreviousTrackCommand)
+
 
     public typealias Command = MPRemoteCommand
 
@@ -78,6 +82,10 @@ public enum RemoteCommand: CustomStringConvertible {
 
     case togglePlayPause
 
+    case next
+
+    case previous
+
     case changePlaybackPosition
 
     case skipForward(preferredIntervals: [NSNumber])
@@ -90,6 +98,8 @@ public enum RemoteCommand: CustomStringConvertible {
         case .pause: return "pause"
         case .stop: return "stop"
         case .togglePlayPause: return "togglePlayPause"
+        case .next: return "nextTrack"
+        case .previous: return "previousTrack"
         case .changePlaybackPosition: return "changePlaybackPosition"
         case .skipForward(_): return "skipForward"
         case .skipBackward(_): return "skipBackward"
@@ -106,6 +116,8 @@ public enum RemoteCommand: CustomStringConvertible {
             .pause,
             .stop,
             .togglePlayPause,
+            .next,
+            .previous,
             .changePlaybackPosition,
             .skipForward(preferredIntervals: []),
             .skipBackward(preferredIntervals: [])

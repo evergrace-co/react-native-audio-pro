@@ -1,7 +1,6 @@
 import Foundation
 import AVFoundation
 
-#if os(iOS)
 protocol AudioSession {
 
     var isOtherAudioPlaying: Bool { get }
@@ -23,4 +22,3 @@ protocol AudioSession {
 }
 
 extension AVAudioSession: AudioSession {}
-#endif

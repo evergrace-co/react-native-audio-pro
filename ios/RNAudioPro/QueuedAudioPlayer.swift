@@ -41,20 +41,6 @@ public class QueuedAudioPlayer: AudioPlayer, QueueManagerDelegate {
     }
 
     /**
-     The previous items held by the queue.
-     */
-    public var previousItems: [AudioItem] {
-        queue.previousItems
-    }
-
-    /**
-     The upcoming items in the queue.
-     */
-    public var nextItems: [AudioItem] {
-        queue.nextItems
-    }
-
-    /**
      Will replace the current item with a new one and load it into the player.
 
      - parameter item: The AudioItem to replace the current item.
@@ -92,14 +78,6 @@ public class QueuedAudioPlayer: AudioPlayer, QueueManagerDelegate {
 
     public func add(items: [AudioItem], at index: Int) throws {
         try queue.add(items, at: index)
-    }
-
-    /**
-     Step to the previous item in the queue.
-     */
-    public func previous() {
-        let lastIndex = currentIndex
-        let playbackWasActive = wrapper.playbackActive;
     }
 
     /**
