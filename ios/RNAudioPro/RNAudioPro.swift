@@ -171,6 +171,11 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             return MPRemoteCommandHandlerStatus.commandFailed
         }
 
+        player.remoteCommandController.handleNextTrackCommand = { [weak self] _ in
+            self?.emit(event: EventType.RemoteNext)
+            return MPRemoteCommandHandlerStatus.success
+        }
+
         player.remoteCommandController.handlePauseCommand = { [weak self] _ in
             self?.emit(event: EventType.RemotePause)
             return MPRemoteCommandHandlerStatus.success
@@ -178,6 +183,11 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
 
         player.remoteCommandController.handlePlayCommand = { [weak self] _ in
             self?.emit(event: EventType.RemotePlay)
+            return MPRemoteCommandHandlerStatus.success
+        }
+
+        player.remoteCommandController.handlePreviousTrackCommand = { [weak self] _ in
+            self?.emit(event: EventType.RemotePrevious)
             return MPRemoteCommandHandlerStatus.success
         }
 
