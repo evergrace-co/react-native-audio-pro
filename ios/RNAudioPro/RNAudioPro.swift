@@ -69,9 +69,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             "CAPABILITY_SKIP_TO_PREVIOUS": Capability.previous.rawValue,
             "CAPABILITY_JUMP_FORWARD": Capability.jumpForward.rawValue,
             "CAPABILITY_JUMP_BACKWARD": Capability.jumpBackward.rawValue,
-
-            "REPEAT_OFF": RepeatMode.off.rawValue,
-            "REPEAT_TRACK": RepeatMode.track.rawValue
         ]
     }
 
@@ -434,21 +431,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         if (rejectWhenNotInitialized(reject: reject)) { return }
         player.reload(startFromCurrentTime: true)
         resolve(NSNull())
-    }
-
-    @objc(setRepeatMode:resolver:rejecter:)
-    public func setRepeatMode(repeatMode: NSNumber, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        player.repeatMode = RepeatMode(rawValue: repeatMode.intValue) ?? .off
-        resolve(NSNull())
-    }
-
-    @objc(getRepeatMode:rejecter:)
-    public func getRepeatMode(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        resolve(player.repeatMode.rawValue)
     }
 
     @objc(setVolume:resolver:rejecter:)

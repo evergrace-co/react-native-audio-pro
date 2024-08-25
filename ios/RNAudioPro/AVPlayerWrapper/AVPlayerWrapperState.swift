@@ -12,7 +12,7 @@ public enum AVPlayerWrapperState: String {
     /// The current item is loaded, and the player is ready to start playing.
     case ready
 
-    /// The current item is playing, but are currently buffering.
+    /// The current item is playing, but is currently buffering.
     case buffering
 
     /// The player is paused.

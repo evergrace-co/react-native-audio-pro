@@ -1,7 +1,7 @@
 import {AppRegistry, DeviceEventEmitter, NativeEventEmitter, Platform} from 'react-native';
 
 import AudioPro from './AudioProModule';
-import {Event, RepeatMode} from './constants';
+import {Event} from './constants';
 import {
 	AddTrack,
 	CustomUpdateOptions,
@@ -209,15 +209,6 @@ export async function setRate(rate: number): Promise<void> {
 }
 
 /**
- * Sets the queue repeat mode.
- * @param mode The repeat mode to set.
- * @see https://rnap.dev/docs/api/constants/repeat-mode
- */
-export async function setRepeatMode(mode: RepeatMode): Promise<RepeatMode> {
-	return AudioPro.setRepeatMode(mode);
-}
-
-/**
  * Gets the volume of the player as a number between 0 and 1.
  */
 export async function getVolume(): Promise<number> {
@@ -264,14 +255,6 @@ export async function getProgress(): Promise<Progress> {
  */
 export async function getPlaybackState(): Promise<PlaybackState> {
 	return AudioPro.getPlaybackState();
-}
-
-/**
- * Gets the repeat mode.
- * @see https://rnap.dev/docs/api/constants/repeat-mode
- */
-export async function getRepeatMode(): Promise<RepeatMode> {
-	return AudioPro.getRepeatMode();
 }
 
 /**

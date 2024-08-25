@@ -354,6 +354,7 @@ class MusicService : HeadlessJsTaskService() {
 
     @MainThread
     fun getRepeatMode(): RepeatMode = player.playerOptions.repeatMode
+    // TODO: Remove all repeat mode logic from Android (and anywhere else?)
 
     @MainThread
     fun setRepeatMode(value: RepeatMode) {

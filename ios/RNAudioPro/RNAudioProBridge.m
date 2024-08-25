@@ -47,13 +47,6 @@ RCT_EXTERN_METHOD(seekBy:(double)offset
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject);
 
-RCT_EXTERN_METHOD(setRepeatMode:(nonnull NSNumber *)repeatMode
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject);
-
-RCT_EXTERN_METHOD(getRepeatMode:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject);
-
 RCT_EXTERN_METHOD(setVolume:(float)volume
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject);

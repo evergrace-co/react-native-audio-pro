@@ -36,7 +36,6 @@
 		142D94592C7A065900EF95FB /* NowPlayingInfoControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D94262C7A065900EF95FB /* NowPlayingInfoControllerProtocol.swift */; };
 		142D945A2C7A065900EF95FB /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D943C2C7A065900EF95FB /* EventType.swift */; };
 		142D945B2C7A065900EF95FB /* RNAudioProBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 142D94362C7A065900EF95FB /* RNAudioProBridge.m */; };
-		142D945C2C7A065900EF95FB /* RepeatMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D941E2C7A065900EF95FB /* RepeatMode.swift */; };
 		142D945D2C7A065900EF95FB /* MetadataAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D941D2C7A065900EF95FB /* MetadataAdapter.swift */; };
 		142D945E2C7A065900EF95FB /* AudioSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D94132C7A065900EF95FB /* AudioSessionController.swift */; };
 		142D945F2C7A065900EF95FB /* SessionCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D941F2C7A065900EF95FB /* SessionCategories.swift */; };
@@ -73,7 +72,6 @@
 		142D941B2C7A065900EF95FB /* Capabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capabilities.swift; sourceTree = "<group>"; };
 		142D941C2C7A065900EF95FB /* MediaURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaURL.swift; sourceTree = "<group>"; };
 		142D941D2C7A065900EF95FB /* MetadataAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataAdapter.swift; sourceTree = "<group>"; };
-		142D941E2C7A065900EF95FB /* RepeatMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatMode.swift; sourceTree = "<group>"; };
 		142D941F2C7A065900EF95FB /* SessionCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCategories.swift; sourceTree = "<group>"; };
 		142D94202C7A065900EF95FB /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		142D94212C7A065900EF95FB /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
@@ -231,7 +229,6 @@
 				142D94302C7A065900EF95FB /* QueueManager.swift */,
 				142D94332C7A065900EF95FB /* RemoteCommandController */,
 				142D94342C7A065900EF95FB /* RNAudioPro.swift */,
-				142D941E2C7A065900EF95FB /* RepeatMode.swift */,
 				142D94352C7A065900EF95FB /* RNAudioProBridge.h */,
 				142D94362C7A065900EF95FB /* RNAudioProBridge.m */,
 				142D94382C7A065900EF95FB /* Support */,
@@ -328,7 +325,6 @@
 				142D94592C7A065900EF95FB /* NowPlayingInfoControllerProtocol.swift in Sources */,
 				142D945A2C7A065900EF95FB /* EventType.swift in Sources */,
 				142D945B2C7A065900EF95FB /* RNAudioProBridge.m in Sources */,
-				142D945C2C7A065900EF95FB /* RepeatMode.swift in Sources */,
 				142D945D2C7A065900EF95FB /* MetadataAdapter.swift in Sources */,
 				142D945E2C7A065900EF95FB /* AudioSessionController.swift in Sources */,
 				142D945F2C7A065900EF95FB /* SessionCategories.swift in Sources */,
