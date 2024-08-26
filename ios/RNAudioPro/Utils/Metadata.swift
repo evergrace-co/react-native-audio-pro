@@ -36,7 +36,7 @@ struct Metadata {
         player.nowPlayingInfoController.set(keyValues: ret)
 
         // Artwork is mandatory, so always handle it
-        let artworkURL = MediaURL(object: metadata["artwork"])!
+        let artworkURL = URL(object: metadata["artwork"])!
         
         // Begin downloading the artwork image from the URL
         currentImageTask = URLSession.shared.dataTask(with: artworkURL.value, completionHandler: { [weak player] (data, _, error) in

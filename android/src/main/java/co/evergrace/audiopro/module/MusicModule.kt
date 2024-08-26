@@ -395,6 +395,7 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
 
         callback.resolve(musicService.getRate())
     }
+    // TODO: Remove getRate from Android and anywhere else
 
     @ReactMethod
     fun setRepeatMode(mode: Int, callback: Promise) = scope.launch {

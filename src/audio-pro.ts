@@ -216,14 +216,6 @@ export async function getVolume(): Promise<number> {
 }
 
 /**
- * Gets the playback rate where 0.5 would be half speed, 1 would be
- * regular speed and 2 would be double speed etc.
- */
-export async function getRate(): Promise<number> {
-	return AudioPro.getRate();
-}
-
-/**
  * Gets a track object from the queue.
  * @param index The index of the track.
  * @returns The track object or undefined if there isn't a track object at that

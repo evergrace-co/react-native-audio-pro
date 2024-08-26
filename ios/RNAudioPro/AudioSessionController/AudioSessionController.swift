@@ -114,7 +114,6 @@ public class AudioSessionController {
                 delegate?.handleInterruption(type: .ended(shouldResume: false))
                 return
             }
-
             let options = AVAudioSession.InterruptionOptions(rawValue: typeValue)
             delegate?.handleInterruption(type: .ended(shouldResume: options.contains(.shouldResume)))
         @unknown default: return

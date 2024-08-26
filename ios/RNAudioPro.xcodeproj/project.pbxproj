@@ -24,7 +24,6 @@
 		142D944D2C7A065900EF95FB /* AudioItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D940F2C7A065900EF95FB /* AudioItem.swift */; };
 		142D944E2C7A065900EF95FB /* QueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D94302C7A065900EF95FB /* QueueManager.swift */; };
 		142D944F2C7A065900EF95FB /* NowPlayingInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D94252C7A065900EF95FB /* NowPlayingInfoController.swift */; };
-		142D94502C7A065900EF95FB /* MediaURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D941C2C7A065900EF95FB /* MediaURL.swift */; };
 		142D94512C7A065900EF95FB /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D94102C7A065900EF95FB /* AudioPlayer.swift */; };
 		142D94522C7A065900EF95FB /* RemoteCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D94312C7A065900EF95FB /* RemoteCommand.swift */; };
 		142D94532C7A065900EF95FB /* AVPlayerWrapperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D94172C7A065900EF95FB /* AVPlayerWrapperProtocol.swift */; };
@@ -36,7 +35,6 @@
 		142D94592C7A065900EF95FB /* NowPlayingInfoControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D94262C7A065900EF95FB /* NowPlayingInfoControllerProtocol.swift */; };
 		142D945A2C7A065900EF95FB /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D943C2C7A065900EF95FB /* EventType.swift */; };
 		142D945B2C7A065900EF95FB /* RNAudioProBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 142D94362C7A065900EF95FB /* RNAudioProBridge.m */; };
-		142D945D2C7A065900EF95FB /* MetadataAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D941D2C7A065900EF95FB /* MetadataAdapter.swift */; };
 		142D945E2C7A065900EF95FB /* AudioSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D94132C7A065900EF95FB /* AudioSessionController.swift */; };
 		142D945F2C7A065900EF95FB /* SessionCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D941F2C7A065900EF95FB /* SessionCategories.swift */; };
 		142D94602C7A065900EF95FB /* AVPlayerWrapperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D94162C7A065900EF95FB /* AVPlayerWrapperDelegate.swift */; };
@@ -70,8 +68,6 @@
 		142D94182C7A065900EF95FB /* AVPlayerWrapperState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerWrapperState.swift; sourceTree = "<group>"; };
 		142D941A2C7A065900EF95FB /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		142D941B2C7A065900EF95FB /* Capabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capabilities.swift; sourceTree = "<group>"; };
-		142D941C2C7A065900EF95FB /* MediaURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaURL.swift; sourceTree = "<group>"; };
-		142D941D2C7A065900EF95FB /* MetadataAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataAdapter.swift; sourceTree = "<group>"; };
 		142D941F2C7A065900EF95FB /* SessionCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCategories.swift; sourceTree = "<group>"; };
 		142D94202C7A065900EF95FB /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		142D94212C7A065900EF95FB /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
@@ -136,8 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				142D941B2C7A065900EF95FB /* Capabilities.swift */,
-				142D941C2C7A065900EF95FB /* MediaURL.swift */,
-				142D941D2C7A065900EF95FB /* MetadataAdapter.swift */,
 				142D941F2C7A065900EF95FB /* SessionCategories.swift */,
 				142D94202C7A065900EF95FB /* State.swift */,
 				142D94212C7A065900EF95FB /* Track.swift */,
@@ -158,15 +152,15 @@
 			path = NowPlayingInfoController;
 			sourceTree = "<group>";
 		};
-		142D942E2C7A065900EF95FB /* Observer */ = {
+		142D942E2C7A065900EF95FB /* AVPlayerObserver */ = {
 			isa = PBXGroup;
 			children = (
-				142D942A2C7A065900EF95FB /* AVPlayerItemNotificationObserver.swift */,
 				142D942B2C7A065900EF95FB /* AVPlayerItemObserver.swift */,
 				142D942C2C7A065900EF95FB /* AVPlayerObserver.swift */,
 				142D942D2C7A065900EF95FB /* AVPlayerTimeObserver.swift */,
+				142D942A2C7A065900EF95FB /* AVPlayerItemNotificationObserver.swift */,
 			);
-			path = Observer;
+			path = AVPlayerObserver;
 			sourceTree = "<group>";
 		};
 		142D94332C7A065900EF95FB /* RemoteCommandController */ = {
@@ -178,14 +172,6 @@
 			path = RemoteCommandController;
 			sourceTree = "<group>";
 		};
-		142D94382C7A065900EF95FB /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				142D94372C7A065900EF95FB /* RNAudioPro-Bridging-Header.h */,
-			);
-			path = Support;
-			sourceTree = "<group>";
-		};
 		142D943E2C7A065900EF95FB /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +181,14 @@
 				142D943D2C7A065900EF95FB /* Metadata.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		142D94662C7B51B600EF95FB /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				142D94372C7A065900EF95FB /* RNAudioPro-Bridging-Header.h */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		9B0E28201F07D76E00B71D2A = {
@@ -220,18 +214,18 @@
 				142D94102C7A065900EF95FB /* AudioPlayer.swift */,
 				142D94112C7A065900EF95FB /* AudioPlayerError.swift */,
 				142D94142C7A065900EF95FB /* AudioSessionController */,
+				142D942E2C7A065900EF95FB /* AVPlayerObserver */,
 				142D94192C7A065900EF95FB /* AVPlayerWrapper */,
 				142D941A2C7A065900EF95FB /* Event.swift */,
 				142D94222C7A065900EF95FB /* Models */,
 				142D94292C7A065900EF95FB /* NowPlayingInfoController */,
-				142D942E2C7A065900EF95FB /* Observer */,
 				142D942F2C7A065900EF95FB /* QueuedAudioPlayer.swift */,
 				142D94302C7A065900EF95FB /* QueueManager.swift */,
 				142D94332C7A065900EF95FB /* RemoteCommandController */,
 				142D94342C7A065900EF95FB /* RNAudioPro.swift */,
 				142D94352C7A065900EF95FB /* RNAudioProBridge.h */,
 				142D94362C7A065900EF95FB /* RNAudioProBridge.m */,
-				142D94382C7A065900EF95FB /* Support */,
+				142D94662C7B51B600EF95FB /* Support */,
 				142D94392C7A065900EF95FB /* TimeEventFrequency.swift */,
 				142D943E2C7A065900EF95FB /* Utils */,
 			);
@@ -313,7 +307,6 @@
 				142D944D2C7A065900EF95FB /* AudioItem.swift in Sources */,
 				142D944E2C7A065900EF95FB /* QueueManager.swift in Sources */,
 				142D944F2C7A065900EF95FB /* NowPlayingInfoController.swift in Sources */,
-				142D94502C7A065900EF95FB /* MediaURL.swift in Sources */,
 				142D94512C7A065900EF95FB /* AudioPlayer.swift in Sources */,
 				142D94522C7A065900EF95FB /* RemoteCommand.swift in Sources */,
 				142D94532C7A065900EF95FB /* AVPlayerWrapperProtocol.swift in Sources */,
@@ -325,7 +318,6 @@
 				142D94592C7A065900EF95FB /* NowPlayingInfoControllerProtocol.swift in Sources */,
 				142D945A2C7A065900EF95FB /* EventType.swift in Sources */,
 				142D945B2C7A065900EF95FB /* RNAudioProBridge.m in Sources */,
-				142D945D2C7A065900EF95FB /* MetadataAdapter.swift in Sources */,
 				142D945E2C7A065900EF95FB /* AudioSessionController.swift in Sources */,
 				142D945F2C7A065900EF95FB /* SessionCategories.swift in Sources */,
 				142D94602C7A065900EF95FB /* AVPlayerWrapperDelegate.swift in Sources */,
@@ -463,11 +455,7 @@
 				ENABLE_MODULE_VERIFIER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native/ReactCommon/**",
-					"$(SRCROOT)/../node_modules/@react-native/**",
+					"$(SRCROOT)/../node_modules/react-native/React/Modules",
 				);
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -497,11 +485,7 @@
 				ENABLE_MODULE_VERIFIER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native/ReactCommon/**",
-					"$(SRCROOT)/../node_modules/@react-native/**",
+					"$(SRCROOT)/../node_modules/react-native/React/Modules",
 				);
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

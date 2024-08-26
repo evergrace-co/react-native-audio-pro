@@ -58,9 +58,6 @@ RCT_EXTERN_METHOD(setRate:(float)rate
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject);
 
-RCT_EXTERN_METHOD(getRate:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject);
-
 RCT_EXTERN_METHOD(getTrack:(nonnull NSNumber *)trackIndex
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject);

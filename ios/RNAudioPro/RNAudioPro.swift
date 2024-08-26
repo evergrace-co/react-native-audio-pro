@@ -24,12 +24,11 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
         super.init()
         EventEmitter.shared.register(eventEmitter: self)
         audioSessionController.delegate = self
-        player.playWhenReady = false;
+        player.playWhenReady = true;
         player.event.stateChange.addListener(self, handleAudioPlayerStateChange)
         player.event.fail.addListener(self, handleAudioPlayerFailed)
         player.event.currentItem.addListener(self, handleAudioPlayerCurrentItemChange)
         player.event.secondElapse.addListener(self, handleAudioPlayerSecondElapse)
-        player.event.playWhenReadyChange.addListener(self, handlePlayWhenReadyChange)
     }
 
     deinit {
@@ -64,7 +63,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
             "CAPABILITY_PAUSE": Capability.pause.rawValue,
             "CAPABILITY_STOP": Capability.stop.rawValue,
             "CAPABILITY_SEEK_TO": Capability.seek.rawValue,
-            "CAPABILITY_SKIP": "NOOP",
             "CAPABILITY_SKIP_TO_NEXT": Capability.next.rawValue,
             "CAPABILITY_SKIP_TO_PREVIOUS": Capability.previous.rawValue,
             "CAPABILITY_JUMP_FORWARD": Capability.jumpForward.rawValue,
@@ -454,13 +452,6 @@ public class RNAudioPro: RCTEventEmitter, AudioSessionControllerDelegate {
 
         player.rate = rate
         resolve(NSNull())
-    }
-
-    @objc(getRate:rejecter:)
-    public func getRate(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-        if (rejectWhenNotInitialized(reject: reject)) { return }
-
-        resolve(player.rate)
     }
 
     @objc(getTrack:resolver:rejecter:)

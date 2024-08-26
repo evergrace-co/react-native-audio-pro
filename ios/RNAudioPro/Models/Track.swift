@@ -3,30 +3,36 @@ import MediaPlayer
 import AVFoundation
 
 class Track: AudioItem, AssetOptionsProviding {
-    let url: MediaURL
+    
+    let url: URL
 
-    @objc var title: String?
+    @objc var title: String
     @objc var artist: String?
 
     var duration: Double?
-    var artworkURL: MediaURL?
+    var artworkURL: URL
     let headers: [String: Any]?
 
     var album: String?
-    var artwork: MPMediaItemArtwork?
+    var artwork: MPMediaItemArtwork
 
     private var originalObject: [String: Any] = [:]
 
     init?(dictionary: [String: Any]) {
-        guard let url = MediaURL(object: dictionary["url"]) else { return nil }
-        self.url = url
+        // Safely unwrap and cast the value to URL
+        if let urlString = dictionary["url"] as? String, let url = URL(string: urlString) {
+            self.url = url
+        } else {
+            // Return nil if the URL is not valid
+            return nil
+        }
+
+        // Safely cast headers to the expected type
         self.headers = dictionary["headers"] as? [String: Any]
 
-        updateMetadata(dictionary: dictionary);
+        // Update metadata
+        updateMetadata(dictionary: dictionary)
     }
-
-
-    // MARK: - Public Interface
 
     func toObject() -> [String: Any] {
         return originalObject
@@ -37,22 +43,24 @@ class Track: AudioItem, AssetOptionsProviding {
         self.artist = (dictionary["artist"] as? String) ?? self.artist
         self.album = dictionary["album"] as? String
         self.duration = dictionary["duration"] as? Double
-        self.artworkURL = MediaURL(object: dictionary["artwork"])
+        
+        // Extract the URL from the URL object, if it exists
+        if let mediaURL = URL(object: dictionary["artwork"]) {
+            self.artworkURL = mediaURL.value
+        }
 
         self.originalObject = self.originalObject.merging(dictionary) { (_, new) in new }
     }
 
-    // MARK: - AudioItem Protocol
-
     func getSourceUrl() -> String {
-        return url.value.absoluteString
+        return url.absoluteString
     }
 
     func getArtist() -> String? {
         return artist
     }
 
-    func getTitle() -> String? {
+    func getTitle() -> String {
         return title
     }
 
@@ -60,25 +68,15 @@ class Track: AudioItem, AssetOptionsProviding {
         return album
     }
 
-    func getSourceType() -> SourceType {
-        return .stream
-    }
-
     func getArtwork(_ handler: @escaping (UIImage?) -> Void) {
-        if let artworkURL = artworkURL?.value {
-            URLSession.shared.dataTask(with: artworkURL, completionHandler: { (data, _, error) in
-                if let data = data, let artwork = UIImage(data: data), error == nil {
-                    handler(artwork)
-                } else {
-                    handler(nil)
-                }
-            }).resume()
-        } else {
-            handler(nil)
-        }
+        URLSession.shared.dataTask(with: artworkURL, completionHandler: { (data, _, error) in
+            if let data = data, let artwork = UIImage(data: data), error == nil {
+                handler(artwork)
+            } else {
+                handler(nil)
+            }
+        }).resume()
     }
-
-    // MARK: - Authorizing Protocol
 
     func getAssetOptions() -> [String: Any] {
         var options: [String: Any] = [:]
