@@ -2,21 +2,9 @@ import {AppRegistry, DeviceEventEmitter, NativeEventEmitter, Platform} from 'rea
 
 import AudioPro from './AudioProModule';
 import {Event} from './constants';
-import {
-	AddTrack,
-	CustomUpdateOptions,
-	EventPayloadByEvent,
-	PlaybackState,
-	Progress,
-	RemoteDuckEvent,
-	RemoteJumpBackwardEvent,
-	RemoteJumpForwardEvent,
-	RemoteSeekEvent,
-	Track,
-	UpdateOptions,
-} from './types';
+import {CustomUpdateOptions, EventPayloadByEvent, Track, UpdateOptions} from './types';
 import {defaultPlayerOptions, defaultUpdateOptions} from './options';
-import {HandledEvent} from './constants/HandledEvent';
+import {handleEvents} from './events';
 
 export const emitter =
 	Platform.OS === 'ios' ? new NativeEventEmitter(AudioPro) : DeviceEventEmitter;
@@ -43,10 +31,8 @@ export async function setup(
 		isSetup = true;
 
 		if (Platform.OS === 'android') {
-			// Registers the headless task
 			AppRegistry.registerHeadlessTask('AudioPro', () => playbackService);
 		} else {
-			// Initialise and run the service
 			void playbackService();
 		}
 
@@ -60,48 +46,8 @@ export async function setup(
 			options: config,
 		} as UpdateOptions);
 
-		/**
-		 * DEFAULT EVENT HANDLING
-		 */
-
-		// Duck
-		const handleRemoteDuck = (event: RemoteDuckEvent) => {
-			// TODO: Ensure this works natively on both platforms, then remove and set default on Options
-			if (event.paused || event.permanent) {
-				if (event.permanent && Platform.OS === 'android') {
-					void stop();
-				} else {
-					void pause();
-				}
-			} else {
-				void play();
-			}
-		};
-		emitter.addListener(HandledEvent.RemoteDuck, handleRemoteDuck);
-
-		// Play
-		const handleRemotePlay = () => play();
-		emitter.addListener(HandledEvent.RemotePlay, handleRemotePlay);
-
-		// Pause
-		const handleRemotePause = () => pause();
-		emitter.addListener(HandledEvent.RemotePause, handleRemotePause);
-
-		// Stop
-		const handleRemoteStop = () => stop();
-		emitter.addListener(HandledEvent.RemoteStop, handleRemoteStop);
-
-		// Seek
-		const handleRemoteSeek = ({position}: RemoteSeekEvent) => seekTo(position);
-		emitter.addListener(HandledEvent.RemoteSeek, handleRemoteSeek);
-
-		// Jump forward
-		const handleRemoteJumpForward = ({interval}: RemoteJumpForwardEvent) => seekBy(interval);
-		emitter.addListener(HandledEvent.RemoteJumpForward, handleRemoteJumpForward);
-
-		// Jump backward
-		const handleRemoteJumpBackward = ({interval}: RemoteJumpBackwardEvent) => seekBy(-interval);
-		emitter.addListener(HandledEvent.RemoteJumpBackward, handleRemoteJumpBackward);
+		// Add event listeners
+		handleEvents();
 	} catch (e) {
 		return Promise.reject(e);
 	}
@@ -120,22 +66,14 @@ export function addEventListener<T extends Event>(
 }
 
 /**
- * Adds a track to the queue.
- *
- * @param track The track to add to the queue.
- * By default the track will be added to the end of the queue.
- */
-export async function add(track: AddTrack): Promise<number | void> {
-	return AudioPro.add([track], -1);
-}
-
-/**
- * Replaces the current track or loads the track as the first in the queue.
+ * Replaces the current track or loads the track
  *
  * @param track The track to load.
+ * @param playWhenReady
  */
-export async function load(track: Track): Promise<number | void> {
-	return AudioPro.load(track);
+export async function load(track: Track, playWhenReady = true): Promise<number | void> {
+	return AudioPro.load(track, playWhenReady);
+	// TODO: Add playWhenReady to native
 }
 
 /**
@@ -160,19 +98,12 @@ export async function pause(): Promise<void> {
 }
 
 /**
- * Stops the current track.
+ * Stops playback. Behavior is the same as AudioPro.pause() where playWhenReady becomes false,
+ * but instead of just pausing playback, the item is unloaded.
+ * This function causes any further loading / buffering to stop.
  */
 export async function stop(): Promise<void> {
 	return AudioPro.stop();
-}
-
-/**
- * Sets weather the player will play automatically when it is ready to do so.
- * This is the equivalent of calling `AudioPro.play()` when `playWhenReady = true`
- * or `AudioPro.pause()` when `playWhenReady = false`.
- */
-export async function setPlayWhenReady(playWhenReady: boolean): Promise<boolean> {
-	return AudioPro.setPlayWhenReady(playWhenReady);
 }
 
 /**
@@ -209,52 +140,8 @@ export async function setRate(rate: number): Promise<void> {
 }
 
 /**
- * Gets the volume of the player as a number between 0 and 1.
- */
-export async function getVolume(): Promise<number> {
-	return AudioPro.getVolume();
-}
-
-/**
- * Gets a track object from the queue.
- * @param index The index of the track.
- * @returns The track object or undefined if there isn't a track object at that
- * index.
- */
-export async function getTrack(index: number): Promise<Track | undefined> {
-	return AudioPro.getTrack(index);
-}
-
-/**
- * Gets the active track or undefined if there is no current track.
- */
-export async function getActiveTrack(): Promise<Track | undefined> {
-	return (await AudioPro.getActiveTrack()) ?? undefined;
-}
-
-/**
- * Gets information on the progress of the currently active track, including its
- * current playback position in seconds, buffered position in seconds and
- * duration in seconds.
- */
-export async function getProgress(): Promise<Progress> {
-	return AudioPro.getProgress();
-}
-
-/**
- * Gets the playback state of the player.
- * @see https://rnap.dev/docs/api/constants/state
- */
-export async function getPlaybackState(): Promise<PlaybackState> {
-	return AudioPro.getPlaybackState();
-}
-
-/**
  * Retries the current item when the playback state is `State.Error`.
  */
 export async function retry() {
 	return AudioPro.retry();
 }
-
-// TODO: Remove getDuration()
-// TODO: Remove getBufferedPosition()

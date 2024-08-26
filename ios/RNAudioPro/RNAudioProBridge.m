@@ -65,12 +65,6 @@ RCT_EXTERN_METHOD(getTrack:(nonnull NSNumber *)trackIndex
 RCT_EXTERN_METHOD(getActiveTrack:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject);
 
-RCT_EXTERN_METHOD(getDuration:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject);
-
-RCT_EXTERN_METHOD(getBufferedPosition:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject);
-
 RCT_EXTERN_METHOD(getPosition:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject);
 

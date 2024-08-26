@@ -1,4 +1,3 @@
-export * from './NowPlayingMetadata';
 export * from './PlaybackState';
 export * from './PlayerOptions';
 export * from './Progress';

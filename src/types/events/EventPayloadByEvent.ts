@@ -3,11 +3,14 @@ import {Event} from '../../constants';
 import type {PlaybackState} from '../PlaybackState';
 import type {PlaybackActiveTrackChangedEvent} from './PlaybackActiveTrackChangedEvent';
 import type {PlaybackErrorEvent} from './PlaybackErrorEvent';
-import type {PlaybackPlayWhenReadyChangedEvent} from './PlaybackPlayWhenReadyChangedEvent';
 import type {PlaybackProgressUpdatedEvent} from './PlaybackProgressUpdatedEvent';
 import type {PlaybackQueueEndedEvent} from './PlaybackQueueEndedEvent';
 import type {PlayerErrorEvent} from './PlayerErrorEvent';
 import type {RemoteSkipEvent} from './RemoteSkipEvent';
+import {RemoteJumpForwardEvent} from './RemoteJumpForwardEvent';
+import {RemoteJumpBackwardEvent} from './RemoteJumpBackwardEvent';
+import {RemoteSeekEvent} from './RemoteSeekEvent';
+import {RemoteDuckEvent} from './RemoteDuckEvent';
 
 export type EventPayloadByEvent = {
 	[Event.PlayerError]: PlayerErrorEvent;
@@ -15,18 +18,17 @@ export type EventPayloadByEvent = {
 	[Event.PlaybackError]: PlaybackErrorEvent;
 	[Event.PlaybackQueueEnded]: PlaybackQueueEndedEvent;
 	[Event.PlaybackActiveTrackChanged]: PlaybackActiveTrackChangedEvent;
-	[Event.PlaybackPlayWhenReadyChanged]: PlaybackPlayWhenReadyChangedEvent;
 	[Event.PlaybackProgressUpdated]: PlaybackProgressUpdatedEvent;
-	// [Event.RemotePlay]: never;
-	// [Event.RemotePause]: never;
-	// [Event.RemoteStop]: never;
+	[Event.RemotePlay]: never;
+	[Event.RemotePause]: never;
+	[Event.RemoteStop]: never;
 	[Event.RemoteSkip]: RemoteSkipEvent;
 	[Event.RemoteNext]: never;
 	[Event.RemotePrevious]: never;
-	// [Event.RemoteJumpForward]: RemoteJumpForwardEvent;
-	// [Event.RemoteJumpBackward]: RemoteJumpBackwardEvent;
-	// [Event.RemoteSeek]: RemoteSeekEvent;
-	// [Event.RemoteDuck]: RemoteDuckEvent;
+	[Event.RemoteJumpForward]: RemoteJumpForwardEvent;
+	[Event.RemoteJumpBackward]: RemoteJumpBackwardEvent;
+	[Event.RemoteSeek]: RemoteSeekEvent;
+	[Event.RemoteDuck]: RemoteDuckEvent;
 };
 
 // eslint-disable-next-line
