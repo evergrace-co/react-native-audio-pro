@@ -21,8 +21,7 @@ export type DefaultUpdateOptions = {
 	android: {
 		/**
 		 * Whether the audio playback notification is also removed when the playback
-		 * stops. **If `stoppingAppPausesPlayback` is set to false, this will be
-		 * ignored.**
+		 * stops.
 		 */
 		appKilledPlaybackBehavior: 'stop-playback-and-remove-notification';
 		/**

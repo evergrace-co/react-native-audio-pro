@@ -42,13 +42,6 @@ class MusicService : HeadlessJsTaskService() {
     private val scope = MainScope()
     private var progressUpdateJob: Job? = null
 
-    /**
-     * Use [appKilledPlaybackBehavior] instead.
-     */
-    @Deprecated("This will be removed soon")
-    var stoppingAppPausesPlayback = true
-        private set
-
     enum class AppKilledPlaybackBehavior(val string: String) {
         CONTINUE_PLAYBACK("continue-playback"), PAUSE_PLAYBACK("pause-playback"), STOP_PLAYBACK_AND_REMOVE_NOTIFICATION("stop-playback-and-remove-notification")
     }
@@ -132,14 +125,7 @@ class MusicService : HeadlessJsTaskService() {
             interceptPlayerActionsTriggeredExternally = true,
             handleAudioBecomingNoisy = true,
             handleAudioFocus = playerOptions?.getBoolean(AUTO_HANDLE_INTERRUPTIONS) ?: false,
-            audioContentType = when(playerOptions?.getString(ANDROID_AUDIO_CONTENT_TYPE)) {
-                "music" -> AudioContentType.MUSIC
-                "speech" -> AudioContentType.SPEECH
-                "sonification" -> AudioContentType.SONIFICATION
-                "movie" -> AudioContentType.MOVIE
-                "unknown" -> AudioContentType.UNKNOWN
-                else -> AudioContentType.MUSIC
-            }
+            audioContentType = AudioContentType.MUSIC
         )
 
         val automaticallyUpdateNotificationMetadata = playerOptions?.getBoolean(AUTO_UPDATE_METADATA, true) ?: true
@@ -158,14 +144,6 @@ class MusicService : HeadlessJsTaskService() {
         appKilledPlaybackBehavior = AppKilledPlaybackBehavior::string.find(androidOptions?.getString(APP_KILLED_PLAYBACK_BEHAVIOR_KEY)) ?: AppKilledPlaybackBehavior.CONTINUE_PLAYBACK
 
         BundleUtils.getIntOrNull(androidOptions, STOP_FOREGROUND_GRACE_PERIOD_KEY)?.let { stopForegroundGracePeriod = it }
-
-        // TODO: This handles a deprecated flag. Should be removed soon.
-        options.getBoolean(STOPPING_APP_PAUSES_PLAYBACK_KEY).let {
-            stoppingAppPausesPlayback = options.getBoolean(STOPPING_APP_PAUSES_PLAYBACK_KEY)
-            if (stoppingAppPausesPlayback) {
-                appKilledPlaybackBehavior = AppKilledPlaybackBehavior.PAUSE_PLAYBACK
-            }
-        }
 
         player.playerOptions.alwaysPauseOnInterruption = androidOptions?.getBoolean(PAUSE_ON_INTERRUPTION_KEY) ?: false
 
@@ -738,7 +716,6 @@ class MusicService : HeadlessJsTaskService() {
 
         const val ANDROID_OPTIONS_KEY = "android"
 
-        const val STOPPING_APP_PAUSES_PLAYBACK_KEY = "stoppingAppPausesPlayback"
         const val APP_KILLED_PLAYBACK_BEHAVIOR_KEY = "appKilledPlaybackBehavior"
         const val STOP_FOREGROUND_GRACE_PERIOD_KEY = "stopForegroundGracePeriod"
         const val PAUSE_ON_INTERRUPTION_KEY = "alwaysPauseOnInterruption"
@@ -748,7 +725,7 @@ class MusicService : HeadlessJsTaskService() {
         const val IS_FOCUS_LOSS_PERMANENT_KEY = "permanent"
         const val IS_PAUSED_KEY = "paused"
 
-        const val DEFAULT_JUMP_INTERVAL = 15.0
+        const val DEFAULT_JUMP_INTERVAL = 30.0
         const val DEFAULT_STOP_FOREGROUND_GRACE_PERIOD = 5
     }
 }

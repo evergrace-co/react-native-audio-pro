@@ -8,7 +8,7 @@ import {
 import {Platform} from 'react-native';
 import {HandledEvent} from './constants/HandledEvent';
 
-export const handleEvents = () => {
+export const handleDefaultEvents = () => {
 	// TODO: Integrate all of this natively
 
 	// Duck

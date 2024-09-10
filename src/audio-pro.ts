@@ -4,12 +4,11 @@ import AudioPro from './AudioProModule';
 import {Event} from './constants';
 import {CustomUpdateOptions, EventPayloadByEvent, Track, UpdateOptions} from './types';
 import {defaultPlayerOptions, defaultUpdateOptions} from './options';
-import {handleEvents} from './events';
+import {handleDefaultEvents} from './events';
 
 export const emitter =
 	Platform.OS === 'ios' ? new NativeEventEmitter(AudioPro) : DeviceEventEmitter;
 
-const WAIT_FOR_SERVICE_TIMEOUT = 500;
 let isSetup = false;
 
 /**
@@ -30,14 +29,16 @@ export async function setup(
 		}
 		isSetup = true;
 
-		if (Platform.OS === 'android') {
-			AppRegistry.registerHeadlessTask('AudioPro', () => playbackService);
-		} else {
+		const combinedPlaybackService = async () => {
 			void playbackService();
-		}
+			handleDefaultEvents();
+		};
 
-		// Wait for the service to be ready
-		await new Promise((resolve) => setTimeout(resolve, WAIT_FOR_SERVICE_TIMEOUT));
+		if (Platform.OS === 'android') {
+			AppRegistry.registerHeadlessTask('AudioPro', () => combinedPlaybackService);
+		} else {
+			void combinedPlaybackService();
+		}
 
 		// Setup
 		await AudioPro.setupPlayer(defaultPlayerOptions);
@@ -45,9 +46,6 @@ export async function setup(
 			...defaultUpdateOptions,
 			options: config,
 		} as UpdateOptions);
-
-		// Add event listeners
-		handleEvents();
 	} catch (e) {
 		return Promise.reject(e);
 	}
