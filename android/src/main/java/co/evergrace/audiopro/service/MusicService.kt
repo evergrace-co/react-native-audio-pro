@@ -32,7 +32,6 @@ import com.google.android.exoplayer2.ui.R as ExoPlayerR
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flow
 import java.util.concurrent.TimeUnit
-import kotlin.system.exitProcess
 import timber.log.Timber
 
 @MainThread
@@ -51,9 +50,6 @@ class MusicService : HeadlessJsTaskService() {
 
     val tracks: List<Track>
         get() = player.items.map { (it as TrackAudioItem).track }
-
-    val currentTrack
-        get() = (player.currentItem as TrackAudioItem).track
 
     val state
         get() = player.playerState
@@ -110,7 +106,7 @@ class MusicService : HeadlessJsTaskService() {
     @MainThread
     fun setupPlayer(playerOptions: Bundle?) {
         if (this::player.isInitialized) {
-            print("Player was initialized. Prevent re-initializing again")
+            Timber.d("Player was initialized. Prevent re-initializing again")
             return
         }
 
@@ -150,8 +146,6 @@ class MusicService : HeadlessJsTaskService() {
         capabilities = options.getIntegerArrayList("capabilities")?.map { Capability.values()[it] } ?: emptyList()
         notificationCapabilities = options.getIntegerArrayList("notificationCapabilities")?.map { Capability.values()[it] } ?: emptyList()
         compactCapabilities = options.getIntegerArrayList("compactCapabilities")?.map { Capability.values()[it] } ?: emptyList()
-
-        if (notificationCapabilities.isEmpty()) notificationCapabilities = capabilities
 
         val buttonsList = notificationCapabilities.mapNotNull {
             when (it) {
@@ -248,40 +242,8 @@ class MusicService : HeadlessJsTaskService() {
     }
 
     @MainThread
-    fun add(track: Track) {
-        add(listOf(track))
-    }
-
-    @MainThread
-    fun add(tracks: List<Track>) {
-        val items = tracks.map { it.toAudioItem() }
-        player.add(items)
-    }
-
-    @MainThread
-    fun add(tracks: List<Track>, atIndex: Int) {
-        val items = tracks.map { it.toAudioItem() }
-        player.add(items, atIndex)
-    }
-
-    @MainThread
     fun load(track: Track) {
         player.load(track.toAudioItem())
-    }
-
-    @MainThread
-    fun move(fromIndex: Int, toIndex: Int) {
-        player.move(fromIndex, toIndex);
-    }
-
-    @MainThread
-    fun remove(index: Int) {
-        remove(listOf(index))
-    }
-
-    @MainThread
-    fun remove(indexes: List<Int>) {
-        player.remove(indexes)
     }
 
     @MainThread
@@ -320,27 +282,9 @@ class MusicService : HeadlessJsTaskService() {
     }
 
     @MainThread
-    fun getCurrentTrackIndex(): Int = player.currentIndex
-
-    @MainThread
-    fun getRate(): Float = player.playbackSpeed
-
-    @MainThread
     fun setRate(value: Float) {
         player.playbackSpeed = value
     }
-
-    @MainThread
-    fun getRepeatMode(): RepeatMode = player.playerOptions.repeatMode
-    // TODO: Remove all repeat mode logic from Android (and anywhere else?)
-
-    @MainThread
-    fun setRepeatMode(value: RepeatMode) {
-        player.playerOptions.repeatMode = value
-    }
-
-    @MainThread
-    fun getVolume(): Float = player.volume
 
     @MainThread
     fun setVolume(value: Float) {
@@ -626,16 +570,6 @@ class MusicService : HeadlessJsTaskService() {
             ?.emit(event, data?.let { Arguments.fromBundle(it) })
     }
 
-    @MainThread
-    private fun emitList(event: String, data: List<Bundle> = emptyList()) {
-        val payload = Arguments.createArray()
-        data.forEach { payload.pushMap(Arguments.fromBundle(it)) }
-
-        reactNativeHost.reactInstanceManager.currentReactContext
-            ?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-            ?.emit(event, payload)
-    }
-
     override fun getTaskConfig(intent: Intent?): HeadlessJsTaskConfig {
         return HeadlessJsTaskConfig(TASK_KEY, Arguments.createMap(), 0, true)
     }
@@ -665,7 +599,6 @@ class MusicService : HeadlessJsTaskService() {
                 }
 
                 stopSelf()
-                exitProcess(0)
             }
             else -> {}
         }

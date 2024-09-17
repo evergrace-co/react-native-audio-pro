@@ -22,7 +22,6 @@ export async function setup(
 	playbackService: () => Promise<void>,
 	config?: CustomUpdateOptions,
 ): Promise<void> {
-	// TODO: Add logging option
 	try {
 		if (isSetup) {
 			throw new Error('AudioPro has already run setup.');

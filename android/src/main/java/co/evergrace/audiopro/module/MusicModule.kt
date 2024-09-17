@@ -5,23 +5,21 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import co.evergrace.audiopro.models.Capability
-import co.evergrace.audiopro.models.RepeatMode
 import co.evergrace.audiopro.extensions.NumberExt.Companion.toMilliseconds
 import co.evergrace.audiopro.model.State
 import co.evergrace.audiopro.model.Track
+import co.evergrace.audiopro.models.Capability
 import co.evergrace.audiopro.module.MusicEvents.Companion.EVENT_INTENT
 import co.evergrace.audiopro.service.MusicService
 import co.evergrace.audiopro.utils.AppForegroundTracker
 import co.evergrace.audiopro.utils.RejectionException
+import com.facebook.react.BuildConfig
 import com.facebook.react.bridge.*
 import com.google.android.exoplayer2.DefaultLoadControl.*
-import com.google.android.exoplayer2.Player
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.*
 import javax.annotation.Nonnull
 
 class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext),
@@ -39,7 +37,9 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
     }
 
     override fun initialize() {
-        Timber.plant(Timber.DebugTree())
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
         AppForegroundTracker.start()
     }
 
@@ -67,7 +67,7 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
     }
 
     /**
-     * Checks wither service is bound, or rejects. Returns whether promise was rejected.
+     * Checks whether service is bound, or rejects. Returns whether promise was rejected.
      */
     private fun verifyServiceBoundOrReject(promise: Promise): Boolean {
         if (!isServiceBound) {
@@ -96,23 +96,6 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
         }
     }
 
-    private fun readableArrayToTrackList(data: ReadableArray?): MutableList<Track> {
-        val bundleList = Arguments.toList(data)
-        if (bundleList !is ArrayList) {
-            throw RejectionException("invalid_parameter", "Was not given an array of tracks")
-        }
-        return bundleList.map {
-            if (it is Bundle) {
-                bundleToTrack(it)
-            } else {
-                throw RejectionException(
-                    "invalid_track_object",
-                    "Track was not a dictionary type"
-                )
-            }
-        }.toMutableList()
-    }
-
     /* ****************************** API ****************************** */
     override fun getConstants(): Map<String, Any> {
         return HashMap<String, Any>().apply {
@@ -135,10 +118,6 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
             this["STATE_STOPPED"] = State.Stopped.state
             this["STATE_BUFFERING"] = State.Buffering.state
             this["STATE_LOADING"] = State.Loading.state
-
-            // Repeat Modes
-            this["REPEAT_OFF"] = Player.REPEAT_MODE_OFF
-            this["REPEAT_TRACK"] = Player.REPEAT_MODE_ONE
         }
     }
 
@@ -153,7 +132,7 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
         }
 
         // prevent crash Fatal Exception: android.app.RemoteServiceException$ForegroundServiceDidNotStartInTimeException
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && AppForegroundTracker.backgrounded) {
+        if (AppForegroundTracker.backgrounded) {
             promise.reject(
                 "android_cannot_setup_player_in_background",
                 "On Android the app must be in the foreground when setting up the player."
@@ -211,7 +190,6 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
         playerSetUpPromise = promise
         playerOptions = bundledData
 
-
         LocalBroadcastManager.getInstance(context).registerReceiver(
             MusicEvents(context),
             IntentFilter(EVENT_INTENT)
@@ -241,27 +219,6 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
     }
 
     @ReactMethod
-    fun add(data: ReadableArray?, insertBeforeIndex: Int, callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        try {
-            val tracks = readableArrayToTrackList(data);
-            if (insertBeforeIndex < -1 || insertBeforeIndex > musicService.tracks.size) {
-                callback.reject("index_out_of_bounds", "The track index is out of bounds")
-                return@launch
-            }
-            val index = if (insertBeforeIndex == -1) musicService.tracks.size else insertBeforeIndex
-            musicService.add(
-                tracks,
-                index
-            )
-            callback.resolve(index)
-        } catch (exception: Exception) {
-            rejectWithException(callback, exception)
-        }
-    }
-
-    @ReactMethod
     fun load(data: ReadableMap?, callback: Promise) = scope.launch {
         if (verifyServiceBoundOrReject(callback)) return@launch
         if (data == null) {
@@ -275,36 +232,6 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
         } else {
             callback.reject("invalid_track_object", "Track was not a dictionary type")
         }
-    }
-
-    @ReactMethod
-    fun move(fromIndex: Int, toIndex: Int, callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-        musicService.move(fromIndex, toIndex)
-        callback.resolve(null)
-    }
-
-    @ReactMethod
-    fun remove(data: ReadableArray?, callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-        val inputIndexes = Arguments.toList(data)
-        if (inputIndexes != null) {
-            val size = musicService.tracks.size
-            val indexes: ArrayList<Int> = ArrayList();
-            for (inputIndex in inputIndexes) {
-                val index = if (inputIndex is Int) inputIndex else inputIndex.toString().toInt()
-                if (index < 0 || index >= size) {
-                    callback.reject(
-                        "index_out_of_bounds",
-                        "One or more indexes was out of bounds"
-                    )
-                    return@launch
-                }
-                indexes.add(index)
-            }
-            musicService.remove(indexes)
-        }
-        callback.resolve(null)
     }
 
     @ReactMethod
@@ -372,96 +299,5 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
 
         musicService.setVolume(volume)
         callback.resolve(null)
-    }
-
-    @ReactMethod
-    fun getVolume(callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        callback.resolve(musicService.getVolume())
-    }
-
-    @ReactMethod
-    fun setRate(rate: Float, callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        musicService.setRate(rate)
-        callback.resolve(null)
-    }
-
-    @ReactMethod
-    fun getRate(callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        callback.resolve(musicService.getRate())
-    }
-    // TODO: Remove getRate from Android and anywhere else
-
-    @ReactMethod
-    fun setRepeatMode(mode: Int, callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        musicService.setRepeatMode(RepeatMode.fromOrdinal(mode))
-        callback.resolve(null)
-    }
-
-    @ReactMethod
-    fun getRepeatMode(callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        callback.resolve(musicService.getRepeatMode().ordinal)
-    }
-
-    @ReactMethod
-    fun setPlayWhenReady(playWhenReady: Boolean, callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        musicService.playWhenReady = playWhenReady
-        callback.resolve(null)
-    }
-
-    @ReactMethod
-    fun getTrack(index: Int, callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        if (index >= 0 && index < musicService.tracks.size) {
-            callback.resolve(Arguments.fromBundle(musicService.tracks[index].originalItem))
-        } else {
-            callback.resolve(null)
-        }
-    }
-
-    @ReactMethod
-    fun getActiveTrack(callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-        callback.resolve(
-            if (musicService.tracks.isEmpty()) null
-            else Arguments.fromBundle(
-                musicService.tracks[musicService.getCurrentTrackIndex()].originalItem
-            )
-        )
-    }
-
-    @ReactMethod
-    fun getDuration(callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-
-        callback.resolve(musicService.getDurationInSeconds())
-    }
-
-    @ReactMethod
-    fun getProgress(callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-        var bundle = Bundle()
-        bundle.putDouble("duration", musicService.getDurationInSeconds());
-        bundle.putDouble("position", musicService.getPositionInSeconds());
-        bundle.putDouble("buffered", musicService.getBufferedPositionInSeconds());
-        callback.resolve(Arguments.fromBundle(bundle))
-    }
-
-    @ReactMethod
-    fun getPlaybackState(callback: Promise) = scope.launch {
-        if (verifyServiceBoundOrReject(callback)) return@launch
-        callback.resolve(Arguments.fromBundle(musicService.getPlayerStateBundle(musicService.state)))
     }
 }
