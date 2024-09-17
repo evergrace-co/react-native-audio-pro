@@ -13,7 +13,6 @@ import androidx.annotation.MainThread
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_LOW
 import co.evergrace.audiopro.models.*
-import co.evergrace.audiopro.models.NotificationButton.*
 import co.evergrace.audiopro.players.QueuedAudioPlayer
 import co.evergrace.audiopro.R as AudioProR
 import co.evergrace.audiopro.extensions.NumberExt.Companion.toMilliseconds
@@ -84,19 +83,14 @@ class MusicService : HeadlessJsTaskService() {
      */
     private fun startAndStopEmptyNotificationToAvoidANR() {
         val notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.createNotificationChannel(
-                NotificationChannel(getString(AudioProR.string.rnap_temporary_channel_id), getString(AudioProR.string.rnap_temporary_channel_name), NotificationManager.IMPORTANCE_LOW)
-            )
-        }
-
+        notificationManager.createNotificationChannel(
+            NotificationChannel(getString(AudioProR.string.rnap_temporary_channel_id), getString(AudioProR.string.rnap_temporary_channel_name), NotificationManager.IMPORTANCE_LOW)
+        )
         val notificationBuilder = NotificationCompat.Builder(this, getString(AudioProR.string.rnap_temporary_channel_id))
             .setPriority(PRIORITY_LOW)
             .setCategory(Notification.CATEGORY_SERVICE)
             .setSmallIcon(ExoPlayerR.drawable.exo_notification_small_icon)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            notificationBuilder.foregroundServiceBehavior = NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
-        }
+        notificationBuilder.foregroundServiceBehavior = NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
         val notification = notificationBuilder.build()
         startForeground(EMPTY_NOTIFICATION_ID, notification)
         @Suppress("DEPRECATION")
@@ -124,10 +118,7 @@ class MusicService : HeadlessJsTaskService() {
             audioContentType = AudioContentType.MUSIC
         )
 
-        val automaticallyUpdateNotificationMetadata = playerOptions?.getBoolean(AUTO_UPDATE_METADATA, true) ?: true
-
         player = QueuedAudioPlayer(this@MusicService, playerConfig, bufferConfig)
-        player.automaticallyUpdateNotificationMetadata = automaticallyUpdateNotificationMetadata
         observeEvents()
         setupForegrounding()
     }
@@ -147,40 +138,6 @@ class MusicService : HeadlessJsTaskService() {
         notificationCapabilities = options.getIntegerArrayList("notificationCapabilities")?.map { Capability.values()[it] } ?: emptyList()
         compactCapabilities = options.getIntegerArrayList("compactCapabilities")?.map { Capability.values()[it] } ?: emptyList()
 
-        val buttonsList = notificationCapabilities.mapNotNull {
-            when (it) {
-                Capability.PLAY, Capability.PAUSE -> {
-                    val playIcon = BundleUtils.getIconOrNull(this, options, "playIcon")
-                    val pauseIcon = BundleUtils.getIconOrNull(this, options, "pauseIcon")
-                    PLAY_PAUSE(playIcon = playIcon, pauseIcon = pauseIcon)
-                }
-                Capability.STOP -> {
-                    val stopIcon = BundleUtils.getIconOrNull(this, options, "stopIcon")
-                    STOP(icon = stopIcon)
-                }
-                Capability.SKIP_TO_NEXT -> {
-                    val nextIcon = BundleUtils.getIconOrNull(this, options, "nextIcon")
-                    NEXT(icon = nextIcon, isCompact = isCompact(it))
-                }
-                Capability.SKIP_TO_PREVIOUS -> {
-                    val previousIcon = BundleUtils.getIconOrNull(this, options, "previousIcon")
-                    PREVIOUS(icon = previousIcon, isCompact = isCompact(it))
-                }
-                Capability.JUMP_FORWARD -> {
-                    val forwardIcon = BundleUtils.getIcon(this, options, "forwardIcon", AudioProR.drawable.forward)
-                    FORWARD(icon = forwardIcon, isCompact = isCompact(it))
-                }
-                Capability.JUMP_BACKWARD -> {
-                    val backwardIcon = BundleUtils.getIcon(this, options, "rewindIcon", AudioProR.drawable.rewind)
-                    BACKWARD(icon = backwardIcon, isCompact = isCompact(it))
-                }
-                Capability.SEEK_TO -> {
-                    SEEK_TO
-                }
-                else -> { null }
-            }
-        }
-
         val openAppIntent = packageManager.getLaunchIntentForPackage(packageName)?.apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             // Add the Uri data so apps can identify that it was a notification click
@@ -188,10 +145,8 @@ class MusicService : HeadlessJsTaskService() {
             action = Intent.ACTION_VIEW
         }
 
-        val accentColor = BundleUtils.getIntOrNull(options, "color")
-        val smallIcon = BundleUtils.getIconOrNull(this, options, "icon")
         val pendingIntent = PendingIntent.getActivity(this, 0, openAppIntent, getPendingIntentFlags())
-        val notificationConfig = NotificationConfig(buttonsList, accentColor, smallIcon, pendingIntent)
+        val notificationConfig = NotificationConfig(pendingIntent)
 
         player.notificationManager.createNotification(notificationConfig)
 
@@ -235,10 +190,6 @@ class MusicService : HeadlessJsTaskService() {
         } else {
             PendingIntent.FLAG_CANCEL_CURRENT
         }
-    }
-
-    private fun isCompact(capability: Capability): Boolean {
-        return compactCapabilities.contains(capability)
     }
 
     @MainThread
@@ -290,15 +241,6 @@ class MusicService : HeadlessJsTaskService() {
     fun setVolume(value: Float) {
         player.volume = value
     }
-
-    @MainThread
-    fun getDurationInSeconds(): Double = player.duration.toSeconds()
-
-    @MainThread
-    fun getPositionInSeconds(): Double = player.position.toSeconds()
-
-    @MainThread
-    fun getBufferedPositionInSeconds(): Double = player.bufferedPosition.toSeconds()
 
     @MainThread
     fun getPlayerStateBundle(state: AudioPlayerState): Bundle {

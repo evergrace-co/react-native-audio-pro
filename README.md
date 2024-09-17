@@ -38,7 +38,7 @@ import {backgroundService} from './audio-service'; // Import your background ser
 
 AppRegistry.registerComponent(appName, () => App);
 
-// Set up the audio player
+// Set up the audio player right away
 AudioPro.setup(backgroundService).catch(error => {
   console.error('Error setting up the audio player:', error);
 });

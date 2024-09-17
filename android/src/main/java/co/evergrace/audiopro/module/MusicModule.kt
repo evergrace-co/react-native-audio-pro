@@ -12,7 +12,6 @@ import co.evergrace.audiopro.models.Capability
 import co.evergrace.audiopro.module.MusicEvents.Companion.EVENT_INTENT
 import co.evergrace.audiopro.service.MusicService
 import co.evergrace.audiopro.utils.AppForegroundTracker
-import co.evergrace.audiopro.utils.RejectionException
 import com.facebook.react.BuildConfig
 import com.facebook.react.bridge.*
 import com.google.android.exoplayer2.DefaultLoadControl.*
@@ -83,17 +82,6 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
 
     private fun bundleToTrack(bundle: Bundle): Track {
         return Track(context, bundle)
-    }
-
-    private fun rejectWithException(callback: Promise, exception: Exception) {
-        when (exception) {
-            is RejectionException -> {
-                callback.reject(exception.code, exception)
-            }
-            else -> {
-                callback.reject("runtime_exception", exception)
-            }
-        }
     }
 
     /* ****************************** API ****************************** */

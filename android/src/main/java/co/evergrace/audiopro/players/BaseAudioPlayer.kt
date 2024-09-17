@@ -264,9 +264,7 @@ abstract class BaseAudioPlayer internal constructor(
     }
 
     internal fun updateNotificationIfNecessary(overrideAudioItem: AudioItem? = null) {
-        if (automaticallyUpdateNotificationMetadata) {
-            notificationManager.overrideAudioItem = overrideAudioItem
-        }
+        notificationManager.overrideAudioItem = overrideAudioItem
     }
 
     private fun setupBuffer(bufferConfig: BufferConfig): DefaultLoadControl {
@@ -307,14 +305,6 @@ abstract class BaseAudioPlayer internal constructor(
         val mediaSource = getMediaSourceFromAudioItem(item)
         exoPlayer.addMediaSource(mediaSource)
         exoPlayer.prepare()
-    }
-
-    fun togglePlaying() {
-        if (exoPlayer.isPlaying) {
-            pause()
-        } else {
-            play()
-        }
     }
 
     fun play() {
