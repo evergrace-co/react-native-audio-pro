@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		  package="co.evergrace.audiopro">
+    package="dev.rnap.audiopro">
 
-	<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-	<uses-permission
-			android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-	<application>
-		<service android:name="co.evergrace.audiopro.service.MusicService" android:enabled="true"
-				 android:exported="false" android:foregroundServiceType="mediaPlayback">
-			<intent-filter>
-				<action android:name="android.intent.action.MEDIA_BUTTON"/>
-			</intent-filter>
-		</service>
-	</application>
+    <application
+        android:name=".MainApplication"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false">
 
+        <service
+            android:name=".AudioService"
+            android:enabled="true"
+            android:exported="false" />
+    </application>
 </manifest>

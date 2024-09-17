@@ -1,72 +1,187 @@
 {
   "name": "react-native-audio-pro",
-  "version": "0.14.0",
-  "description": "A minimalist and opinionated audio player for React Native",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "react-native": "lib/index.d.ts",
-  "source": "src/index.ts",
-  "scripts": {
-    "build": "rimraf lib && tsc",
-    "patch": "npm version patch && npm publish && git push; git push --tags ",
-    "minor": "npm version minor && npm publish && git push; git push --tags ",
-    "watch": "nodemon --watch src --ext ts --exec 'npm run build'",
-    "OLD:dev": "tsc --watch",
-    "OLD:lint": "eslint src",
-    "OLD:format": "prettier --write src",
-    "OLD:types": "tsc --noEmit true",
-    "OLD:Xprepare": "yarn build && husky install",
-    "OLD:example": "yarn --cwd example",
-    "OLD:pods": "cd example/ios && pod install",
-    "OLD:bootstrap": "yarn example && yarn && yarn pods",
-    "OLD:XprepublishOnly": "yarn lint",
-    "OLD:Xpreversion": "yarn lint",
-    "OLD:Xversion": "yarn format && git add -A src && yarn changelog && git add CHANGELOG.md",
-    "OLD:Xpostversion": "if [[ ${npm_package_version} != *'nightly'* ]]; then yarn publish:git && yarn publish:npm; fi",
-    "OLD:ci:lint": "eslint src --max-warnings=0",
-    "OLD:ci:format": "prettier --check src",
-    "OLD:changelog": "conventional-changelog -p angular -s -i CHANGELOG.md -r 1",
-    "OLD:publish:git": "git push && git push --tags",
-    "OLD:publish:npm": "yarn prepare && npm publish --access public"
+  "version": "0.1.0",
+  "description": "A minimalist and opinionated audio player for React Native, written in TypeScript, with a focus on high audio quality and simple integration.",
+  "source": "./src/index.tsx",
+  "main": "./lib/commonjs/index.js",
+  "module": "./lib/module/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/typescript/module/src/index.d.ts",
+        "default": "./lib/module/index.js"
+      },
+      "require": {
+        "types": "./lib/typescript/commonjs/src/index.d.ts",
+        "default": "./lib/commonjs/index.js"
+      }
+    }
   },
   "files": [
     "src",
-    "lib/**/*",
-    "ios/**/*",
-    "android/src/**/*",
-    "android/build.gradle",
-    "android/proguard-rules.txt",
-    "*.podspec"
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "*.podspec",
+    "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
   ],
+  "scripts": {
+    "example": "yarn workspace react-native-audio-pro-example",
+    "test": "jest",
+    "typecheck": "tsc",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
+    "prepare": "bob build",
+    "release": "release-it"
+  },
   "keywords": [
-    "react",
     "react-native",
-    "audio-player",
-    "audio",
-    "player",
-    "music",
-    "controls"
+    "ios",
+    "android"
   ],
-  "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/evergrace-co/react-native-audio-pro.git"
+    "url": "git+https://github.com/evergrace-co/react-native-audio-pro.git"
   },
+  "author": "Brad Flood <hey@bradflood.com> (https://github.com/bradfloodx)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/evergrace-co/react-native-audio-pro/issues"
   },
-  "peerDependencies": {
-    "react-native": ">=0.70.0"
+  "homepage": "https://github.com/evergrace-co/react-native-audio-pro#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-native": "^0.73.0",
-    "@typescript-eslint/eslint-plugin": "^8.1.0",
-    "@typescript-eslint/parser": "^8.1.0",
-    "eslint": "^8.23.0",
-    "nodemon": "^3.1.4",
-    "prettier": "^2.7.1",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.5.4"
+    "@commitlint/config-conventional": "^17.0.2",
+    "@evilmartians/lefthook": "^1.5.0",
+    "@react-native/eslint-config": "^0.73.1",
+    "@release-it/conventional-changelog": "^5.0.0",
+    "@types/jest": "^29.5.5",
+    "@types/react": "^18.2.44",
+    "commitlint": "^17.0.2",
+    "del-cli": "^5.1.0",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "jest": "^29.7.0",
+    "prettier": "^3.0.3",
+    "react": "18.3.1",
+    "react-native": "0.75.3",
+    "react-native-builder-bob": "^0.30.2",
+    "release-it": "^15.0.0",
+    "turbo": "^1.10.7",
+    "typescript": "^5.2.2"
+  },
+  "resolutions": {
+    "@types/react": "^18.2.44"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "workspaces": [
+    "example"
+  ],
+  "packageManager": "yarn@3.6.1",
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@react-native",
+      "prettier"
+    ],
+    "rules": {
+      "react/react-in-jsx-scope": "off",
+      "prettier/prettier": [
+        "error",
+        {
+          "quoteProps": "consistent",
+          "singleQuote": true,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "useTabs": false
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "commonjs",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json",
+          "esm": true
+        }
+      ]
+    ]
+  },
+  "create-react-native-library": {
+    "type": "module-legacy",
+    "languages": "kotlin-swift",
+    "version": "0.41.2"
   }
 }
