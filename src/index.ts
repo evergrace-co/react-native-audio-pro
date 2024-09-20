@@ -1,4 +1,8 @@
-import { NativeModules, NativeEventEmitter } from 'react-native';
+import {
+  type EmitterSubscription,
+  NativeEventEmitter,
+  NativeModules,
+} from 'react-native';
 
 export enum EventNames {
   ON_PLAY = 'onPlay',
@@ -22,8 +26,10 @@ interface AudioProModule {
   stop(): Promise<void>;
   seekTo(seconds: number): Promise<void>;
   seekBy(seconds: number): Promise<void>;
-  addEventListener(eventName: EventNames, listener: (...args: any[]) => void): void;
-  removeEventListener(eventName: EventNames, listener: (...args: any[]) => void): void;
+  addEventListener(
+    eventName: EventNames,
+    listener: (...args: any[]) => void
+  ): EmitterSubscription;
 }
 
 const { RNAudioPro } = NativeModules;
@@ -49,10 +55,7 @@ const AudioPro: AudioProModule = {
     await RNAudioPro.seekBy(seconds);
   },
   addEventListener: (eventName, listener) => {
-    eventEmitter.addListener(eventName, listener);
-  },
-  removeEventListener: (eventName, listener) => {
-    eventEmitter.removeListener(eventName, listener);
+    return eventEmitter.addListener(eventName, listener);
   },
 };
 

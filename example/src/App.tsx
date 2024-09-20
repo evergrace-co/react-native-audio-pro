@@ -12,12 +12,18 @@ const App: React.FC = () => {
       console.log('Playback paused');
     };
 
-    AudioPro.addEventListener(EventNames.ON_PLAY, onPlay);
-    AudioPro.addEventListener(EventNames.ON_PAUSE, onPause);
+    const onPlayListener = AudioPro.addEventListener(
+      EventNames.ON_PLAY,
+      onPlay
+    );
+    const onPauseListener = AudioPro.addEventListener(
+      EventNames.ON_PAUSE,
+      onPause
+    );
 
     return () => {
-      AudioPro.removeEventListener(EventNames.ON_PLAY, onPlay);
-      AudioPro.removeEventListener(EventNames.ON_PAUSE, onPause);
+      onPlayListener.remove();
+      onPauseListener.remove();
     };
   }, []);
 
