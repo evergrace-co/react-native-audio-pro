@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Native Audio Pro - Robust Audio Playback for React Native</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+  <style>
+    :root {
+      --spacing: 1rem;
+    }
+
+    header {
+      padding: calc(var(--spacing) * 4) 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    section:not(:last-child) {
+      margin-bottom: calc(var(--spacing) * 3);
+    }
+
+    pre[class*="language-"] {
+      margin: 1.5rem 0;
+      border-radius: 8px;
+    }
+
+    .grid {
+      display: grid;
+      gap: var(--spacing);
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>React Native Audio Pro</h1>
+  <p class="container">A lightweight audio playback library for React Native. Play remote audio files (MP3, AAC, etc.) with ease, featuring background playback and lock screen controls.</p>
+</header>
+
+<main class="container">
+  <section>
+    <h2>🚀 Features</h2>
+    <div class="grid">
+      <article>
+        <h3>Audio Playback</h3>
+        <ul>
+          <li>Play remote audio files (MP3, AAC, etc.) from static CDNs</li>
+          <li>Background audio playback</li>
+          <li>Lock screen controls</li>
+        </ul>
+      </article>
+      <article>
+        <h3>Developer Experience</h3>
+        <ul>
+          <li>TypeScript-first API</li>
+          <li>Comprehensive event system</li>
+          <li>Simple installation</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>📦 Installation</h2>
+    <pre><code class="language-bash">npm install react-native-audio-pro</code></pre>
+  </section>
+
+  <section>
+    <h2>🔧 Basic Usage</h2>
+    <pre><code class="language-tsx">
+import AudioPro from 'react-native-audio-pro';
+
+// Play a remote audio file
+const playAudio = async () => {
+    await AudioPro.play('https://example.com/audio.mp3');
+};
+
+// Handle playback events
+useEffect(() => {
+    const listener = AudioPro.addEventListener('onPlay', () => {
+        console.log('Playback started!');
+    });
+
+    return () => listener.remove();
+}, []);
+            </code></pre>
+  </section>
+
+  <section>
+    <h2>📚 Full Documentation</h2>
+    <article>
+      <h3>Platform Setup Guides</h3>
+      <details>
+        <summary>Android Configuration</summary>
+        <pre><code class="language-gradle">
+// build.gradle
+minSdkVersion = 33
+compileSdkVersion = 33
+                    </code></pre>
+      </details>
+
+      <details>
+        <summary>iOS Configuration</summary>
+        <pre><code class="language-markdown">
+1. Enable Background Modes > Audio
+2. Set iOS Deployment Target ≥ 15.0
+                    </code></pre>
+      </details>
+    </article>
+  </section>
+</main>
+
+<footer class="container">
+  <small>
+    <a href="https://github.com/evergrace-co/react-native-audio-pro" target="_blank">GitHub</a> •
+    <a href="CONTRIBUTING.md">Contributing Guide</a>
+  </small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>
