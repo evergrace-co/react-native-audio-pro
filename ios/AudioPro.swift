@@ -285,8 +285,8 @@ class AudioPro: RCTEventEmitter {
 		currentTrack = track
 		settingDebug = options["debug"] as? Bool ?? false
 		settingDebugIncludeProgress = options["debugIncludesProgress"] as? Bool ?? false
-		let speed = options["playbackSpeed"] as? Float ?? 1.0
-		let volume = options["volume"] as? Float ?? 1.0
+		let speed = Float(options["playbackSpeed"] as? Double ?? 1.0)
+		let volume = Float(options["volume"] as? Double ?? 1.0)
 		let autoPlay = options["autoPlay"] as? Bool ?? true
 		settingShowNextPrevControls = options["showNextPrevControls"] as? Bool ?? true
 		pendingStartTimeMs = options["startTimeMs"] as? Double
