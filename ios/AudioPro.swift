@@ -1066,14 +1066,19 @@ class AudioPro: RCTEventEmitter {
 		resetInternal(STATE_ERROR)
 	}
 
+	////////////////////////////////////////////////////////////
+	// MARK: - Remote Control Commands & Magic Tap Support
+	////////////////////////////////////////////////////////////
+
 	private func setupRemoteTransportControls() {
 		if isRemoteCommandCenterSetup { return }
 		let commandCenter = MPRemoteCommandCenter.shared()
 
-		// Configure all commands at once
+		// Configure all commands including Magic Tap support
 		var commands: [(MPRemoteCommand, Bool)] = [
 			(commandCenter.playCommand, true),
 			(commandCenter.pauseCommand, true),
+			(commandCenter.togglePlayPauseCommand, true), // Magic Tap support
 			(commandCenter.changePlaybackPositionCommand, true)
 		]
 
@@ -1106,6 +1111,28 @@ class AudioPro: RCTEventEmitter {
 				self.pause()
 				return .success
 			}
+			return .commandFailed
+		}
+
+		// Magic Tap Support: Toggle Play/Pause command
+		// This enables VoiceOver Magic Tap (two-finger double-tap) functionality
+		commandCenter.togglePlayPauseCommand.addTarget { [weak self] _ in
+			guard let self = self, let player = self.player else { return .commandFailed }
+			
+			self.log("Magic Tap (togglePlayPause) triggered")
+			
+			if player.rate > 0 {
+				// Currently playing → pause
+				self.pause()
+				self.log("Magic Tap: Paused")
+				return .success
+			} else if self.currentTrack != nil {
+				// Has track but paused → resume
+				self.resume()
+				self.log("Magic Tap: Resumed")
+				return .success
+			}
+			
 			return .commandFailed
 		}
 
@@ -1146,6 +1173,7 @@ class AudioPro: RCTEventEmitter {
 		let commandCenter = MPRemoteCommandCenter.shared()
 		commandCenter.playCommand.removeTarget(nil)
 		commandCenter.pauseCommand.removeTarget(nil)
+		commandCenter.togglePlayPauseCommand.removeTarget(nil) // Magic Tap cleanup
 		commandCenter.nextTrackCommand.removeTarget(nil)
 		commandCenter.previousTrackCommand.removeTarget(nil)
 		commandCenter.changePlaybackPositionCommand.removeTarget(nil)
