@@ -127,6 +127,11 @@ class AudioProModule(private val reactContext: ReactApplicationContext) :
 		AudioProAmbientController.ambientSeekTo(positionMs.toLong())
 	}
 
+    // Keep: Required for RN built in Event Emitter Calls.
+    @ReactMethod fun addListener(eventName: String) {}
+
+    @ReactMethod fun removeListeners(count: Int) {}
+
 	override fun getName(): String {
 		return NAME
 	}
