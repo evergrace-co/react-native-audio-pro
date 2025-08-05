@@ -6,14 +6,22 @@
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
 	<application>
+		<!-- Android Auto metadata -->
+		<meta-data
+			android:name="com.google.android.gms.car.application"
+			android:resource="@xml/automotive_app_desc" />
+		
 		<service
 			android:name=".AudioProPlaybackService"
-			android:exported="false"
+			android:exported="true"
 			android:foregroundServiceType="mediaPlayback">
 			<intent-filter>
 				<action android:name="androidx.media3.session.MediaLibraryService" />
 			</intent-filter>
+			<!-- Android Auto intent filter -->
+			<intent-filter>
+				<action android:name="android.media.browse.MediaBrowserService" />
+			</intent-filter>
 		</service>
-
 	</application>
 </manifest>

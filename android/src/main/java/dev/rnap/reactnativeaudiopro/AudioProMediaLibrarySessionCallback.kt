@@ -1,15 +1,21 @@
 package dev.rnap.reactnativeaudiopro
 
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.OptIn
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.CommandButton
+import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
+import androidx.media3.session.MediaLibraryService.LibraryParams
+import androidx.media3.session.MediaLibraryService.MediaLibrarySession
 import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionCommand
 import androidx.media3.session.SessionError
 import androidx.media3.session.SessionResult
+import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 
@@ -155,4 +161,42 @@ open class AudioProMediaLibrarySessionCallback : MediaLibraryService.MediaLibrar
 		return Futures.immediateFuture(mediaItems)
 	}
 
+	override fun onGetLibraryRoot(
+            session: MediaLibrarySession,
+            browser: MediaSession.ControllerInfo,
+            params: MediaLibraryService.LibraryParams?
+    ): ListenableFuture<LibraryResult<MediaItem>> {
+        Log.i("AudioProMediaLibrary", "onGetLibraryRoot: params=$params")
+        val root =
+                MediaItem.Builder()
+                        .setMediaId("root")
+                        .setMediaMetadata(
+                                MediaMetadata.Builder()
+                                        .setTitle("Browse Library")
+                                        .setIsBrowsable(true)
+                                        .setIsPlayable(false)
+                                        .build()
+                        )
+                        .build()
+        return Futures.immediateFuture(LibraryResult.ofItem(root, params))
+    }
+
+    override fun onGetChildren(
+            session: MediaLibrarySession,
+            browser: MediaSession.ControllerInfo,
+            parentId: String,
+            page: Int,
+            pageSize: Int,
+            params: LibraryParams?
+    ): ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> {
+        return Futures.immediateFuture(LibraryResult.ofItemList(ImmutableList.of(), params))
+    }
+
+    override fun onGetItem(
+            session: MediaLibrarySession,
+            browser: MediaSession.ControllerInfo,
+            mediaId: String
+    ): ListenableFuture<LibraryResult<MediaItem>> {
+        return Futures.immediateFuture(null)
+    }
 }
