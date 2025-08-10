@@ -21,7 +21,9 @@ import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.guava.await
+import java.io.File
 
 object AudioProController {
 	private var reactContext: ReactApplicationContext? = null
@@ -57,6 +59,58 @@ object AudioProController {
 				return
 			}
 			Log.d("[react-native-audio-pro]", args.joinToString(" "))
+		}
+	}
+
+	// Check if the URI is a file URI or a remote URL
+	private fun isFileUri(uri: String): Boolean {
+		return uri.startsWith("file://") || (!uri.startsWith("http://") && !uri.startsWith("https://"))
+	}
+
+	// Reads an image file from the given file path and returns its byte array
+	private suspend fun readImageFileToByteArray(filePath: String): ByteArray? = withContext(Dispatchers.IO) {
+		try {
+			val file = if (filePath.startsWith("file://")) {
+				File(filePath.substring(7)) // Remove "file://" prefix
+			} else {
+				File(filePath)
+			}
+			
+			if (file.exists() && file.canRead()) {
+				val data = file.readBytes()
+				log("Successfully read artwork file: ${data.size} bytes from $filePath")
+				data
+			} else {
+				log("Artwork file not found or not readable: $filePath")
+				null
+			}
+		} catch (e: Exception) {
+			log("Error reading artwork file: ${e.message}")
+			null
+		}
+	}
+
+	// Sets the artwork on the MediaMetadata object based on the URI type
+	private suspend fun setArtworkOnMetadata(metadataBuilder: MediaMetadata.Builder, artworkUri: String?) {
+		if (artworkUri.isNullOrEmpty()) return
+		
+		if (isFileUri(artworkUri)) {
+			// Use setArtworkData for file URIs to support Android Auto
+			val artworkData = readImageFileToByteArray(artworkUri)
+			if (artworkData != null) {
+				withContext(Dispatchers.Main) {
+					metadataBuilder.setArtworkData(artworkData, MediaMetadata.PICTURE_TYPE_FRONT_COVER)
+					log("Set artwork data from file: ${artworkData.size} bytes")
+				}
+			} else {
+				log("Failed to read artwork file: $artworkUri")
+			}
+		} else {
+			// Use setArtworkUri for remote URLs (more memory efficient)
+			withContext(Dispatchers.Main) {
+				metadataBuilder.setArtworkUri(artworkUri.toUri())
+				log("Set artwork URI: $artworkUri")
+			}
 		}
 	}
 
@@ -244,9 +298,8 @@ object AudioProController {
 			.setArtist(artist)
 			.setAlbumTitle(album)
 
-		if (artwork != null) {
-			metadataBuilder.setArtworkUri(artwork)
-		}
+		// Set artwork using appropriate method based on URI type
+		setArtworkOnMetadata(metadataBuilder, track.getString("artwork"))
 
 		// Process custom headers if provided
 		headersAudio = null
