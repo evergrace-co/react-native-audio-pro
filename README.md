@@ -142,7 +142,7 @@ React Native Audio Pro supports various audio file formats including MP3, AAC, a
 | **play(track: AudioProTrack, options?: AudioProPlayOptions)** | Loads and starts playing the specified track.                                              | `void`                                   |
 | **pause()**                                                   | Pauses the current playback.                                                               | `void`                                   |
 | **resume()**                                                  | Resumes playback if paused.                                                                | `void`                                   |
-| **stop()**                                                    | Stops the playback, resetting to position 0 and clearing the playing track.                | `void`                                   |
+| **stop()**                                                    | Stops playback and resets position to 0 while keeping the current track loaded; use `clear()` to unload it.                | `void`                                   |
 | **clear()**                                                   | Fully resets the player to IDLE state, tears down the player instance.                     | `void`                                   |
 | **seekTo(positionMs: number)**                                | Seeks to a specific position (in milliseconds).                                            | `void`                                   |
 | **seekForward(amountMs?: number)**                            | Seeks forward by specified milliseconds (default: 30 seconds).                             | `void`                                   |
@@ -152,7 +152,7 @@ React Native Audio Pro supports various audio file formats including MP3, AAC, a
 | **getProgressInterval()**                                     | Returns the current progress interval in milliseconds.                                     | `number`                                 |
 | **getTimings()**                                              | Returns the current playback position and total duration in milliseconds.                  | `{ position: number, duration: number }` |
 | **getState()**                                                | Returns the current playback state.                                                        | `AudioProState`                          |
-| **getPlayingTrack()**                                         | Returns the currently playing track, or null if no track is playing.                       | `AudioProTrack \| null`                  |
+| **getPlayingTrack()**                                         | Returns the current track, or `null` if none is loaded.                       | `AudioProTrack \| null`                  |
 | **setPlaybackSpeed(speed: number)**                           | Sets the playback speed rate (0.25 to 2.0). Normal speed is 1.0.                           | `void`                                   |
 | **getPlaybackSpeed()**                                        | Returns the current playback speed rate.                                                   | `number`                                 |
 | **setVolume(volume: number)**                                 | Sets the playback volume from (0.0 to 1.0). Does not affect the system volume.             | `void`                                   |
