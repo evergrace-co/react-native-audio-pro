@@ -209,10 +209,10 @@ object AudioProController {
 		ensurePreparedForNewPlayback()
 		activeTrack = track
 
-		// If startTimeMs is provided and autoPlay is true, set pendingSeekPosition
-		if (opts.startTimeMs != null && opts.autoPlay) {
-			flowPendingSeekPosition = opts.startTimeMs
-		}
+                // If startTimeMs is provided, set a pending seek position
+                if (opts.startTimeMs != null) {
+                        flowPendingSeekPosition = opts.startTimeMs
+                }
 
 		log(
 			"Configured with " +
