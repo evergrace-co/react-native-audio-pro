@@ -279,22 +279,22 @@ open class AudioProPlaybackService : MediaLibraryService() {
 				// Notification permission is required but not granted
 				return
 			}
-			val notificationManagerCompat =
-				NotificationManagerCompat.from(this@AudioProPlaybackService)
-			ensureNotificationChannel(notificationManagerCompat)
-			val builder =
-				NotificationCompat.Builder(this@AudioProPlaybackService, CHANNEL_ID)
-					//.setSmallIcon(R.drawable.media3_notification_small_icon)
-					//.setContentTitle(getString(R.string.notification_content_title))
-					//.setStyle(
-					//  NotificationCompat.BigTextStyle().bigText(getString(R.string.notification_content_text))
-					//)
-					.setPriority(NotificationCompat.PRIORITY_DEFAULT)
-					.setAutoCancel(true)
-					.also { builder -> getSessionActivityIntent()?.let { builder.setContentIntent(it) } }
-			notificationManagerCompat.notify(NOTIFICATION_ID, builder.build())
-		}
-	}
+                        val notificationManagerCompat =
+                                NotificationManagerCompat.from(this@AudioProPlaybackService)
+                        ensureNotificationChannel(notificationManagerCompat)
+                        val builder =
+                                NotificationCompat.Builder(this@AudioProPlaybackService, CHANNEL_ID)
+                                        .setSmallIcon(android.R.drawable.ic_dialog_info)
+                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                        .setAutoCancel(true)
+                                        .also { builder ->
+                                                getSessionActivityIntent()?.let {
+                                                        builder.setContentIntent(it)
+                                                }
+                                        }
+                        notificationManagerCompat.notify(NOTIFICATION_ID, builder.build())
+                }
+        }
 
 	private fun ensureNotificationChannel(notificationManagerCompat: NotificationManagerCompat) {
 		val channel =
