@@ -1,38 +1,56 @@
-import { useShallow } from 'zustand/react/shallow';
+import { shallow } from 'zustand/shallow';
 
 import { internalStore } from './internalStore';
 
+import type { AudioProStore } from './internalStore';
+import type { AudioProPlaybackErrorPayload, AudioProTrack } from './types';
+import type { AudioProState } from './values';
+
+export interface UseAudioProReturn {
+	state: AudioProState;
+	position: number;
+	duration: number;
+	playingTrack: AudioProTrack | null;
+	playbackSpeed: number;
+	volume: number;
+	error: AudioProPlaybackErrorPayload | null;
+}
+
+const selectAll = (state: AudioProStore): UseAudioProReturn => ({
+	state: state.playerState,
+	position: state.position,
+	duration: state.duration,
+	playingTrack: state.trackPlaying,
+	playbackSpeed: state.playbackSpeed,
+	volume: state.volume,
+	error: state.error,
+});
+
+// Typed wrapper around the Zustand hook so we can reuse it below.
+const select = internalStore as unknown as <T>(
+	selector: (state: AudioProStore) => T,
+	equalityFn?: (left: T, right: T) => boolean,
+) => T;
+
 /**
- * React hook for accessing the current state of the audio player
+ * React hook for accessing the current state of the audio player.
  *
- * @returns An object containing the current state of the audio player:
- * - state: The current playback state
- * - position: Current playback position in milliseconds
- * - duration: Total duration of the current track in milliseconds
- * - playingTrack: The currently playing track or null if no track is playing
- * - playbackSpeed: Current playback speed (1.0 is normal speed)
- * - volume: Current volume level (0.0 to 1.0)
- * - error: Current error state or null if no error exists
+ * When used without arguments, it subscribes to all player state values.
+ * To avoid unnecessary re-renders, you may pass a selector function to
+ * subscribe only to the specific piece of state your component needs.
  */
-export const useAudioPro = () => {
-	const { state, position, duration, playingTrack, playbackSpeed, volume, error } = internalStore(
-		useShallow((zustandState) => ({
-			state: zustandState.playerState,
-			position: zustandState.position,
-			duration: zustandState.duration,
-			playingTrack: zustandState.trackPlaying,
-			playbackSpeed: zustandState.playbackSpeed,
-			volume: zustandState.volume,
-			error: zustandState.error,
-		})),
-	);
-	return {
-		state,
-		position,
-		duration,
-		playingTrack,
-		playbackSpeed,
-		volume,
-		error,
-	};
-};
+export function useAudioPro(): UseAudioProReturn;
+export function useAudioPro<T>(
+	selector: (state: AudioProStore) => T,
+	equalityFn?: (left: T, right: T) => boolean,
+): T;
+export function useAudioPro<T>(
+	selector?: (state: AudioProStore) => T,
+	equalityFn?: (left: T, right: T) => boolean,
+): UseAudioProReturn | T {
+	if (selector) {
+		return select(selector, equalityFn);
+	}
+
+	return select(selectAll, shallow);
+}

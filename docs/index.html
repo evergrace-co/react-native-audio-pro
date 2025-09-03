@@ -1,107 +1,137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>React Native Audio Pro</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
-  <style>
-    :root {
-      --spacing: 1rem;
-      --border-color: #444;
-    }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>React Native Audio Pro</title>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+		/>
+		<style>
+			:root {
+				--spacing: 1rem;
+				--border-color: #444;
+			}
 
-    body {
-      padding: var(--spacing);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      font-size: 16px;
-    }
+			body {
+				padding: var(--spacing);
+				font-family:
+					-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+					Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				font-size: 16px;
+			}
 
-    header, footer, main {
-      max-width: 700px;
-      margin: 0 auto;
-    }
+			header,
+			footer,
+			main {
+				max-width: 700px;
+				margin: 0 auto;
+			}
 
-    header, footer {
-      text-align: center;
-      padding: calc(var(--spacing) * 2);
-    }
+			header,
+			footer {
+				text-align: center;
+				padding: calc(var(--spacing) * 2);
+			}
 
-    header {
-      border-bottom: 1px solid var(--border-color);
-    }
+			header {
+				border-bottom: 1px solid var(--border-color);
+			}
 
-    main {
-      /*margin: var(--spacing) auto;*/
-    }
+			main {
+				/*margin: var(--spacing) auto;*/
+			}
 
-    h1 {
-      margin-bottom: 0.5rem;
-    }
+			h1 {
+				margin-bottom: 0.5rem;
+			}
 
-    section {
-      margin-bottom: calc(var(--spacing) * 2);
-    }
+			section {
+				margin-bottom: calc(var(--spacing) * 2);
+			}
 
-    .badge-container {
-      display: inline-flex;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
+			.badge-container {
+				display: inline-flex;
+				gap: 0.5rem;
+				margin-top: 0.5rem;
+			}
 
-    pre {
-      background: #2d2d2d;
-      color: #ccc;
-      padding: var(--spacing);
-      border-radius: 8px;
-      overflow-x: auto;
-    }
-  </style>
-</head>
-<body>
-<header>
-  <h1>React Native Audio Pro</h1>
-  <p>A React Native module for robust audio playback from remote audio files and local files. Ideal for music, audiobook, and podcast apps. Works on iOS and Android.</p>
-  <div class="badge-container">
-    <a href="https://www.npmjs.com/package/react-native-audio-pro">
-      <img src="https://img.shields.io/npm/v/react-native-audio-pro?logo=npm&logoColor=white&labelColor=grey&color=blue" alt="npm version" />
-    </a>
-    <a href="https://rnap.dev">
-      <img src="https://img.shields.io/badge/website-rnap.dev-grey?logo=google-chrome&logoColor=white&color=blue" alt="Website" />
-    </a>
-    <a href="https://github.com/evergrace-co/react-native-audio-pro" target="_blank" rel="noopener">
-      <img src="https://img.shields.io/badge/evergrace--co-react--native--audio--pro-grey?logo=github&logoColor=white&labelColor=grey&color=blue" alt="GitHub Repo" />
-    </a>
-  </div>
-</header>
+			pre {
+				background: #2d2d2d;
+				color: #ccc;
+				padding: var(--spacing);
+				border-radius: 8px;
+				overflow-x: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>React Native Audio Pro</h1>
+			<p>
+				A React Native module for robust audio playback from remote audio files and local
+				files. Ideal for music, audiobook, and podcast apps. Works on iOS and Android.
+			</p>
+			<div class="badge-container">
+				<a href="https://www.npmjs.com/package/react-native-audio-pro">
+					<img
+						src="https://img.shields.io/npm/v/react-native-audio-pro?logo=npm&logoColor=white&labelColor=grey&color=blue"
+						alt="npm version"
+					/>
+				</a>
+				<a href="https://rnap.dev">
+					<img
+						src="https://img.shields.io/badge/website-rnap.dev-grey?logo=google-chrome&logoColor=white&color=blue"
+						alt="Website"
+					/>
+				</a>
+				<a
+					href="https://github.com/evergrace-co/react-native-audio-pro"
+					target="_blank"
+					rel="noopener"
+				>
+					<img
+						src="https://img.shields.io/badge/evergrace--co-react--native--audio--pro-grey?logo=github&logoColor=white&labelColor=grey&color=blue"
+						alt="GitHub Repo"
+					/>
+				</a>
+			</div>
+		</header>
 
-<main>
-  <section id="features">
-    <h2>🚀 Features</h2>
-	  <ul>
-		  <li>🎵 Powered by Media3 (Android) & AVFoundation (iOS)</li>
-		  <li>🔒 Lock screen controls & background playback</li>
-		  <li>🔔 Automatic handling of notification center (Android & iOS)</li>
-		  <li>📡 Comprehensive media support:
-			  <ul style="margin-bottom: 0;">
-				  <li>Remote audio files</li>
-				  <li>Local files (audio and artwork)</li>
-			  </ul>
-		  </li>
-		  <li>🔊 Isolated ambient audio system for background sounds</li>
-		  <li>📦 Built fully in TypeScript – no JS wrappers</li>
-		  <li>🧠 Simple React hook & module interface</li>
-		  <li>⚡️ Lightweight, fast, and production-ready</li>
-	  </ul>
-  </section>
+		<main>
+			<section id="features">
+				<h2>🚀 Features</h2>
+				<ul>
+					<li>🎵 Powered by Media3 (Android) & AVFoundation (iOS)</li>
+					<li>🔒 Lock screen controls & background playback</li>
+					<li>🔔 Automatic handling of notification center (Android & iOS)</li>
+					<li>
+						📡 Comprehensive media support:
+						<ul style="margin-bottom: 0">
+							<li>Remote audio files</li>
+							<li>Local files (audio and artwork)</li>
+						</ul>
+					</li>
+					<li>🔊 Isolated ambient audio system for background sounds</li>
+					<li>📦 Built fully in TypeScript – no JS wrappers</li>
+					<li>🧠 Simple React hook & module interface</li>
+					<li>⚡️ Lightweight, fast, and production-ready</li>
+				</ul>
+			</section>
 
-  <section id="hook-example">
-    <h2>🎧 React Hook in Action</h2>
-    <pre><code class="language-ts">import { useAudioPro } from 'react-native-audio-pro';
+			<section id="hook-example">
+				<h2>🎧 React Hook in Action</h2>
+				<pre><code class="language-ts">import { useAudioPro } from 'react-native-audio-pro';
 
 export default function Player() {
   const { state, duration, position, ...etc } = useAudioPro();
+  // Subscribe to a single value to avoid unnecessary re-renders
+  // const playingTrack = useAudioPro((s) => s.playingTrack);
   return (
     &lt;View&gt;
       &lt;Text&gt;State: {state}&lt;/Text&gt;
@@ -110,11 +140,11 @@ export default function Player() {
   );
 }
 </code></pre>
-  </section>
+			</section>
 
-  <section id="api-example">
-    <h2>🧩 Module in Action</h2>
-    <pre><code class="language-ts">import {AudioPro} from 'react-native-audio-pro';
+			<section id="api-example">
+				<h2>🧩 Module in Action</h2>
+				<pre><code class="language-ts">import {AudioPro} from 'react-native-audio-pro';
 
 AudioPro.configure({ contentType: 'speech' });
 
@@ -135,11 +165,14 @@ AudioPro.play(track, {
   }
 });
 </code></pre>
-  </section>
-  <section id="ambient-audio">
-    <h2>🔊 Ambient Audio</h2>
-    <p>Aan isolated ambient audio system for playing background sounds independently from the main player.</p>
-    <pre><code class="language-ts">import { AudioPro } from 'react-native-audio-pro';
+			</section>
+			<section id="ambient-audio">
+				<h2>🔊 Ambient Audio</h2>
+				<p>
+					Aan isolated ambient audio system for playing background sounds independently
+					from the main player.
+				</p>
+				<pre><code class="language-ts">import { AudioPro } from 'react-native-audio-pro';
 
 AudioPro.ambientPlay({
   url: 'https://example.com/nature-sounds.mp3',
@@ -150,34 +183,49 @@ AudioPro.ambientStop();
 
 AudioPro.ambientSetVolume(0.5);
 </code></pre>
-  </section>
+			</section>
 
-  <section id="api-reference">
-    <h2>Documentation</h2>
-    <p>For full setup and API reference, see the <a href="https://github.com/evergrace-co/react-native-audio-pro" target="_blank">GitHub README</a>.</p>
-    <ul>
-      <li>📖 Full API for <code>AudioPro</code> module and <code>useAudioPro</code> hook</li>
-      <li>📦 Details on payloads, types, and setup options</li>
-      <li>🧪 Example app demonstrating integration and usage</li>
-      <li>🔧 Platform-specific setup (Android & iOS)</li>
-    </ul>
-  </section>
-<section id="signoff">
-  <h2>🚀 Ready to build?</h2>
-  <p>Check it out and let us know how you go! If you run into any issues, <a href="https://github.com/evergrace-co/react-native-audio-pro/issues" target="_blank">log an issue</a> — we’ll squash bugs fast. 💪</p>
-</section>
-</main>
+			<section id="api-reference">
+				<h2>Documentation</h2>
+				<p>
+					For full setup and API reference, see the
+					<a href="https://github.com/evergrace-co/react-native-audio-pro" target="_blank"
+						>GitHub README</a
+					>.
+				</p>
+				<ul>
+					<li>
+						📖 Full API for <code>AudioPro</code> module and
+						<code>useAudioPro</code> hook
+					</li>
+					<li>📦 Details on payloads, types, and setup options</li>
+					<li>🧪 Example app demonstrating integration and usage</li>
+					<li>🔧 Platform-specific setup (Android & iOS)</li>
+				</ul>
+			</section>
+			<section id="signoff">
+				<h2>🚀 Ready to build?</h2>
+				<p>
+					Check it out and let us know how you go! If you run into any issues,
+					<a
+						href="https://github.com/evergrace-co/react-native-audio-pro/issues"
+						target="_blank"
+						>log an issue</a
+					>
+					— we’ll squash bugs fast. 💪
+				</p>
+			</section>
+		</main>
 
+		<footer>
+			<small>
+				<a href="https://www.npmjs.com/package/react-native-audio-pro">npm</a> •
+				<a href="https://rnap.dev">rnap.dev</a> •
+				<a href="https://github.com/evergrace-co/react-native-audio-pro">github</a>
+			</small>
+		</footer>
 
-<footer>
-  <small>
-    <a href="https://www.npmjs.com/package/react-native-audio-pro">npm</a> •
-    <a href="https://rnap.dev">rnap.dev</a> •
-    <a href="https://github.com/evergrace-co/react-native-audio-pro">github</a>
-  </small>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
-</body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+	</body>
 </html>

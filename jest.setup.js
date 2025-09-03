@@ -54,14 +54,16 @@ const mockActions = {
 	updateFromEvent: jest.fn(),
 };
 
-jest.mock('./src/internalStore', () => ({
-	useInternalStore: {
-		getState: () => ({
-			...mockState,
-			...mockActions,
-		}),
-	},
-}));
+jest.mock('./src/internalStore', () => {
+	const internalStore = jest.fn((selector) => selector(mockState));
+	internalStore.getState = () => ({
+		...mockState,
+		...mockActions,
+	});
+	internalStore.setState = jest.fn();
+	internalStore.subscribe = jest.fn();
+	return { internalStore };
+});
 
 jest.mock('./src/emitter', () => ({
 	emitter: {

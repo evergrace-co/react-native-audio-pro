@@ -9,3 +9,5 @@ declare global {
 
 // This file needs to be a module
 export {};
+
+declare module 'react-test-renderer';
