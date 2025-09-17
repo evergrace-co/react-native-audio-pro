@@ -140,27 +140,27 @@ React Native Audio Pro supports various audio file formats including MP3, AAC, a
 
 ### 🛠 Methods
 
-| Method                                                        | Description                                                                                                 | Return Value                             |
-| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------- | --- | --------------------- |
-| **play(track: AudioProTrack, options?: AudioProPlayOptions)** | Loads and starts playing the specified track.                                                               | `void`                                   |
-| **pause()**                                                   | Pauses the current playback.                                                                                | `void`                                   |
-| **resume()**                                                  | Resumes playback if paused.                                                                                 | `void`                                   |
-| **stop()**                                                    | Stops playback and resets position to 0 while keeping the current track loaded; use `clear()` to unload it. | `void`                                   |
-| **clear()**                                                   | Fully resets the player to IDLE state, tears down the player instance.                                      | `void`                                   |
-| **seekTo(positionMs: number)**                                | Seeks to a specific position (in milliseconds).                                                             | `void`                                   |
-| **seekForward(amountMs?: number)**                            | Seeks forward by specified milliseconds (default: 30 seconds).                                              | `void`                                   |
-| **seekBack(amountMs?: number)**                               | Seeks backward by specified milliseconds (default: 30 seconds).                                             | `void`                                   |
-| **configure(options: AudioProSetupOptions)**                  | Optional. Sets playback options. Takes effect the next time `play()` is called.                             | `void`                                   |
-| **setProgressInterval(ms: number)**                           | Sets the PROGRESS events frequency (in ms). Takes effect the next time `play()` is called.                  | `void`                                   |
-| **getProgressInterval()**                                     | Returns the current progress interval in milliseconds.                                                      | `number`                                 |
-| **getTimings()**                                              | Returns the current playback position and total duration in milliseconds.                                   | `{ position: number, duration: number }` |
-| **getState()**                                                | Returns the current playback state.                                                                         | `AudioProState`                          |
-| **getPlayingTrack()**                                         | Returns the current track, or `null` if none is loaded.                                                     | `AudioProTrack \| null`                  |
-| **setPlaybackSpeed(speed: number)**                           | Sets the playback speed rate (0.25 to 2.0). Normal speed is 1.0.                                            | `void`                                   |
-| **getPlaybackSpeed()**                                        | Returns the current playback speed rate.                                                                    | `number`                                 |
-| **setVolume(volume: number)**                                 | Sets the playback volume from (0.0 to 1.0). Does not affect the system volume.                              | `void`                                   |
-| **getVolume()**                                               | Returns the current relative volume (0.0 to 1.0).                                                           | `number`                                 |
-| **getError()**                                                | Returns the last error that occurred, or null if no error has occurred.                                     | `AudioProPlaybackErrorPayload \| null`   |     | `EmitterSubscription` |
+| Method | Description | Return Value |
+| --- | --- | --- |
+| **play(track: AudioProTrack, options?: AudioProPlayOptions)** | Loads and starts playing the specified track. | `void` |
+| **pause()** | Pauses the current playback. | `void` |
+| **resume()** | Resumes playback if paused. | `void` |
+| **stop()** | Stops playback and resets position to `0` while keeping the current track loaded; use `clear()` to unload it. | `void` |
+| **clear()** | Fully resets the player to the `IDLE` state and tears down the native player instance. | `void` |
+| **seekTo(positionMs: number)** | Seeks to a specific position (in milliseconds). | `void` |
+| **seekForward(amountMs?: number)** | Seeks forward by the specified milliseconds (default: 30 seconds). | `void` |
+| **seekBack(amountMs?: number)** | Seeks backward by the specified milliseconds (default: 30 seconds). | `void` |
+| **configure(options: AudioProSetupOptions)** | Sets playback options. Takes effect the next time `play()` is called. | `void` |
+| **setProgressInterval(ms: number)** | Sets the `PROGRESS` event frequency (in ms). Takes effect the next time `play()` is called. | `void` |
+| **getProgressInterval()** | Returns the current progress interval in milliseconds. | `number` |
+| **getTimings()** | Returns the current playback position and total duration in milliseconds. | `{ position: number, duration: number }` |
+| **getState()** | Returns the current playback state. | `AudioProState` |
+| **getPlayingTrack()** | Returns the current track, or `null` if none is loaded. | `AudioProTrack \| null` |
+| **setPlaybackSpeed(speed: number)** | Sets the playback speed rate (0.25 to 2.0). Normal speed is `1.0`. | `void` |
+| **getPlaybackSpeed()** | Returns the current playback speed rate. | `number` |
+| **setVolume(volume: number)** | Sets the playback volume from `0.0` to `1.0`. Does not affect the system volume. | `void` |
+| **getVolume()** | Returns the current relative volume (`0.0` to `1.0`). | `number` |
+| **getError()** | Returns the last error that occurred, or `null` if no error has occurred. | `AudioProPlaybackErrorPayload \| null` |
 
 ### ⚡️ React Hook
 
@@ -189,22 +189,22 @@ const playingTrack = useAudioPro((s) => s.playingTrack);
 
 ### 🎧 Event Listeners
 
-| Method                                                | Description                                                                       | Return Value                                                                    |
-| ----------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| **addEventListener(callback: AudioProEventCallback)** | Listens for playback events (e.g., state changes, track ended, errors, progress). | `EmitterSubscription` - A subscription that can be used to remove the listener. |
+| Method | Description | Return Value |
+| --- | --- | --- |
+| **addEventListener(callback: AudioProEventCallback)** | Listens for playback events (e.g., state changes, track ended, errors, progress). | `EmitterSubscription` — call `.remove()` to unsubscribe. |
 
 ### 🧱 Enums
 
 #### AudioProState
 
-| State     | Description                                                                                                          |
-| --------- | -------------------------------------------------------------------------------------------------------------------- |
-| `IDLE`    | The default state on app launch. Represents a player with no loaded track and fully cleared media sessions.          |
+| State | Description |
+| --- | --- |
+| `IDLE` | The default state on app launch. Represents a player with no loaded track and fully cleared media sessions. |
 | `STOPPED` | Playback is stopped but the track remains loaded. Position is reset to 0, and media session controls remain visible. |
-| `LOADING` | A track is being loaded or buffered and is not yet ready for playback.                                               |
-| `PLAYING` | A track is currently playing.                                                                                        |
-| `PAUSED`  | Playback is paused at the current position.                                                                          |
-| `ERROR`   | An error occurred during playback. Check `AudioPro.getError()` for details.                                          |
+| `LOADING` | A track is being loaded or buffered and is not yet ready for playback. |
+| `PLAYING` | A track is currently playing. |
+| `PAUSED` | Playback is paused at the current position. |
+| `ERROR` | An error occurred during playback. Check `AudioPro.getError()` for details. |
 
 #### AudioProEventType
 
@@ -278,15 +278,15 @@ Android supports both options but will prioritize Next/Prev if both are enabled.
 
 > 🧠 Ambient playback is designed to be stateless, simple, and minimal for background sounds, ambient loops, or lightweight audio tasks.
 
-| Method                                                         | Description                                                                                                                                           | Return Value |
-| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| **ambientPlay(options: AmbientAudioPlayOptions)**              | Plays a lightweight ambient audio track, isolated from the main player. Accepts a remote or local `url` and optional `loop` flag (default: `true`).   | `void`       |
-| **ambientStop()**                                              | Stops the ambient audio playback.                                                                                                                     | `void`       |
-| **ambientPause()**                                             | Pause ambient audio playback (no-op if already paused or not playing).                                                                                | `void`       |
-| **ambientResume()**                                            | Resume ambient audio playback if paused (no-op if already playing or no active track).                                                                | `void`       |
-| **ambientSeekTo(positionMs: number)**                          | Seek to the specified position (in milliseconds) in the ambient track (if supported). Silently ignore if not supported or if no active ambient track. | `void`       |
-| **ambientSetVolume(volume: number)**                           | Sets the volume of ambient audio playback from 0.0 (mute) to 1.0 (full output).                                                                       | `void`       |
-| **addAmbientListener(callback: AudioProAmbientEventCallback)** | Listens for ambient audio events (e.g., track ended, errors).                                                                                         |
+| Method | Description | Return Value |
+| --- | --- | --- |
+| **ambientPlay(options: AmbientAudioPlayOptions)** | Plays a lightweight ambient audio track, isolated from the main player. Accepts a remote or local `url` and an optional `loop` flag (default: `true`). | `void` |
+| **ambientStop()** | Stops the ambient audio playback. | `void` |
+| **ambientPause()** | Pauses ambient audio playback (no-op if already paused or not playing). | `void` |
+| **ambientResume()** | Resumes ambient audio playback if paused (no-op if already playing or no active track). | `void` |
+| **ambientSeekTo(positionMs: number)** | Seeks to the specified position (in milliseconds) in the ambient track (if supported). Silently ignored if unsupported or if no active ambient track. | `void` |
+| **ambientSetVolume(volume: number)** | Sets the volume of ambient audio playback from `0.0` (mute) to `1.0` (full output). | `void` |
+| **addAmbientListener(callback: AudioProAmbientEventCallback)** | Listens for ambient audio events (e.g., track ended, errors). | `EmitterSubscription` — call `.remove()` to unsubscribe. |
 
 ### 🧩 Types
 
