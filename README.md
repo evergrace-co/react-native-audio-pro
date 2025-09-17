@@ -17,7 +17,7 @@ Modern, background-capable audio playback for React Native — built for podcast
 - [🧩 Types](#-types)
 - [⚡️ useAudioPro Hook Example](#%EF%B8%8F-useaudiopro-hook-example)
 - [📦 API Usage Example](#-api-usage-example)
-- [⚠️ Important: Event Listeners and React Lifecycle](#%EF%B8%8F-important-event-listeners-and-react-lifecycle)
+- [⚠️ Event Listeners and React Lifecycle](#%EF%B8%8F-important-event-listeners-and-react-lifecycle)
 - [📱 Example App](#-example-app)
 
 ## ✅ Core Features
