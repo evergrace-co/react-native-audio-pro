@@ -704,9 +704,21 @@ object AudioProController {
 					return
 				}
 
-				val message = error.message ?: "Unknown error"
+				// Build detailed error message with cause chain
+				val detailedMessage = buildString {
+					append(error.message ?: "Unknown error")
+					error.cause?.let { cause ->
+						append(" | Cause: ${cause.message}")
+						cause.cause?.let { rootCause ->
+							append(" | Root: ${rootCause.message}")
+						}
+					}
+				}
+
+				log("Error type: ${error.errorCode}, message: $detailedMessage")
+
 				// First, emit PLAYBACK_ERROR event with error details
-				emitError(message, 500, "onPlayerError(${error.errorCode})")
+				emitError(detailedMessage, error.errorCode, "onPlayerError(${error.errorCode})")
 
 				// Then use the shared resetInternal function to:
 				// 1. Clear the player state (like clear())
