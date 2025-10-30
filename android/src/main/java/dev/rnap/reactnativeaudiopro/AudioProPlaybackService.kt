@@ -205,7 +205,8 @@ open class AudioProPlaybackService : MediaLibraryService() {
 			}
 		}
 
-		val mediaSourceFactory = DefaultMediaSourceFactory(dataSourceFactory)
+		val mediaSourceFactory = DefaultMediaSourceFactory(applicationContext)
+			.setDataSourceFactory(dataSourceFactory)
 
 		val player =
 			ExoPlayer.Builder(this)
