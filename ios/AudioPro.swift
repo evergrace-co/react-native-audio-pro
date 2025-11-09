@@ -710,33 +710,51 @@ class AudioPro: RCTEventEmitter {
 		} else {
 			// For seekForward/Back, position is the amount in ms
 			let amountInSeconds = position / 1000.0
-			targetPosition = isAbsolute ? amountInSeconds :
-							 (position >= 0) ? min(currentTime + amountInSeconds, duration) :
+			targetPosition = (position >= 0) ? min(currentTime + amountInSeconds, duration) :
 											  max(0, currentTime + amountInSeconds)
 		}
 
 		// Ensure position is within valid range
 		let validPosition = max(0, min(targetPosition, duration))
 		let time = CMTime(seconds: validPosition, preferredTimescale: 1000)
+		let targetPositionMs = validPosition * 1000
+		let completionToleranceSeconds = 0.05 // Allow small drift when AVPlayer reports interrupted completion
 
-		player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] completed in
+		let executeSeek = { [weak self] in
 			guard let self = self else { return }
-			if completed {
-				self.updateNowPlayingInfoWithCurrentTime(validPosition)
-				self.completeSeekingAndSendSeekCompleteNoticeEvent(newPosition: validPosition * 1000)
 
-				// Force update the now playing info to ensure controls work
-				if isAbsolute { // Only do this for absolute seeks to avoid redundant updates
-					DispatchQueue.main.async {
-						var info = MPNowPlayingInfoCenter.default().nowPlayingInfo ?? [:]
-						info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = validPosition
-						info[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
-						MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+			// Cancel any pending seeks before issuing a new one to avoid AVPlayer interrupting the callback
+			currentItem.cancelPendingSeeks()
+
+			player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] completed in
+				guard let self = self else { return }
+
+				let currentTime = player.currentTime().seconds
+				let isEffectivelyAtTarget = abs(currentTime - validPosition) <= completionToleranceSeconds
+
+				if completed || isEffectivelyAtTarget {
+					self.updateNowPlayingInfoWithCurrentTime(validPosition)
+					self.completeSeekingAndSendSeekCompleteNoticeEvent(newPosition: targetPositionMs)
+
+					// Force update the now playing info to ensure controls work
+					if isAbsolute { // Only do this for absolute seeks to avoid redundant updates
+						DispatchQueue.main.async {
+							var info = MPNowPlayingInfoCenter.default().nowPlayingInfo ?? [:]
+							info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = validPosition
+							info[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
+							MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+						}
 					}
+				} else if player.rate != 0 {
+					self.startProgressTimer()
 				}
-			} else if player.rate != 0 {
-				self.startProgressTimer()
 			}
+		}
+
+		if Thread.isMainThread {
+			executeSeek()
+		} else {
+			DispatchQueue.main.async(execute: executeSeek)
 		}
 	}
 
