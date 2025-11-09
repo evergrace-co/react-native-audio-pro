@@ -1,6 +1,7 @@
 package dev.rnap.reactnativeaudiopro
 
 import android.Manifest
+import android.app.ForegroundServiceStartNotAllowedException
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -29,6 +30,7 @@ import androidx.media3.session.MediaSession.ControllerInfo
 open class AudioProPlaybackService : MediaLibraryService() {
 
 	private lateinit var mediaLibrarySession: MediaLibrarySession
+	private lateinit var player: ExoPlayer
 
 	companion object {
 		private const val NOTIFICATION_ID = 789
@@ -75,28 +77,26 @@ open class AudioProPlaybackService : MediaLibraryService() {
 	@OptIn(UnstableApi::class) // MediaSessionService.setListener
 	override fun onCreate() {
 		super.onCreate()
-		startForegroundService()
-		initializeSessionAndPlayer()
 		setListener(MediaSessionServiceListener())
+		initializeSessionAndPlayer()
 	}
 
 	override fun onGetSession(controllerInfo: ControllerInfo): MediaLibrarySession {
 		return mediaLibrarySession
 	}
 
-	private fun startForegroundService() {
-		val notificationManagerCompat = NotificationManagerCompat.from(this)
-		ensureNotificationChannel(notificationManagerCompat)
+	private val playbackListener = object : Player.Listener {
+		override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
+			if (::player.isInitialized) {
+				updateForegroundState(player)
+			}
+		}
 
-		val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-			.setSmallIcon(android.R.drawable.ic_media_play)
-			.setContentTitle("Audio")
-			.setContentText("Playing...")
-			.setPriority(NotificationCompat.PRIORITY_MAX)
-			.setOngoing(true)
-			.also { builder -> getSessionActivityIntent()?.let { builder.setContentIntent(it) } }
-
-		startForeground(NOTIFICATION_ID, builder.build())
+		override fun onPlaybackStateChanged(playbackState: Int) {
+			if (::player.isInitialized) {
+				updateForegroundState(player)
+			}
+		}
 	}
 
 	/**
@@ -108,11 +108,15 @@ open class AudioProPlaybackService : MediaLibraryService() {
 
 		// Force stop playback and release resources
 		try {
-			if (::mediaLibrarySession.isInitialized) {
-				// Stop playback
+			val hasSession = ::mediaLibrarySession.isInitialized
+			if (hasSession) {
 				mediaLibrarySession.player.stop()
-				// Release player and session
-				mediaLibrarySession.player.release()
+			}
+			if (::player.isInitialized) {
+				player.removeListener(playbackListener)
+				player.release()
+			}
+			if (hasSession) {
 				mediaLibrarySession.release()
 			}
 		} catch (e: Exception) {
@@ -133,12 +137,18 @@ open class AudioProPlaybackService : MediaLibraryService() {
 
 		// Make sure to release all resources
 		try {
-			if (::mediaLibrarySession.isInitialized) {
+			val hasSession = ::mediaLibrarySession.isInitialized
+			if (hasSession) {
 				// Stop playback first
 				mediaLibrarySession.player.stop()
-				// Release session and player
+			}
+			if (::player.isInitialized) {
+				player.removeListener(playbackListener)
+				player.release()
+			}
+			if (hasSession) {
+				// Release session after tearing down the player
 				mediaLibrarySession.release()
-				mediaLibrarySession.player.release()
 			}
 			clearListener()
 		} catch (e: Exception) {
@@ -161,16 +171,10 @@ open class AudioProPlaybackService : MediaLibraryService() {
 			val notificationManager =
 				getSystemService(NOTIFICATION_SERVICE) as android.app.NotificationManager
 			notificationManager.cancel(NOTIFICATION_ID)
+			lastNotificationOngoing = null
 
 			// Stop foreground service - handle API level differences
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-				// For Android 12 (API 31) and above, use the new API
-				stopForeground(STOP_FOREGROUND_REMOVE)
-			} else {
-				// For older Android versions, use the deprecated API
-				@Suppress("DEPRECATION")
-				stopForeground(true)
-			}
+			stopForegroundAndRemove()
 
 			// Stop the service
 			stopSelf()
@@ -207,7 +211,7 @@ open class AudioProPlaybackService : MediaLibraryService() {
 
 		val mediaSourceFactory = DefaultMediaSourceFactory(dataSourceFactory)
 
-		val player =
+		player =
 			ExoPlayer.Builder(this)
 				.setMediaSourceFactory(mediaSourceFactory)
 				.setAudioAttributes(
@@ -221,6 +225,7 @@ open class AudioProPlaybackService : MediaLibraryService() {
 		player.setHandleAudioBecomingNoisy(true)
 		player.repeatMode = Player.REPEAT_MODE_OFF
 		player.addAnalyticsListener(EventLogger())
+		player.addListener(playbackListener)
 
 		mediaLibrarySession =
 			MediaLibrarySession.Builder(this, player, createLibrarySessionCallback())
@@ -259,6 +264,8 @@ open class AudioProPlaybackService : MediaLibraryService() {
 						mediaLibrarySession.setSessionExtras(bundleOf())
 					}
 				}
+
+		updateForegroundState(player)
 	}
 
 	@OptIn(UnstableApi::class) // MediaSessionService.Listener
@@ -279,22 +286,9 @@ open class AudioProPlaybackService : MediaLibraryService() {
 				// Notification permission is required but not granted
 				return
 			}
-                        val notificationManagerCompat =
-                                NotificationManagerCompat.from(this@AudioProPlaybackService)
-                        ensureNotificationChannel(notificationManagerCompat)
-                        val builder =
-                                NotificationCompat.Builder(this@AudioProPlaybackService, CHANNEL_ID)
-                                        .setSmallIcon(android.R.drawable.ic_dialog_info)
-                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                                        .setAutoCancel(true)
-                                        .also { builder ->
-                                                getSessionActivityIntent()?.let {
-                                                        builder.setContentIntent(it)
-                                                }
-                                        }
-                        notificationManagerCompat.notify(NOTIFICATION_ID, builder.build())
-                }
-        }
+			showBackgroundNotification()
+		}
+	}
 
 	private fun ensureNotificationChannel(notificationManagerCompat: NotificationManagerCompat) {
 		val channel =
@@ -305,4 +299,138 @@ open class AudioProPlaybackService : MediaLibraryService() {
 			)
 		notificationManagerCompat.createNotificationChannel(channel)
 	}
+
+	private fun updateForegroundState(currentPlayer: Player) {
+		if (currentPlayer.currentMediaItem == null) {
+			if (isForegroundRunning) {
+				detachForeground()
+			}
+			if (lastNotificationOngoing != null) {
+				NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID)
+				lastNotificationOngoing = null
+			}
+			return
+		}
+
+		val shouldBeForeground =
+			currentPlayer.playWhenReady &&
+				(currentPlayer.playbackState == Player.STATE_BUFFERING ||
+					currentPlayer.playbackState == Player.STATE_READY)
+
+		if (shouldBeForeground) {
+			if (!isForegroundRunning) {
+				promoteToForeground(currentPlayer)
+			} else {
+				postNotification(currentPlayer, ongoing = true)
+			}
+		} else {
+			if (isForegroundRunning) {
+				detachForeground()
+				postNotification(currentPlayer, ongoing = false)
+			} else {
+				postNotification(currentPlayer, ongoing = false)
+			}
+		}
+	}
+
+	private fun promoteToForeground(currentPlayer: Player) {
+		val notification = buildPlaybackNotification(currentPlayer, ongoing = true)
+		try {
+			startForeground(NOTIFICATION_ID, notification)
+			isForegroundRunning = true
+			lastNotificationOngoing = true
+		} catch (exception: ForegroundServiceStartNotAllowedException) {
+			android.util.Log.w(
+				"AudioProPlaybackService",
+				"Foreground start blocked; posting fallback notification",
+				exception
+			)
+			postNotification(currentPlayer, ongoing = false)
+		} catch (exception: Exception) {
+			android.util.Log.e(
+				"AudioProPlaybackService",
+				"Unable to promote to foreground; posting fallback notification",
+				exception
+			)
+			postNotification(currentPlayer, ongoing = false)
+		}
+	}
+
+	private fun showBackgroundNotification() {
+		val currentPlayer = if (::player.isInitialized) player else null
+		postNotification(currentPlayer, ongoing = false)
+	}
+
+	private fun postNotification(currentPlayer: Player?, ongoing: Boolean) {
+		val notificationManagerCompat = NotificationManagerCompat.from(this)
+		ensureNotificationChannel(notificationManagerCompat)
+		notificationManagerCompat.notify(
+			NOTIFICATION_ID,
+			buildPlaybackNotification(currentPlayer, ongoing)
+		)
+		lastNotificationOngoing = ongoing
+	}
+
+	private fun detachForeground() {
+		if (!isForegroundRunning) {
+			return
+		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+			stopForeground(STOP_FOREGROUND_DETACH)
+		} else {
+			@Suppress("DEPRECATION")
+			stopForeground(false)
+		}
+		isForegroundRunning = false
+	}
+
+	private fun stopForegroundAndRemove() {
+		if (!isForegroundRunning) {
+			return
+		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+			stopForeground(STOP_FOREGROUND_REMOVE)
+		} else {
+			@Suppress("DEPRECATION")
+			stopForeground(true)
+		}
+		isForegroundRunning = false
+		lastNotificationOngoing = null
+	}
+
+	private fun buildPlaybackNotification(
+		currentPlayer: Player?,
+		ongoing: Boolean,
+	): android.app.Notification {
+		val metadata = currentPlayer?.mediaMetadata
+		val title =
+			metadata?.title?.toString()?.takeIf { it.isNotBlank() } ?: "Audio"
+		val artist = metadata?.artist?.toString()
+		val contentText = when {
+			!artist.isNullOrBlank() -> artist
+			currentPlayer == null -> if (ongoing) "Playing..." else "Playback ready"
+			currentPlayer.playbackState == Player.STATE_BUFFERING -> "Buffering..."
+			currentPlayer.playbackState == Player.STATE_READY && currentPlayer.playWhenReady -> "Playing..."
+			currentPlayer.playbackState == Player.STATE_ENDED -> "Playback ended"
+			else -> "Paused"
+		}
+
+		return NotificationCompat.Builder(this, CHANNEL_ID)
+			.setSmallIcon(
+				if (ongoing) android.R.drawable.ic_media_play else android.R.drawable.ic_dialog_info
+			)
+			.setContentTitle(title)
+			.setContentText(contentText)
+			.setOnlyAlertOnce(true)
+			.setPriority(
+				if (ongoing) NotificationCompat.PRIORITY_MAX else NotificationCompat.PRIORITY_DEFAULT
+			)
+			.setOngoing(ongoing)
+			.setAutoCancel(!ongoing)
+			.also { builder -> getSessionActivityIntent()?.let { builder.setContentIntent(it) } }
+			.build()
+	}
+
+	private var isForegroundRunning: Boolean = false
+	private var lastNotificationOngoing: Boolean? = null
 }
