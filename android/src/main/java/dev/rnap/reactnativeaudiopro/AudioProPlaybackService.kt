@@ -334,6 +334,8 @@ open class AudioProPlaybackService : MediaLibraryService() {
 	}
 
 	private fun promoteToForeground(currentPlayer: Player) {
+		val notificationManagerCompat = NotificationManagerCompat.from(this)
+		ensureNotificationChannel(notificationManagerCompat)
 		val notification = buildPlaybackNotification(currentPlayer, ongoing = true)
 		try {
 			startForeground(NOTIFICATION_ID, notification)
