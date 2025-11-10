@@ -49,8 +49,8 @@ React Native Audio Pro also includes a few optional capabilities that support mo
 
 - **TypeScript:** 5.0 or higher
 - **React Native:** 0.72 or higher
-- **iOS:** iOS 15.1 or higher
-- **Android:** Android 7.0 (API 26) or higher (tested on API 28+)
+- **iOS:** iOS 17.0 or higher
+- **Android:** Android 8.0 (API 26) or higher
 
 ## 🚀 Installation
 
@@ -80,7 +80,7 @@ npx pod-install
 
 ### 🤖 Android Installation
 
-> **Note:** This library requires Android 7.0 (API 26)+ and `compileSdkVersion = 35` and `targetSdkVersion = 35` to support the latest Media3 features. While Media3 APIs are supported from API 21+, testing is focused on API 28+.
+> **Note:** This library requires Android 8.0 (API 26)+ and `compileSdkVersion = 35` and `targetSdkVersion = 35` to support the latest Media3 features. While Media3 APIs are supported from API 21+, our focus is on API 28+.
 
 #### Gradle Configuration
 
