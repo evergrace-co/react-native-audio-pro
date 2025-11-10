@@ -22,8 +22,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.guava.await
+import kotlin.math.abs
 
 object AudioProController {
+	private const val DUPLICATE_POSITION_EPSILON_MS = 250L
+
 	private var reactContext: ReactApplicationContext? = null
 	private lateinit var engineBrowserFuture: ListenableFuture<MediaBrowser>
 	private var enginerBrowser: MediaBrowser? = null
@@ -37,6 +40,8 @@ object AudioProController {
 
 	private var flowIsInErrorState: Boolean = false
 	private var flowLastEmittedState: String = ""
+	private var flowLastEmittedPosition: Long? = null
+	private var flowLastEmittedDuration: Long? = null
 	private var flowLastStateEmittedTimeMs: Long = 0L
 	private var flowPendingSeekPosition: Long? = null
 
@@ -201,6 +206,8 @@ object AudioProController {
 		flowPendingSeekPosition = null
 		flowIsInErrorState = false
 		flowLastEmittedState = ""
+		flowLastEmittedPosition = null
+		flowLastEmittedDuration = null
 	}
 
 	suspend fun play(track: ReadableMap, options: ReadableMap) {
@@ -209,10 +216,10 @@ object AudioProController {
 		ensurePreparedForNewPlayback()
 		activeTrack = track
 
-                // If startTimeMs is provided, set a pending seek position
-                if (opts.startTimeMs != null) {
-                        flowPendingSeekPosition = opts.startTimeMs
-                }
+		// If startTimeMs is provided, set a pending seek position
+		if (opts.startTimeMs != null) {
+			flowPendingSeekPosition = opts.startTimeMs
+		}
 
 		log(
 			"Configured with " +
@@ -325,6 +332,8 @@ object AudioProController {
 		flowIsInErrorState = false
 		// Reset last emitted state when stopping playback
 		flowLastEmittedState = ""
+		flowLastEmittedPosition = null
+		flowLastEmittedDuration = null
 		ensureSession()
 		runOnUiThread {
 			// Do not detach player listener to ensure lock screen controls still work
@@ -381,6 +390,8 @@ object AudioProController {
 		flowIsInErrorState = finalState == AudioProModule.STATE_ERROR
 		// Reset last emitted state
 		flowLastEmittedState = ""
+		flowLastEmittedPosition = null
+		flowLastEmittedDuration = null
 
 		// Clear pending seek state
 		flowPendingSeekPosition = null
@@ -611,6 +622,8 @@ object AudioProController {
 						// Reset error state and last emitted state
 						flowIsInErrorState = false
 						flowLastEmittedState = ""
+						flowLastEmittedPosition = null
+						flowLastEmittedDuration = null
 
 						// 1. Pause playback to ensure state is correct
 						enginerBrowser?.pause()
@@ -809,8 +822,18 @@ object AudioProController {
 		// Filter out duplicate state emissions
 		// This prevents rapid-fire transitions of the same state being emitted repeatedly
 		if (state == flowLastEmittedState) {
-			log("Ignoring duplicate $state state emission")
-			return
+			val lastPosition = flowLastEmittedPosition
+			val lastDuration = flowLastEmittedDuration
+			if (lastPosition != null && lastDuration != null) {
+				val positionDelta = abs(sanitizedPosition - lastPosition)
+				val durationChanged = sanitizedDuration != lastDuration
+				val hasMeaningfulPositionChange = positionDelta >= DUPLICATE_POSITION_EPSILON_MS
+
+				if (!durationChanged && !hasMeaningfulPositionChange) {
+					log("Ignoring duplicate $state state emission (position/duration unchanged within epsilon)")
+					return
+				}
+			}
 		}
 
 		val payload = Arguments.createMap().apply {
@@ -822,6 +845,8 @@ object AudioProController {
 
 		// Track the last emitted state
 		flowLastEmittedState = state
+		flowLastEmittedPosition = sanitizedPosition
+		flowLastEmittedDuration = sanitizedDuration
 		// Record time of this state emission
 		flowLastStateEmittedTimeMs = System.currentTimeMillis()
 	}
