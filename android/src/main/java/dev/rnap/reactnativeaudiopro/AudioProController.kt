@@ -89,15 +89,20 @@ object AudioProController {
 		runOnUiThread {
 			// Only clear if we're dealing with the active controller reference
 			if (enginerBrowser == controller) {
+				val currentBrowser = enginerBrowser
 				detachPlayerListener()
 				stopProgressTimer()
-				enginerBrowser?.removeListener(engineBrowserConnectionListener)
+				currentBrowser?.removeListener(engineBrowserConnectionListener)
+				if (::engineBrowserFuture.isInitialized) {
+					MediaBrowser.releaseFuture(engineBrowserFuture)
+				}
 				enginerBrowser = null
+				engineBrowserConnecting = false
+			} else {
+				log(
+					"Ignoring disconnect from stale MediaBrowser instance. Active=$enginerBrowser, disconnected=$controller"
+				)
 			}
-			if (::engineBrowserFuture.isInitialized) {
-				MediaBrowser.releaseFuture(engineBrowserFuture)
-			}
-			engineBrowserConnecting = false
 		}
 	}
 
