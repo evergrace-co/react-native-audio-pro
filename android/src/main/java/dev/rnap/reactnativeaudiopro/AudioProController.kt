@@ -33,7 +33,7 @@ object AudioProController {
 	private var engineProgressRunnable: Runnable? = null
 	private var enginePlayerListener: Player.Listener? = null
 	private val engineBrowserConnectionListener =
-		object : MediaController.Listener {
+		object : MediaBrowser.Listener {
 			override fun onDisconnected(controller: MediaController) {
 				log("MediaBrowser disconnected, clearing cached instance")
 				handleBrowserDisconnected(controller)
@@ -89,10 +89,8 @@ object AudioProController {
 		runOnUiThread {
 			// Only clear if we're dealing with the active controller reference
 			if (enginerBrowser == controller) {
-				val currentBrowser = enginerBrowser
 				detachPlayerListener()
 				stopProgressTimer()
-				currentBrowser?.removeListener(engineBrowserConnectionListener)
 				if (::engineBrowserFuture.isInitialized) {
 					MediaBrowser.releaseFuture(engineBrowserFuture)
 				}
@@ -117,7 +115,6 @@ object AudioProController {
 			}
 			if (enginerBrowser != null) {
 				detachPlayerListener()
-				enginerBrowser?.removeListener(engineBrowserConnectionListener)
 				enginerBrowser = null
 			}
 			if (hasConnectedBrowser()) {
@@ -136,9 +133,9 @@ object AudioProController {
 				)
 			engineBrowserFuture =
 				MediaBrowser.Builder(context, token)
+					.setListener(engineBrowserConnectionListener)
 					.buildAsync()
 			enginerBrowser = engineBrowserFuture.await()
-			enginerBrowser?.addListener(engineBrowserConnectionListener)
 			attachPlayerListener()
 			log("MediaBrowser is ready")
 		} finally {
@@ -487,7 +484,6 @@ object AudioProController {
 			if (::engineBrowserFuture.isInitialized) {
 				MediaBrowser.releaseFuture(engineBrowserFuture)
 			}
-			enginerBrowser?.removeListener(engineBrowserConnectionListener)
 			enginerBrowser = null
 			engineBrowserConnecting = false
 		}
