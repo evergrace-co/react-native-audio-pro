@@ -74,10 +74,12 @@ export const internalStore = create<AudioProStore>((set, get) => ({
 	setVolume: (volume) => set({ volume: normalizeVolume(volume) }),
 	setError: (error) => set({ error }),
 	updateFromEvent: (event) => {
-		// Early exit for simple remote commands (no state change)
+		// Early exit for simple remote commands and duck events (no state change)
 		if (
 			event.type === AudioProEventType.REMOTE_NEXT ||
-			event.type === AudioProEventType.REMOTE_PREV
+			event.type === AudioProEventType.REMOTE_PREV ||
+			event.type === AudioProEventType.DUCK_BEGIN ||
+			event.type === AudioProEventType.DUCK_END
 		) {
 			return;
 		}

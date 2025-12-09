@@ -53,6 +53,10 @@ export enum AudioProEventType {
 	REMOTE_PREV = 'REMOTE_PREV',
 	/** Playback error has occurred */
 	PLAYBACK_ERROR = 'PLAYBACK_ERROR',
+	/** Audio ducking started (interruption began) */
+	DUCK_BEGIN = 'DUCK_BEGIN',
+	/** Audio ducking ended (interruption ended) */
+	DUCK_END = 'DUCK_END',
 }
 
 /**

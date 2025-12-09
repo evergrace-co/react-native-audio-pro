@@ -71,6 +71,10 @@ export interface AudioProEvent {
 		error?: string;
 		errorCode?: number;
 		speed?: number;
+		wasPlaying?: boolean;
+		reason?: string;
+		shouldResume?: boolean;
+		willResume?: boolean;
 	};
 }
 

@@ -30,6 +30,8 @@ class AudioPro: RCTEventEmitter {
 	private let EVENT_TYPE_REMOTE_NEXT = "REMOTE_NEXT"
 	private let EVENT_TYPE_REMOTE_PREV = "REMOTE_PREV"
 	private let EVENT_TYPE_PLAYBACK_SPEED_CHANGED = "PLAYBACK_SPEED_CHANGED"
+	private let EVENT_TYPE_DUCK_BEGIN = "DUCK_BEGIN"
+	private let EVENT_TYPE_DUCK_END = "DUCK_END"
 
 	// Seek trigger sources
 	private let TRIGGER_SOURCE_USER = "USER"
@@ -128,6 +130,13 @@ class AudioPro: RCTEventEmitter {
 			wasPlayingBeforeInterruption = player?.rate != 0
 			log("wasPlayingBeforeInterruption set to", wasPlayingBeforeInterruption)
 
+			// Emit AUDIO_DUCK_BEGIN event
+			let duckBeginPayload: [String: Any] = [
+				"wasPlaying": wasPlayingBeforeInterruption,
+				"reason": "interruption"
+			]
+			sendEvent(type: EVENT_TYPE_DUCK_BEGIN, track: currentTrack, payload: duckBeginPayload)
+
 			if wasPlayingBeforeInterruption {
 				log("Interruption began while playing, pausing playback")
 				// Pause playback without changing shouldBePlaying flag
@@ -152,8 +161,17 @@ class AudioPro: RCTEventEmitter {
 			log("wasPlayingBeforeInterruption at end:", wasPlayingBeforeInterruption)
 			log("shouldResume:", options.contains(.shouldResume))
 
+			// Emit AUDIO_DUCK_END event
+			let willResume = wasPlayingBeforeInterruption && options.contains(.shouldResume)
+			let duckEndPayload: [String: Any] = [
+				"shouldResume": options.contains(.shouldResume),
+				"willResume": willResume,
+				"reason": "interruption"
+			]
+			sendEvent(type: EVENT_TYPE_DUCK_END, track: currentTrack, payload: duckEndPayload)
+
 			// If playback should resume and we have permission to do so
-			if wasPlayingBeforeInterruption && options.contains(.shouldResume) {
+			if willResume {
 				log("Interruption ended with resume option, resuming playback")
 
 				// Try to reactivate the audio session
