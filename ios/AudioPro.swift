@@ -69,6 +69,7 @@ class AudioPro: RCTEventEmitter {
 
 	private var isInErrorState: Bool = false
 	private var lastEmittedState: String = ""
+	private var lastEmittedDuration: Int = 0
 	private var wasPlayingBeforeInterruption: Bool = false
 	private var pendingStartTimeMs: Double? = nil
 	private var settingSkipIntervalMs: Double = 30000.0
@@ -288,6 +289,7 @@ class AudioPro: RCTEventEmitter {
 		isInErrorState = false
 		// Reset last emitted state when playing a new track
 		lastEmittedState = ""
+		lastEmittedDuration = 0
 		currentTrack = track
 		settingDebug = options["debug"] as? Bool ?? false
 		settingDebugIncludeProgress = options["debugIncludesProgress"] as? Bool ?? false
@@ -564,6 +566,7 @@ class AudioPro: RCTEventEmitter {
 		isInErrorState = false
 		// Reset last emitted state when stopping playback
 		lastEmittedState = ""
+		lastEmittedDuration = 0
 		shouldBePlaying = false
 
 		pendingStartTimeMs = nil
@@ -594,6 +597,7 @@ class AudioPro: RCTEventEmitter {
 		isInErrorState = finalState == STATE_ERROR
 		// Reset last emitted state
 		lastEmittedState = ""
+		lastEmittedDuration = 0
 		shouldBePlaying = false
 
 		// Reset volume to default
@@ -854,6 +858,7 @@ class AudioPro: RCTEventEmitter {
 
 		isInErrorState = false
 		lastEmittedState = ""
+		lastEmittedDuration = 0
 		shouldBePlaying = false
 
 		player?.seek(to: .zero)
@@ -892,6 +897,13 @@ class AudioPro: RCTEventEmitter {
 				switch item.status {
 				case .readyToPlay:
 					log("Player item ready to play")
+
+					// If autoPlay is false, emit PAUSED state with correct duration now that it's available
+					if !shouldBePlaying && hasListeners {
+						let info = getPlaybackInfo()
+						sendStateEvent(state: STATE_PAUSED, position: info.position, duration: info.duration, track: currentTrack)
+					}
+
 					if let pendingStartTimeMs = pendingStartTimeMs {
 						performSeek(to: pendingStartTimeMs, isAbsolute: true)
 						self.pendingStartTimeMs = nil
@@ -963,15 +975,16 @@ class AudioPro: RCTEventEmitter {
 			return
 		}
 
+		// Use provided values or get from getPlaybackInfo() which already sanitizes values
+		let info = position == nil || duration == nil ? getPlaybackInfo() : (position: position!, duration: duration!, track: track)
+
 		// Filter out duplicate state emissions
 		// This prevents rapid-fire transitions of the same state being emitted repeatedly
-		if state == lastEmittedState {
+		// However, allow re-emission if the duration has changed (e.g., when autoPlay=false and duration becomes available)
+		if state == lastEmittedState && info.duration == lastEmittedDuration {
 			log("Ignoring duplicate \(state) state emission")
 			return
 		}
-
-		// Use provided values or get from getPlaybackInfo() which already sanitizes values
-		let info = position == nil || duration == nil ? getPlaybackInfo() : (position: position!, duration: duration!, track: track)
 
 		let payload: [String: Any] = [
 			"state": state,
@@ -980,8 +993,9 @@ class AudioPro: RCTEventEmitter {
 		]
 		sendEvent(type: EVENT_TYPE_STATE_CHANGED, track: info.track ?? track, payload: payload)
 
-		// Track the last emitted state
+		// Track the last emitted state and duration
 		lastEmittedState = state
+		lastEmittedDuration = info.duration
 	}
 
 	private func sendStoppedStateEvent() {
