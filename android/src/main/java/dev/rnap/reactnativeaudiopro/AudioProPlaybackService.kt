@@ -294,7 +294,7 @@ open class AudioProPlaybackService : MediaLibraryService() {
 		val channel =
 			NotificationChannel(
 				CHANNEL_ID,
-				"audio_pro_notification_channel",
+				getString(R.string.audiopro_channel_name),
 				NotificationManager.IMPORTANCE_DEFAULT,
 			)
 		notificationManagerCompat.createNotificationChannel(channel)
