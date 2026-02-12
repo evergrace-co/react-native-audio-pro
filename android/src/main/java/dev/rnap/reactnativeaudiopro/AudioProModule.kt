@@ -93,6 +93,16 @@ class AudioProModule(private val reactContext: ReactApplicationContext) :
 	}
 
 	@ReactMethod
+	fun setIsRepeating(isRepeating: Boolean) {
+		AudioProController.setIsRepeating(isRepeating)
+	}
+
+	@ReactMethod
+	fun setProgressInterval(intervalMs: Double) {
+		AudioProController.setProgressInterval(intervalMs.toLong())
+	}
+
+	@ReactMethod
 	fun clear() {
 		AudioProController.clear()
 	}

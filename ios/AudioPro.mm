@@ -12,6 +12,8 @@ RCT_EXTERN_METHOD(seekForward:(double)amount)
 RCT_EXTERN_METHOD(seekBack:(double)amount)
 RCT_EXTERN_METHOD(setPlaybackSpeed:(double)speed)
 RCT_EXTERN_METHOD(setVolume:(double)volume)
+RCT_EXTERN_METHOD(setIsRepeating:(BOOL)isRepeating)
+RCT_EXTERN_METHOD(setProgressInterval:(double)intervalMs)
 RCT_EXTERN_METHOD(clear)
 
 RCT_EXTERN_METHOD(ambientPlay:(NSDictionary *)options)

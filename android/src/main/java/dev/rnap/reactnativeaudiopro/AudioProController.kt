@@ -46,6 +46,7 @@ object AudioProController {
 	private var activeTrack: ReadableMap? = null
 	private var activeVolume: Float = 1.0f
 	private var activePlaybackSpeed: Float = 1.0f
+	private var activeIsRepeating: Boolean = false
 
 	private var flowIsInErrorState: Boolean = false
 	private var flowLastEmittedState: String = ""
@@ -348,6 +349,12 @@ object AudioProController {
 				it.setPlaybackSpeed(opts.speed)
 				// Set volume regardless of autoPlay
 				it.setVolume(opts.volume)
+				// Set repeat mode based on current repeating state
+				it.repeatMode = if (activeIsRepeating) {
+					Player.REPEAT_MODE_ONE
+				} else {
+					Player.REPEAT_MODE_OFF
+				}
 
 				if (opts.autoPlay) {
 					it.play()
@@ -476,6 +483,7 @@ object AudioProController {
 		// Reset playback settings
 		activePlaybackSpeed = 1.0f
 		activeVolume = 1.0f
+		activeIsRepeating = false
 
 		// Release resources
 		release()
@@ -674,40 +682,28 @@ object AudioProController {
 					 * - Native must pause the player, seek to position 0, and emit both:
 					 *   - STATE_CHANGED: STOPPED
 					 *   - TRACK_ENDED
+					 * - If repeating is enabled, the player will automatically restart
 					 */
 					Player.STATE_ENDED -> {
-						stopProgressTimer()
-
-						// Reset error state and last emitted state
-						flowIsInErrorState = false
-						flowLastEmittedState = ""
-						flowLastEmittedPosition = null
-						flowLastEmittedDuration = null
-
-						// 1. Pause playback to ensure state is correct
-						enginerBrowser?.pause()
-
-						// 2. Seek to position 0
-						enginerBrowser?.seekTo(0)
-
-						// 3. Cancel any pending seek operations
-						flowPendingSeekPosition = null
-
-						// 4. Emit STOPPED (stopped = loaded but at 0, not playing)
-						emitState(
-							AudioProModule.STATE_STOPPED,
-							0L,
-							dur,
-							"onPlaybackStateChanged(STATE_ENDED)"
-						)
-
-						// 5. Emit TRACK_ENDED for JS
-						emitNotice(
-							AudioProModule.EVENT_TYPE_TRACK_ENDED,
-							dur,
-							dur,
-							"onPlaybackStateChanged(STATE_ENDED)"
-						)
+						if (!activeIsRepeating) {
+							stopProgressTimer()
+							enginerBrowser?.pause()
+							flowPendingSeekPosition = null
+							emitState(
+								AudioProModule.STATE_STOPPED,
+								0L,
+								dur,
+								"onPlaybackStateChanged(STATE_ENDED)"
+							)
+							emitNotice(
+								AudioProModule.EVENT_TYPE_TRACK_ENDED,
+								dur,
+								dur,
+								"onPlaybackStateChanged(STATE_ENDED)"
+							)
+						}
+						// If repeating is enabled, ExoPlayer with REPEAT_MODE_ONE will automatically restart
+						// The onIsPlayingChanged callback will handle the state transition
 					}
 
 					Player.STATE_IDLE -> {
@@ -978,6 +974,46 @@ object AudioProController {
 		runOnUiThread {
 			log("Setting volume to", volume)
 			enginerBrowser?.setVolume(volume)
+		}
+	}
+
+	fun setIsRepeating(isRepeating: Boolean) {
+		ensureSession()
+		activeIsRepeating = isRepeating
+		runOnUiThread {
+			log("Setting repeat mode to", isRepeating)
+			enginerBrowser?.repeatMode = if (isRepeating) {
+				Player.REPEAT_MODE_ONE
+			} else {
+				Player.REPEAT_MODE_OFF
+			}
+		}
+	}
+
+	fun setProgressInterval(intervalMs: Long) {
+		val MIN_INTERVAL = 100L
+		val MAX_INTERVAL = 10000L
+		val clampedMs = intervalMs.coerceIn(MIN_INTERVAL, MAX_INTERVAL)
+		
+		if (clampedMs != intervalMs) {
+			Log.w("[react-native-audio-pro]", "Progress interval ${intervalMs}ms out of range, clamped to ${clampedMs}ms")
+		}
+		
+		log("Setting progress interval to", clampedMs, "ms")
+		settingProgressIntervalMs = clampedMs
+		
+		// If the progress timer is currently running, restart it with the new interval
+		runOnUiThread {
+			val wasRunning = engineProgressRunnable != null
+			if (wasRunning) {
+				stopProgressTimer()
+				// Only restart if player is actually playing
+				enginerBrowser?.let {
+					if (it.isPlaying) {
+						startProgressTimer()
+					}
+				}
+			}
 		}
 	}
 

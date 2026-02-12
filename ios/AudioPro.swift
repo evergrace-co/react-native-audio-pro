@@ -66,6 +66,7 @@ class AudioPro: RCTEventEmitter {
 
 	private var activeVolume: Float = 1.0
 	private var activeVolumeAmbient: Float = 1.0
+	private var activeIsRepeating: Bool = false
 
 	private var isInErrorState: Bool = false
 	private var lastEmittedState: String = ""
@@ -598,6 +599,8 @@ class AudioPro: RCTEventEmitter {
 
 		// Reset volume to default
 		activeVolume = 1.0
+		// Reset repeating state
+		activeIsRepeating = false
 
 		pendingStartTimeMs = nil
 
@@ -831,6 +834,37 @@ class AudioPro: RCTEventEmitter {
 		player.volume = Float(volume)
 	}
 
+	@objc(setIsRepeating:)
+	func setIsRepeating(isRepeating: Bool) {
+		activeIsRepeating = isRepeating
+		log("Setting repeat mode to ", isRepeating)
+	}
+
+	@objc(setProgressInterval:)
+	func setProgressInterval(intervalMs: Double) {
+		let MIN_INTERVAL = 100.0
+		let MAX_INTERVAL = 10000.0
+		let clampedMs = max(MIN_INTERVAL, min(MAX_INTERVAL, intervalMs))
+		
+		if clampedMs != intervalMs {
+			log("Progress interval \(intervalMs)ms out of range, clamped to \(clampedMs)ms")
+		}
+		
+		let intervalSeconds = clampedMs / 1000.0
+		log("Setting progress interval to ", clampedMs, "ms")
+		settingProgressInterval = intervalSeconds
+		
+		// If the progress timer is currently running, restart it with the new interval
+		let wasRunning = timer != nil
+		if wasRunning {
+			stopTimer()
+			// Only restart if player is actually playing
+			if let player = player, player.rate > 0 {
+				startProgressTimer()
+			}
+		}
+	}
+
 	////////////////////////////////////////////////////////////
 	// MARK: - KVO & Notification Handlers
 	////////////////////////////////////////////////////////////
@@ -841,6 +875,7 @@ class AudioPro: RCTEventEmitter {
 	 * - Native must pause the player, seek to position 0, and emit both:
 	 *   - STATE_CHANGED: STOPPED
 	 *   - TRACK_ENDED
+	 * - If repeating is enabled, the player will automatically restart
 	 */
 	@objc private func playerItemDidPlayToEndTime(_ notification: Notification) {
 		guard let _ = player?.currentItem else { return }
@@ -852,8 +887,20 @@ class AudioPro: RCTEventEmitter {
 
 		let info = getPlaybackInfo()
 
+		// If repeating is enabled, restart playback automatically
+		if activeIsRepeating {
+			// Seek to beginning and resume playback
+			player?.seek(to: .zero) { [weak self] _ in
+				guard let self = self else { return }
+				if self.shouldBePlaying {
+					self.player?.play()
+				}
+			}
+			return
+		}
+
 		isInErrorState = false
-		lastEmittedState = ""
+    lastEmittedState = ""
 		shouldBePlaying = false
 
 		player?.seek(to: .zero)
@@ -865,7 +912,7 @@ class AudioPro: RCTEventEmitter {
 
 		if hasListeners {
 			let payload: [String: Any] = [
-				"position": info.duration,
+				"position": 0,
 				"duration": info.duration
 			]
 			sendEvent(type: EVENT_TYPE_TRACK_ENDED, track: currentTrack, payload: payload)
