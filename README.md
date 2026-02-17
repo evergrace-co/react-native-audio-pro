@@ -1,9 +1,14 @@
 # React Native Audio Pro
 
+> [!WARNING]
+> ## ⚠️ Archived / No Longer Maintained
+> Thank you for using `react-native-audio-pro` and for contributing feedback, fixes, and ideas.
+> This project is now archived and no longer maintained.
+> Feel free to fork this repository if you need changes for your own project.
+
 Modern, background-capable audio playback for React Native — built for podcasts, audiobooks, and long-form media. Works out of the box with background playback, lock screen controls, and clean hooks-based state. Under the hood: Android uses Media3 (not old-school ExoPlayer), giving you up-to-date media session support without any of the legacy baggage. iOS uses AVFoundation, Apple's native audio engine for professional-grade media playback. Supports static remote files on iOS and Android.
 
 [![npm version](https://img.shields.io/npm/v/react-native-audio-pro?logo=npm&logoColor=white&labelColor=grey&color=blue)](https://www.npmjs.com/package/react-native-audio-pro)
-[![website](https://img.shields.io/badge/website-rnap.dev-grey?logo=google-chrome&logoColor=white&color=blue)](https://rnap.dev)
 [![GitHub](https://img.shields.io/badge/evergrace--co-react--native--audio--pro-grey?logo=github&logoColor=white&labelColor=grey&color=blue)](https://github.com/evergrace-co/react-native-audio-pro)
 
 ## Table of Contents
